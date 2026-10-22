@@ -100,6 +100,37 @@ function sendJson(response, status, body) {
   response.end(JSON.stringify(body));
 }
 
+function normalizeLyricsValue(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function rankLyricsSearchResult(record, trackName, artistName, albumName, duration) {
+  if (!record || typeof record !== "object") return null;
+  const expectedTitle = normalizeLyricsValue(trackName);
+  const expectedArtist = normalizeLyricsValue(artistName);
+  const recordTitle = normalizeLyricsValue(record.trackName || record.name);
+  const recordArtist = normalizeLyricsValue(record.artistName);
+  if (!recordTitle || recordTitle !== expectedTitle) return null;
+  if (!recordArtist || !(recordArtist === expectedArtist || recordArtist.includes(expectedArtist) || expectedArtist.includes(recordArtist))) return null;
+  if (!record.plainLyrics?.trim() && !record.syncedLyrics?.trim()) return null;
+
+  const recordDuration = Number(record.duration);
+  const expectedDuration = Number(duration);
+  const durationDifference = Number.isFinite(recordDuration) && Number.isFinite(expectedDuration)
+    ? Math.abs(recordDuration - expectedDuration)
+    : Number.POSITIVE_INFINITY;
+  if (duration && durationDifference > 2) return null;
+
+  const albumMatches = albumName && normalizeLyricsValue(record.albumName) === normalizeLyricsValue(albumName);
+  return { record, score: (albumMatches ? 100 : 0) - (Number.isFinite(durationDifference) ? durationDifference : 0) };
+}
+
 const server = http.createServer((request, response) => {
   const requestUrl = new URL(request.url, `http://${HOST}:${PORT}`);
   if (request.method !== "GET" && request.method !== "HEAD") {
@@ -153,18 +184,40 @@ const server = http.createServer((request, response) => {
     if (albumName) upstreamUrl.searchParams.set("album_name", albumName);
     if (duration) upstreamUrl.searchParams.set("duration", duration);
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10_000);
-    fetch(upstreamUrl, { headers: { Accept: "application/json" }, signal: controller.signal })
-      .then(async (upstream) => {
-        const body = await upstream.text();
-        response.writeHead(upstream.status, {
-          "Cache-Control": "no-store",
-          "Content-Type": upstream.headers.get("content-type") || "application/json; charset=utf-8",
-          "X-Content-Type-Options": "nosniff"
-        });
-        response.end(body);
-      })
-      .catch((error) => {
+    const timeoutId = setTimeout(() => controller.abort(), 15_000);
+    const headers = {
+      Accept: "application/json",
+      "Lrclib-Client": "JakeMillerListeningRoom/1.4.1"
+    };
+    (async () => {
+      const upstream = await fetch(upstreamUrl, { headers, signal: controller.signal });
+      if (upstream.status === 404) {
+        const searchUrl = new URL("https://lrclib.net/api/search");
+        searchUrl.searchParams.set("track_name", trackName);
+        searchUrl.searchParams.set("artist_name", artistName);
+        const searchResponse = await fetch(searchUrl, { headers, signal: controller.signal });
+        if (!searchResponse.ok) {
+          throw new Error(`LRCLIB search returned ${searchResponse.status}`);
+        }
+        const results = await searchResponse.json();
+        const match = (Array.isArray(results) ? results : [])
+          .map((record) => rankLyricsSearchResult(record, trackName, artistName, albumName, duration))
+          .filter(Boolean)
+          .sort((a, b) => b.score - a.score)[0];
+        if (match) {
+          sendJson(response, 200, match.record);
+          return;
+        }
+      }
+
+      const body = await upstream.text();
+      response.writeHead(upstream.status, {
+        "Cache-Control": "no-store",
+        "Content-Type": upstream.headers.get("content-type") || "application/json; charset=utf-8",
+        "X-Content-Type-Options": "nosniff"
+      });
+      response.end(body);
+    })().catch((error) => {
         console.error("Lyrics lookup failed:", error.message);
         sendJson(response, 502, { error: "The lyrics service could not be reached." });
       })

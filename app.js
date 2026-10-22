@@ -137,6 +137,7 @@ function releaseLocalAudio() {
   localPlayAttempt += 1;
   localAction = "play";
   localLabel = "本地音频 · 点击播放";
+  window.encoreAmbient?.detachAudio();
   if (previous) {
     previous.pause();
     previous.removeAttribute("src");
@@ -196,6 +197,7 @@ function startLocalPlayback(track) {
   if (ytReady) ytPlayer.pauseVideo();
   audio.muted = muted;
   if (audio.ended) audio.currentTime = 0;
+  window.encoreAmbient?.attachAudio(audio);
   setLocalPlaybackAction("loading", "正在载入本地音频…");
   audio.play().catch((error) => {
     if (localAudio !== audio || attempt !== localPlayAttempt || activeProvider !== "local") return;
@@ -806,13 +808,13 @@ async function loadLyricsForTrack(track) {
     let timeoutId;
     try {
       const controller = new AbortController();
-      timeoutId = setTimeout(() => controller.abort(), 10_000);
+      timeoutId = setTimeout(() => controller.abort(), 15_000);
       let response = await fetch(lyricsUrl, {
         headers: { Accept: "application/json" },
         signal: controller.signal,
         cache: "no-store"
       });
-      if (isLocalPreview && (response.status === 404 || response.status >= 500)) {
+      if (isLocalPreview && response.status >= 500) {
         response = await fetch(`https://lrclib.net/api/get?${params}`, {
           headers: { Accept: "application/json" },
           signal: controller.signal,

@@ -5,4 +5,3 @@ test-results/
 secrets/
 *.p8
 *.pem
-audio/
