@@ -204,6 +204,55 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
 .lyrics-view { position: relative; max-height: 45vh; overflow-y: auto; white-space: pre-line; font-size: 17px; line-height: 2.4; }
 .lyrics-line { color: #777782; transition: color .2s; }
 .lyrics-line.is-active { color: white; }
+#lyrics-dialog {
+  position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh;
+  max-width: none; max-height: none; margin: 0; padding: 0; overflow: hidden;
+  border: 0; border-radius: 0; background: #28221f;
+}
+#lyrics-dialog::backdrop { background: rgba(0,0,0,.38); backdrop-filter: blur(10px); }
+#lyrics-dialog::before {
+  content: ""; position: absolute; inset: -36px; pointer-events: none;
+  background-image: linear-gradient(rgba(18,15,14,.4),rgba(18,15,14,.52)), var(--lyrics-artwork);
+  background-position: center; background-size: cover;
+  filter: blur(30px) saturate(.72); transform: scale(1.08);
+}
+#lyrics-dialog .notes-section {
+  position: relative; z-index: 1; display: flex; flex-direction: column;
+  width: 100%; height: 100%; padding: clamp(18px,3.5vh,42px) clamp(22px,7vw,100px);
+}
+#lyrics-dialog .dialog-head { flex: 0 0 auto; border-color: rgba(255,255,255,.18); }
+#lyrics-dialog .dialog-head h2, #lyrics-dialog .dialog-head .icon-button { color: #fff; }
+#lyrics-dialog .notes-content {
+  display: flex; flex: 1; flex-direction: column; min-height: 0; overflow: hidden;
+  padding: clamp(28px,6vh,72px) 0 0; text-align: left;
+}
+#lyrics-dialog .notes-content h3 {
+  flex: 0 0 auto; margin: 0 0 7px; color: #fff; text-align: center;
+  font-size: clamp(24px,4vw,36px); font-weight: 650;
+}
+#lyrics-dialog .notes-album { flex: 0 0 auto; margin: 0; color: rgba(255,255,255,.68); text-align: center; }
+#lyrics-dialog .note-copy {
+  display: grid; flex: 1; place-items: center; margin: 0; color: rgba(255,255,255,.76);
+  font-size: 16px; text-align: center;
+}
+#lyrics-dialog .notes-disclaimer { flex: 0 0 auto; margin: 14px 0 0; color: rgba(255,255,255,.62); text-align: center; }
+#lyrics-dialog .lyrics-view {
+  flex: 1; width: 100%; min-height: 0; max-height: none; margin: 0; padding: 24vh 0;
+  overflow: auto; white-space: normal; scroll-snap-type: y proximity; scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to bottom,transparent,black 18%,black 82%,transparent);
+  mask-image: linear-gradient(to bottom,transparent,black 18%,black 82%,transparent);
+}
+#lyrics-dialog .lyrics-view::-webkit-scrollbar { display: none; }
+#lyrics-dialog .lyrics-line {
+  max-width: 1100px; margin: 0 auto; padding: .34em 0; color: rgba(255,255,255,.58);
+  font-size: clamp(28px,6.8vw,58px); font-weight: 700; line-height: 1.22; letter-spacing: -.035em;
+  filter: blur(3px); opacity: .58; transform: scale(.985); scroll-snap-align: center;
+  transition: color .35s, filter .35s, opacity .35s, transform .35s;
+}
+#lyrics-dialog .lyrics-line.is-active {
+  color: #fff; filter: none; opacity: 1; transform: scale(1);
+  text-shadow: 0 3px 24px rgba(0,0,0,.26);
+}
 #source-track { margin: 22px 0; color: #a6a6b0; font-size: 13px; }
 .field-label { display: block; font-size: 11px; margin: 0 0 8px; color: #858591; }
 #video-url { width: 100%; height: 42px; border-radius: 5px; padding: 0 12px; border: 1px solid #3a3a44; color: white; background: #08080a; font-size: 12px; }
@@ -238,6 +287,10 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
   .transport { gap: 27px; }
   .play-button { width: 74px; height: 74px; flex-basis: 74px; }
   .player-bar { margin-top: 8px; }
+  #lyrics-dialog .notes-section { padding: 18px 22px 24px; }
+  #lyrics-dialog .notes-content { padding-top: 8vh; }
+  #lyrics-dialog .lyrics-view { padding: 24vh 0; }
+  #lyrics-dialog .lyrics-line { font-size: clamp(27px,7.6vw,42px); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }

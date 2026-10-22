@@ -22,7 +22,17 @@ let repeat = false;
 let muted = false;
 let activeLyrics = [];
 let lyricsByTrack = {};
+const lyricsLookupRequests = new Map();
+const lyricsLookupRetryAfter = new Map();
 let activeVideoId = "";
+let activeProvider = "";
+let activeAppleTrackId = "";
+let localAudio = null;
+let localTrackId = "";
+let localPlayAttempt = 0;
+let localAction = "play";
+let localLabel = "本地音频 · 点击播放";
+let playbackAttempt = 0;
 let savedState = {};
 let videoOverrides = {};
 let filteredIndexes = [];
@@ -30,6 +40,7 @@ let activeLyricIndex = -1;
 let pendingAutoplay = false;
 let playbackRequested = false;
 let videoBlocked = false;
+let videoErrorCode = 0;
 let apiUnavailable = false;
 let apiReadyTimer = null;
 
@@ -81,11 +92,24 @@ function setPlaybackAction(action, label) {
 }
 
 function setPlaying(playing, label) {
+  if (activeProvider === "apple" || currentTrack()?.audioUrl) return;
   if (!filteredIndexes.length) return setPlaybackAction("empty", "No matching tracks");
   if (!videoIdFor(currentTrack())) return setPlaybackAction("unavailable", "此歌曲暂无可用音源");
   if (apiUnavailable) return setPlaybackAction("unavailable", "无法连接 YouTube，请检查网络后刷新");
-  if (videoBlocked) return setPlaybackAction("retry", "YouTube 暂时无法播放此歌曲");
+  if (videoBlocked) return setPlaybackAction("retry", youtubeErrorMessage(videoErrorCode));
   setPlaybackAction(playing ? "pause" : "play", label);
+}
+
+function youtubeErrorMessage(code) {
+  const messages = {
+    2: "YouTube 返回了无效视频编号（错误 2）",
+    5: "YouTube HTML5 播放器无法播放此视频（错误 5）",
+    100: "YouTube 视频不存在、已删除或设为私密（错误 100）",
+    101: "YouTube 内嵌播放返回错误 101（嵌入限制）",
+    150: "YouTube 内嵌播放返回错误 150（限制原因需进一步确认）",
+    153: "YouTube 请求缺少来源标识（错误 153）"
+  };
+  return messages[code] || `YouTube 播放失败（错误 ${code || "未知"}）`;
 }
 
 function showConnectionFailure() {
@@ -99,6 +123,198 @@ function showConnectionFailure() {
 function currentTrack() {
   return tracks[currentIndex];
 }
+
+function setLocalPlaybackAction(action, label) {
+  localAction = action;
+  localLabel = label;
+  if (currentTrack()?.audioUrl && filteredIndexes.length) setPlaybackAction(action, label);
+}
+
+function releaseLocalAudio() {
+  const previous = localAudio;
+  localAudio = null;
+  localTrackId = "";
+  localPlayAttempt += 1;
+  localAction = "play";
+  localLabel = "本地音频 · 点击播放";
+  if (previous) {
+    previous.pause();
+    previous.removeAttribute("src");
+    previous.load();
+    previous.remove();
+  }
+}
+
+function pauseLocalPlayback() {
+  localPlayAttempt += 1;
+  localAudio?.pause();
+  if (localAudio && !localAudio.error) setLocalPlaybackAction("play", "本地音频 · 已暂停");
+}
+
+function startLocalPlayback(track) {
+  if (!localAudio || localTrackId !== track.id || localAudio.error) {
+    releaseLocalAudio();
+    const audio = document.createElement("audio");
+    audio.id = "local-audio";
+    audio.hidden = true;
+    audio.preload = "metadata";
+    localAudio = audio;
+    localTrackId = track.id;
+    // A removed player's late events must not affect a newly selected song.
+    const isCurrent = () => localAudio === audio && currentTrack()?.id === track.id && activeProvider === "local";
+    audio.addEventListener("playing", () => {
+      if (!isCurrent()) return;
+      if (!filteredIndexes.length) return pauseLocalPlayback();
+      setLocalPlaybackAction("pause", "本地音频 · 正在播放");
+    });
+    audio.addEventListener("pause", () => {
+      if (isCurrent() && !audio.ended && !audio.error) setLocalPlaybackAction("play", "本地音频 · 已暂停");
+    });
+    audio.addEventListener("waiting", () => {
+      if (isCurrent() && !audio.paused) setLocalPlaybackAction("loading", "正在载入本地音频…");
+    });
+    audio.addEventListener("error", () => {
+      if (isCurrent()) setLocalPlaybackAction("retry", "本地音频无法载入 · 点击重试");
+    });
+    audio.addEventListener("ended", () => {
+      if (!isCurrent() || !filteredIndexes.length) return;
+      if (repeat) {
+        audio.currentTime = 0;
+        startLocalPlayback(track);
+      } else advanceTrack(1, true);
+    });
+    audio.src = track.audioUrl;
+    document.body.append(audio);
+  }
+  const audio = localAudio;
+  const attempt = ++localPlayAttempt;
+  activeProvider = "local";
+  activeAppleTrackId = "";
+  activeVideoId = "";
+  pendingAutoplay = false;
+  playbackRequested = false;
+  if (ytReady) ytPlayer.pauseVideo();
+  audio.muted = muted;
+  if (audio.ended) audio.currentTime = 0;
+  setLocalPlaybackAction("loading", "正在载入本地音频…");
+  audio.play().catch((error) => {
+    if (localAudio !== audio || attempt !== localPlayAttempt || activeProvider !== "local") return;
+    setLocalPlaybackAction("retry", error.name === "NotAllowedError"
+      ? "请再次点击播放按钮以播放本地音频"
+      : "本地音频无法播放 · 点击重试");
+  });
+}
+
+function startYouTubePlayback(label = "") {
+  const track = currentTrack();
+  const videoId = videoIdFor(track);
+  if (!videoId) {
+    activeProvider = "";
+    const appleState = window.EncAppleMusic?.readyState();
+    const suffix = appleState === "needs-setup" ? "；Apple Music 尚未配置" : "";
+    setPlaybackAction("unavailable", `此歌曲暂无可用音源${suffix}`);
+    return false;
+  }
+  if (apiUnavailable) {
+    activeProvider = "";
+    setPlaybackAction("unavailable", "无法连接 YouTube，请检查网络后刷新");
+    return false;
+  }
+
+  activeProvider = "youtube";
+  activeAppleTrackId = "";
+  videoBlocked = false;
+  videoErrorCode = 0;
+  playbackRequested = true;
+  if (ytReady) {
+    setPlaybackAction("loading", label || "Loading YouTube…");
+    ytPlayer.loadVideoById(videoId);
+  } else {
+    pendingAutoplay = true;
+    setPlaybackAction("loading", label || "Connecting to YouTube…");
+  }
+  return true;
+}
+
+async function startPreferredPlayback() {
+  const track = currentTrack();
+  const attempt = ++playbackAttempt;
+  const appleMusic = window.EncAppleMusic;
+
+  if (track.audioUrl) {
+    startLocalPlayback(track);
+    return;
+  }
+
+  if (appleMusic?.isReady()) {
+    activeProvider = "apple";
+    activeAppleTrackId = track.id;
+    pendingAutoplay = false;
+    playbackRequested = false;
+    if (ytReady) ytPlayer.pauseVideo();
+    setPlaybackAction("loading", "正在连接 Apple Music…");
+    try {
+      await appleMusic.play(track);
+      if (attempt !== playbackAttempt || currentTrack()?.id !== track.id) {
+        appleMusic.pause();
+        return;
+      }
+      appleMusic.setMuted(muted);
+    } catch (error) {
+      if (attempt !== playbackAttempt || currentTrack()?.id !== track.id) return;
+      activeProvider = "";
+      activeAppleTrackId = "";
+      const hasYouTube = Boolean(videoIdFor(track)) && !apiUnavailable;
+      if (hasYouTube) startYouTubePlayback("Apple Music 暂不可用，正在尝试 YouTube…");
+      else setPlaybackAction("retry", error.message || "Apple Music 暂时无法播放此歌曲");
+    }
+    return;
+  }
+
+  const loading = appleMusic?.readyState() === "loading";
+  startYouTubePlayback(loading ? "Apple Music 正在准备，先尝试 YouTube…" : "");
+}
+
+function handleAppleMusicEvent(event) {
+  const detail = event.detail || {};
+  const connectButton = document.querySelector("#apple-connect");
+  if (detail.type === "ready") {
+    connectButton?.classList.toggle("is-on", detail.authorized);
+    connectButton?.setAttribute("aria-label", detail.authorized ? "Apple Music 已连接" : "连接 Apple Music");
+    connectButton?.setAttribute("title", detail.authorized ? "Apple Music 已连接" : "连接 Apple Music");
+    if (!currentTrack()?.audioUrl && !videoIdFor(currentTrack())) setPlaybackAction("play", "Apple Music 已就绪 · 点击播放");
+  } else if (detail.type === "authorized") {
+    connectButton?.classList.toggle("is-on", detail.authorized);
+    connectButton?.setAttribute("aria-label", detail.authorized ? "Apple Music 已连接" : "连接 Apple Music");
+    connectButton?.setAttribute("title", detail.authorized ? "Apple Music 已连接" : "连接 Apple Music");
+    if (detail.authorized && !currentTrack()?.audioUrl) {
+      document.querySelector("#playback-state").textContent = "Apple Music 已连接";
+      if (!videoIdFor(currentTrack())) setPlaybackAction("play", "Apple Music 已连接 · 点击播放");
+    }
+  } else if (detail.type === "setup-needed") {
+    connectButton?.setAttribute("title", "请先配置 Apple MusicKit 开发者令牌");
+  }
+
+  if (detail.type === "playback" && activeProvider === "apple" && currentTrack()?.id === activeAppleTrackId) {
+    if (detail.state === "playing") setPlaybackAction("pause", "Apple Music · 正在播放");
+    else if (detail.state === "paused") setPlaybackAction("play", "Apple Music · 已暂停");
+    else if (detail.state === "loading") setPlaybackAction("loading", "正在载入 Apple Music…");
+    else if (detail.state === "ended") {
+      if (repeat) startPreferredPlayback();
+      else advanceTrack(1, true);
+    }
+  } else if (detail.type === "error" && activeProvider === "apple" && currentTrack()?.id === activeAppleTrackId) {
+    const track = currentTrack();
+    activeProvider = "";
+    activeAppleTrackId = "";
+    if (videoIdFor(track) && !apiUnavailable) startYouTubePlayback("Apple Music 播放失败，正在尝试 YouTube…");
+    else setPlaybackAction("retry", detail.message || "Apple Music 暂时无法播放此歌曲");
+  } else if (detail.type === "initialization-error") {
+    connectButton?.setAttribute("title", "Apple MusicKit 初始化失败");
+  }
+}
+
+window.addEventListener("encore:apple-music", handleAppleMusicEvent);
 
 function videoIdFor(track) {
   return videoOverrides[track.id] || track.officialVideoId || "";
@@ -123,7 +339,14 @@ function parseVideoId(value) {
 }
 
 function openSourceEditor() {
+  playbackAttempt += 1;
+  pendingAutoplay = false;
+  playbackRequested = false;
   if (ytReady && ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) ytPlayer.pauseVideo();
+  if (activeProvider === "apple") window.EncAppleMusic?.pause();
+  if (localAudio) pauseLocalPlayback();
+  activeProvider = localAudio ? "local" : "";
+  activeAppleTrackId = "";
   document.querySelector("#source-track").textContent = `${currentTrack().title} · ${currentTrack().artist}`;
   document.querySelector("#video-url").value = videoIdFor(currentTrack());
   document.querySelector("#source-error").textContent = "";
@@ -158,7 +381,8 @@ function loadYouTubeApi() {
           syncVideo(autoplay);
         },
         onStateChange: (event) => {
-          const reportedId = ytPlayer.getVideoData?.().video_id;
+          if (activeProvider === "apple" || currentTrack()?.audioUrl) return;
+          const reportedId = ytPlayer.getVideoData?.()?.video_id;
           if (!activeVideoId || (reportedId && reportedId !== activeVideoId)) return;
           const playing = event.data === YT.PlayerState.PLAYING;
           if (playing) {
@@ -188,10 +412,13 @@ function loadYouTubeApi() {
           }
         },
         onError: (event) => {
-          const reportedId = ytPlayer.getVideoData?.().video_id;
+          if (activeProvider === "apple" || currentTrack()?.audioUrl) return;
+          const reportedId = ytPlayer.getVideoData?.()?.video_id;
           if (!activeVideoId || (reportedId && reportedId !== activeVideoId)) return;
           videoBlocked = true;
-          setPlaying(false);
+          videoErrorCode = Number(event.data) || 0;
+          console.warn(`YouTube playback failed for ${currentTrack()?.title || "current track"}: ${youtubeErrorMessage(videoErrorCode)}`);
+          setPlaybackAction("retry", youtubeErrorMessage(videoErrorCode));
         },
         onAutoplayBlocked: () => {
           if (activeVideoId && !videoBlocked) setPlaying(false, "播放被浏览器阻止，请再次点击播放按钮");
@@ -244,7 +471,7 @@ function renderQueue() {
     button.setAttribute("aria-current", index === currentIndex ? "true" : "false");
     button.innerHTML = `<span class="queue-number">${String(index + 1).padStart(2, "0")}</span><img src="${track.artwork}" alt=""><span class="queue-text"><b></b><small></small></span>`;
     button.querySelector(".queue-text b").textContent = track.title;
-    button.querySelector(".queue-text small").textContent = `${track.artist} · ${track.album}`;
+    button.querySelector(".queue-text small").textContent = `${track.artist} · ${track.album}${track.audioUrl ? " · 本地音频" : ""}`;
     button.addEventListener("click", () => {
       resetSearch();
       selectTrack(index, true);
@@ -281,6 +508,12 @@ function renderDeck() {
 }
 
 function renderTrack(autoplay = false) {
+  playbackAttempt += 1;
+  releaseLocalAudio();
+  if (activeProvider === "apple") window.EncAppleMusic?.pause();
+  if (activeProvider === "youtube" && ytReady) ytPlayer.pauseVideo();
+  activeProvider = "";
+  activeAppleTrackId = "";
   const track = currentTrack();
   if (!track) return;
   document.querySelector("#track-title").textContent = track.title;
@@ -289,11 +522,13 @@ function renderTrack(autoplay = false) {
   window.encoreAmbient?.setTrack(track);
   document.querySelector("#notes-track").textContent = track.title;
   document.querySelector("#notes-album").textContent = track.album;
+  document.querySelector("#lyrics-dialog").style.setProperty("--lyrics-artwork", `url("${track.artwork}")`);
   renderLyrics(track);
   renderDeck();
   renderQueue();
-  syncVideo(autoplay);
+  syncVideo(false);
   saveState();
+  if (autoplay) startPreferredPlayback();
 }
 
 function syncVideo(autoplay = false) {
@@ -308,7 +543,17 @@ function syncVideo(autoplay = false) {
   const query = encodeURIComponent(`${track.artist} ${track.title} official music video`);
   const searchUrl = `https://www.youtube.com/results?search_query=${query}`;
   document.querySelector("#video-external").href = videoId ? `https://www.youtube.com/watch?v=${videoId}` : searchUrl;
+  if (track.audioUrl) {
+    activeVideoId = "";
+    pendingAutoplay = false;
+    playbackRequested = false;
+    if (ytReady) ytPlayer.stopVideo();
+    if (!filteredIndexes.length) setPlaybackAction("empty", "No matching tracks");
+    else setPlaybackAction(localAction, localLabel);
+    return;
+  }
   if (!filteredIndexes.length) setPlaybackAction("empty", "No matching tracks");
+  else if (activeProvider === "apple") return;
   else if (!hasVideo) setPlaybackAction("unavailable", "此歌曲暂无可用音源");
   else if (apiUnavailable) setPlaying(false);
   else if (!ytReady && !autoplay) setPlaybackAction("play", "Ready to play");
@@ -342,6 +587,31 @@ function togglePlayback() {
   if (document.querySelector("#play-toggle").disabled) return;
   const track = currentTrack();
   if (!filteredIndexes.length) return;
+  if (track.audioUrl) {
+    if (localAudio && !localAudio.paused) pauseLocalPlayback();
+    else startPreferredPlayback();
+    return;
+  }
+  if (activeProvider === "apple") {
+    if (document.querySelector("#play-toggle").dataset.action === "pause") {
+      window.EncAppleMusic?.pause();
+      setPlaybackAction("play", "Apple Music · 已暂停");
+    } else {
+      const attempt = ++playbackAttempt;
+      setPlaybackAction("loading", "正在恢复 Apple Music…");
+      window.EncAppleMusic?.resume().catch((error) => {
+        if (attempt !== playbackAttempt || currentTrack()?.id !== track.id || activeProvider !== "apple") return;
+        activeProvider = "";
+        activeAppleTrackId = "";
+        setPlaybackAction("retry", error.message || "Apple Music 暂时无法恢复播放");
+      });
+    }
+    return;
+  }
+  if (activeProvider !== "youtube") {
+    startPreferredPlayback();
+    return;
+  }
   const videoId = videoIdFor(track);
   if (!videoId || apiUnavailable) {
     setPlaying(false);
@@ -386,7 +656,10 @@ function filterTracks() {
   document.querySelector("#control-prev").disabled = empty;
   document.querySelector("#control-next").disabled = empty;
   if (empty) {
+    playbackAttempt += 1;
     pendingAutoplay = false;
+    if (localAudio) pauseLocalPlayback();
+    if (activeProvider === "apple") window.EncAppleMusic?.pause();
     if (ytReady) ytPlayer.pauseVideo();
     playbackRequested = false;
     setPlaybackAction("empty", "No matching tracks");
@@ -394,6 +667,15 @@ function filterTracks() {
   } else if (!filteredIndexes.includes(currentIndex)) {
     selectTrack(filteredIndexes[0]);
   } else {
+    if (currentTrack()?.audioUrl) {
+      setPlaybackAction(localAction, localLabel);
+      renderDeck();
+      return;
+    }
+    if (activeProvider === "apple") {
+      renderDeck();
+      return;
+    }
     const state = ytReady ? ytPlayer.getPlayerState() : -1;
     if (!videoIdFor(currentTrack()) || videoBlocked || apiUnavailable) setPlaying(false);
     else if ([1, 2, 5].includes(state)) setPlaying(state === 1, state === 1 ? "Now Playing" : state === 2 ? "Paused" : "Ready to play");
@@ -428,34 +710,166 @@ function renderLyrics(track) {
     document.querySelector("#notes-disclaimer").textContent = "LRC / TXT";
     return;
   }
-  showLyrics(lyrics.text, lyrics.format);
+  showLyrics(lyrics.text, lyrics.format, lyrics.source || "");
 }
 
-function showLyrics(text, format) {
+function showLyrics(text, format, source = "") {
   const isLrc = format === "lrc";
   activeLyrics = isLrc ? parseLrc(text) : [];
   noteCopy.hidden = true;
   document.querySelector("#notes-disclaimer").hidden = false;
-  document.querySelector("#notes-disclaimer").textContent = isLrc
-    ? "LRC · On this device"
-    : "TXT · On this device";
+  document.querySelector("#notes-disclaimer").textContent = source === "lrclib"
+    ? `${isLrc ? "LRC" : "TXT"} · LRCLIB`
+    : isLrc ? "LRC · On this device" : "TXT · On this device";
   lyricsView.hidden = false;
   lyricsView.replaceChildren();
-  if (activeLyrics.length) {
-    activeLyrics.forEach((line) => {
+  const lines = activeLyrics.length ? activeLyrics : text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => ({ text: line }));
+  if (lines.length) {
+    lines.forEach((line) => {
       const el = document.createElement("div");
       el.className = "lyrics-line";
-      el.dataset.time = line.time;
+      if (Number.isFinite(line.time)) el.dataset.time = line.time;
       el.textContent = line.text;
       lyricsView.append(el);
     });
-  } else {
-    lyricsView.textContent = text;
   }
+  requestAnimationFrame(() => {
+    if (!activeLyrics.length && lyricsView.children.length) {
+      const first = lyricsView.firstElementChild;
+      lyricsView.scrollTop = Math.max(0, first.offsetTop - (lyricsView.clientHeight - first.clientHeight) / 2);
+      updateStaticLyricsFocus();
+    }
+    updateProgress();
+  });
+}
+
+function setLyricsMessage(message, source = "") {
+  activeLyrics = [];
+  activeLyricIndex = -1;
+  lyricsView.hidden = true;
+  lyricsView.replaceChildren();
+  noteCopy.hidden = false;
+  noteCopy.textContent = message;
+  const disclaimer = document.querySelector("#notes-disclaimer");
+  disclaimer.hidden = !source;
+  disclaimer.textContent = source;
+}
+
+function updateStaticLyricsFocus() {
+  if (activeLyrics.length || lyricsView.hidden || !lyricsView.children.length) return;
+  const center = lyricsView.getBoundingClientRect().top + lyricsView.clientHeight / 2;
+  let closest = null;
+  let closestDistance = Infinity;
+  [...lyricsView.children].forEach((line) => {
+    const rect = line.getBoundingClientRect();
+    const distance = Math.abs(rect.top + rect.height / 2 - center);
+    if (distance < closestDistance) {
+      closest = line;
+      closestDistance = distance;
+    }
+  });
+  [...lyricsView.children].forEach((line) => line.classList.toggle("is-active", line === closest));
+}
+
+async function loadLyricsForTrack(track) {
+  if (!track) return;
+  const existing = lyricsByTrack[track.id];
+  if (existing?.text?.trim()) {
+    if (currentTrack()?.id === track.id) renderLyrics(track);
+    return;
+  }
+  if (location.protocol === "file:") {
+    setLyricsMessage("Open http://127.0.0.1:8766 to search online lyrics", "Run npm run serve");
+    return;
+  }
+  const pending = lyricsLookupRequests.get(track.id);
+  if (pending) return pending;
+  const retryAfter = lyricsLookupRetryAfter.get(track.id) || 0;
+  if (Date.now() < retryAfter) return;
+
+  setLyricsMessage("Looking up lyrics…", "Searching LRCLIB");
+  const params = new URLSearchParams({
+    track_name: track.title,
+    artist_name: track.artist,
+    album_name: track.album
+  });
+  if (Number.isFinite(track.audioDurationSeconds) && track.audioDurationSeconds > 0) {
+    params.set("duration", String(track.audioDurationSeconds));
+  }
+  const isLocalPreview = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
+  const lyricsUrl = isLocalPreview
+    ? `/api/lyrics?${params}`
+    : `https://lrclib.net/api/get?${params}`;
+
+  const request = (async () => {
+    let cooldown = 15_000;
+    let timeoutId;
+    try {
+      const controller = new AbortController();
+      timeoutId = setTimeout(() => controller.abort(), 10_000);
+      let response = await fetch(lyricsUrl, {
+        headers: { Accept: "application/json" },
+        signal: controller.signal,
+        cache: "no-store"
+      });
+      if (isLocalPreview && (response.status === 404 || response.status >= 500)) {
+        response = await fetch(`https://lrclib.net/api/get?${params}`, {
+          headers: { Accept: "application/json" },
+          signal: controller.signal,
+          cache: "no-store"
+        });
+      }
+      if (response.status === 404) {
+        cooldown = 30 * 60_000;
+        throw new Error("not-found");
+      }
+      if (!response.ok) throw new Error(`lyrics-request-${response.status}`);
+      const result = await response.json();
+      const expectedTitle = normalizeName(track.title);
+      const expectedArtist = normalizeName(track.artist);
+      const matchedTitle = normalizeName(result.trackName || result.name || "");
+      const matchedArtist = normalizeName(result.artistName || "");
+      const titleMatches = matchedTitle && (matchedTitle.includes(expectedTitle) || expectedTitle.includes(matchedTitle));
+      const artistMatches = matchedArtist && (matchedArtist.includes(expectedArtist) || expectedArtist.includes(matchedArtist));
+      const plainLyrics = result.plainLyrics?.trim();
+      const syncedLyrics = result.syncedLyrics?.trim();
+      const text = plainLyrics || (syncedLyrics ? syncedLyrics.replace(/\[[^\]]+\]/g, "").trim() : "");
+      if (!titleMatches || !artistMatches || !text) throw new Error("lyrics-not-available");
+
+      lyricsByTrack[track.id] = {
+        text,
+        format: "txt",
+        source: "lrclib",
+        syncedText: syncedLyrics || ""
+      };
+      saveLyrics();
+      if (currentTrack()?.id === track.id) {
+        document.querySelector("#notes-track").textContent = track.title;
+        document.querySelector("#notes-album").textContent = track.album;
+        showLyrics(text, "txt", "lrclib");
+      }
+    } catch (error) {
+      lyricsLookupRetryAfter.set(track.id, Date.now() + cooldown);
+      if (currentTrack()?.id === track.id) {
+        const message = error.message === "not-found" || error.message === "lyrics-not-available"
+          ? "Lyrics not found · Import a TXT or LRC file"
+          : "Could not reach the lyrics service · Try again later";
+        setLyricsMessage(message, "LRCLIB");
+      }
+    } finally {
+      clearTimeout(timeoutId);
+      lyricsLookupRequests.delete(track.id);
+    }
+  })();
+  lyricsLookupRequests.set(track.id, request);
+  return request;
 }
 
 function updateLyrics(time) {
-  if (!activeLyrics.length) return;
+  if (!activeLyrics.length) {
+    updateStaticLyricsFocus();
+    return;
+  }
   let active = -1;
   activeLyrics.forEach((line, index) => {
     if (line.time <= time) active = index;
@@ -473,7 +887,9 @@ function updateLyrics(time) {
 
 function updateProgress() {
   const track = currentTrack();
-  const time = ytReady && videoIdFor(track) ? ytPlayer.getCurrentTime() || 0 : 0;
+  const time = activeProvider === "local" ? localAudio?.currentTime || 0 : activeProvider === "apple"
+    ? window.EncAppleMusic?.playbackTime() || 0
+    : ytReady && videoIdFor(track) ? ytPlayer.getCurrentTime() || 0 : 0;
   updateLyrics(time);
 }
 
@@ -496,12 +912,31 @@ function bindEvents() {
   document.querySelector("#control-prev").addEventListener("click", () => advanceTrack(-1, true));
   document.querySelector("#control-next").addEventListener("click", () => advanceTrack(1, true));
   document.querySelector("#play-toggle").addEventListener("click", togglePlayback);
+  document.querySelector("#apple-connect").addEventListener("click", async () => {
+    const appleMusic = window.EncAppleMusic;
+    if (!appleMusic?.isReady()) {
+      const state = appleMusic?.readyState();
+      document.querySelector("#playback-state").textContent = state === "needs-setup"
+        ? "请先配置 Apple MusicKit 开发者令牌"
+        : "Apple Music 正在准备，请稍后再试";
+      return;
+    }
+    document.querySelector("#playback-state").textContent = "正在连接 Apple Music…";
+    try {
+      const connected = await appleMusic.connect();
+      document.querySelector("#playback-state").textContent = connected ? "Apple Music 已连接" : "Apple Music 尚未授权";
+    } catch {
+      document.querySelector("#playback-state").textContent = "Apple Music 授权未完成";
+    }
+  });
   document.querySelector("#queue-open").addEventListener("click", () => document.querySelector("#queue-dialog").showModal());
   document.querySelector("#lyrics-open").addEventListener("click", () => {
     document.querySelector("#lyrics-dialog").showModal();
     activeLyricIndex = -1;
+    loadLyricsForTrack(currentTrack());
     updateProgress();
   });
+  lyricsView.addEventListener("scroll", updateStaticLyricsFocus, { passive: true });
   document.querySelector("#source-open").addEventListener("click", openSourceEditor);
   document.querySelector("#source-form").addEventListener("submit", (event) => {
     event.preventDefault();
@@ -544,6 +979,8 @@ function bindEvents() {
       if (muted) ytPlayer.mute();
       else ytPlayer.unMute();
     }
+    window.EncAppleMusic?.setMuted(muted);
+    if (localAudio) localAudio.muted = muted;
     event.currentTarget.classList.toggle("is-on", muted);
     event.currentTarget.setAttribute("aria-label", muted ? "取消静音" : "静音");
     event.currentTarget.setAttribute("aria-pressed", String(muted));
@@ -625,7 +1062,9 @@ function bindEvents() {
   });
   window.addEventListener("resize", renderDeck);
   document.addEventListener("visibilitychange", () => {
+    if (document.hidden && localAudio) pauseLocalPlayback();
     if (document.hidden && ytReady) ytPlayer.pauseVideo();
+    if (document.hidden && activeProvider === "apple") window.EncAppleMusic?.pause();
   });
   window.setInterval(updateProgress, 500);
 }
@@ -639,6 +1078,11 @@ async function init() {
   renderTrack();
   bindEvents();
   renderIcons();
+  window.EncAppleMusic?.initialize().then((ready) => {
+    if (ready && currentTrack() && !currentTrack().audioUrl && !videoIdFor(currentTrack())) {
+      setPlaybackAction("play", "Apple Music 已就绪 · 点击播放");
+    }
+  });
   loadYouTubeApi();
 }
 

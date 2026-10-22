@@ -6,11 +6,12 @@
     <meta name="theme-color" content="#050506">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Jake Miller · Listening Room</title>
-    <link rel="stylesheet" href="./styles.css?v=audio-view-1">
-    <script src="./data/tracks.js?v=video-links-20261022" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=lyrics-view-1">
+    <script src="./data/tracks.js?v=local-audio-4" defer></script>
     <script src="./vendor/lucide.min.js" defer></script>
     <script src="./ambient.js?v=ambient-1" defer></script>
-    <script src="./app.js?v=audio-view-1" defer></script>
+    <script src="./apple-music.js?v=apple-music-3" defer></script>
+    <script src="./app.js?v=lyrics-view-1" defer></script>
   </head>
   <body>
     <div class="ambient-cover" id="ambient-cover" aria-hidden="true">
@@ -26,8 +27,9 @@
       </a>
       <h1>Jake Miller <span id="result-count">· 27 Tracks</span></h1>
       <div class="top-actions">
-        <button class="icon-button" id="source-open" type="button" aria-label="关联当前歌曲的 YouTube 视频" title="关联视频"><i data-lucide="link"></i></button>
-        <a id="video-external" class="icon-button" href="https://www.youtube.com/watch?v=oCkufmjcy3I" target="_blank" rel="noreferrer" aria-label="在 YouTube 打开" title="在 YouTube 打开"><i data-lucide="external-link"></i></a>
+        <button class="icon-button" id="apple-connect" type="button" aria-label="连接 Apple Music" title="连接 Apple Music"><i data-lucide="music-2"></i></button>
+        <button class="icon-button" id="source-open" type="button" aria-label="关联当前歌曲的 YouTube 视频" title="关联视频" hidden><i data-lucide="link"></i></button>
+        <a id="video-external" class="icon-button" href="https://www.youtube.com/watch?v=oCkufmjcy3I" target="_blank" rel="noreferrer" aria-label="在 YouTube 打开" title="在 YouTube 打开" hidden><i data-lucide="external-link"></i></a>
         <button class="icon-button" id="queue-open" type="button" aria-label="歌单" title="歌单"><i data-lucide="list-music"></i></button>
         <button class="icon-button" id="lyrics-open" type="button" aria-label="歌词" title="歌词"><i data-lucide="captions"></i></button>
         <span class="battery" aria-label="iPod 电量装饰"><span></span></span>
@@ -66,7 +68,7 @@
           <button class="play-button" id="play-toggle" type="button" aria-label="播放" title="播放" aria-pressed="false"><i data-lucide="play"></i></button>
           <button class="skip-button" id="control-next" type="button" aria-label="下一首" title="下一首"><i data-lucide="skip-forward"></i></button>
         </div>
-        <p id="playback-state" role="status">Ready to play</p>
+        <p id="playback-state" class="sr-only" role="status">Ready to play</p>
         <div class="player-options">
           <button class="icon-button" id="shuffle-toggle" type="button" aria-label="随机播放" title="随机播放" aria-pressed="false"><i data-lucide="shuffle"></i></button>
           <button class="icon-button" id="repeat-toggle" type="button" aria-label="单曲循环" title="单曲循环" aria-pressed="false"><i data-lucide="repeat"></i></button>

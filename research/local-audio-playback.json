@@ -1,0 +1,239 @@
+{
+  "checkedAt": "2026-10-22T13:45:42.654Z",
+  "url": "http://127.0.0.1:8766/",
+  "scope": "Short playback-start samples in the in-app browser; not full-track listening.",
+  "tracks": [
+    {
+      "duration": 186.102948,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1015732764.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.021057,
+      "title": "Rumors"
+    },
+    {
+      "duration": 169.6,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1657249574.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.242167,
+      "title": "Lucky Me"
+    },
+    {
+      "duration": 178,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/6772170211.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.251066,
+      "title": "Still Dancing"
+    },
+    {
+      "duration": 165.469116,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/6815101529.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.249808,
+      "title": "Momentum"
+    },
+    {
+      "duration": 170.199773,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/6796607454.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.165652,
+      "title": "Waiting On August"
+    },
+    {
+      "duration": 153.498912,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/6789188248.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.251619,
+      "title": "Spark"
+    },
+    {
+      "duration": 167.737938,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1818448920.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.251322,
+      "title": "A Million Ways To Miss You"
+    },
+    {
+      "duration": 222,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1271854177.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.243589,
+      "title": "No Return"
+    },
+    {
+      "duration": 179.05263,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1271854175.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.284997,
+      "title": "Answers"
+    },
+    {
+      "duration": 240.5,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1271854541.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.239175,
+      "title": "Back to the Start"
+    },
+    {
+      "duration": 214.300045,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1454321964.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.257549,
+      "title": "NIKES"
+    },
+    {
+      "duration": 204.840544,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1271854176.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.213671,
+      "title": "I Wish You Didn't Love Me"
+    },
+    {
+      "duration": 220.506122,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1349911983.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.263027,
+      "title": "Drinkin About You"
+    },
+    {
+      "duration": 174.898688,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1478559230.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.259958,
+      "title": "LAST TEXT"
+    },
+    {
+      "duration": 214.327302,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1435778127.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.24787,
+      "title": "Better Me Better You"
+    },
+    {
+      "duration": 199.028005,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1271854174.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.232235,
+      "title": "Palm Blvd"
+    },
+    {
+      "duration": 134.846667,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1478559232.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.254037,
+      "title": "OCEAN AWAY"
+    },
+    {
+      "duration": 210.94737,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1478559227.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.266915,
+      "title": "15 MINUTES"
+    },
+    {
+      "duration": 176.040249,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/931185216.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.239275,
+      "title": "Dazed and Confused (feat. Travie McCoy)"
+    },
+    {
+      "duration": 213.478345,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/596194737.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.235752,
+      "title": "A Million Lives"
+    },
+    {
+      "duration": 168.90458,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1015732766.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.244768,
+      "title": "Selfish Girls"
+    },
+    {
+      "duration": 179.016417,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1439639051.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.246876,
+      "title": "Wait for You"
+    },
+    {
+      "duration": 157.4722,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/6766823609.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.2575,
+      "title": "Automatic"
+    },
+    {
+      "duration": 237.819841,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1137270483.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.235295,
+      "title": "Good Thing"
+    },
+    {
+      "duration": 185.898163,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/626378178.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.236881,
+      "title": "Steven"
+    },
+    {
+      "duration": 192.980204,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1525020416.mp3",
+      "status": "本地音频 · 正在播放",
+      "time": 0.240273,
+      "title": "ROSS AND RACHEL"
+    }
+  ],
+  "controls": {
+    "pausedSample": {
+      "paused": true,
+      "status": "本地音频 · 已暂停",
+      "time": 0.29635
+    },
+    "resumedSample": {
+      "paused": false,
+      "status": "本地音频 · 正在播放",
+      "time": 0.671551
+    },
+    "mutedSample": true,
+    "nextSample": {
+      "audioCount": 1,
+      "paused": false,
+      "src": "http://127.0.0.1:8766/audio/1271854175.mp3",
+      "title": "Answers"
+    },
+    "emptySample": {
+      "disabled": true,
+      "paused": true,
+      "status": "No matching tracks"
+    }
+  }
+}

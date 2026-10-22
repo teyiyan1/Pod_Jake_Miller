@@ -17,7 +17,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=x8Nh0rLS9yg",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/931185216.mp3",
+    "audioDurationSeconds": 176.091429
   },
   {
     "id": "1015732764",
@@ -37,7 +39,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=wfkGR6PlWDk",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1015732764.mp3",
+    "audioDurationSeconds": 186.148571
   },
   {
     "id": "596194737",
@@ -57,7 +61,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=oGGs65J3UEA",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/596194737.mp3",
+    "audioDurationSeconds": 213.524898
   },
   {
     "id": "1657249574",
@@ -77,7 +83,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=XysLGnlSjE0",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1657249574.mp3",
+    "audioDurationSeconds": 169.639184
   },
   {
     "id": "6772170211",
@@ -97,7 +105,9 @@ const encoreTracks = [
       "channelId": "UC_BdnSer2n7N-lIf8pd6MEQ",
       "watchUrl": "https://www.youtube.com/watch?v=TsrjN3MNmIs",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/6772170211.mp3",
+    "audioDurationSeconds": 178.050612
   },
   {
     "id": "626378178",
@@ -117,7 +127,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=mWTWDY3HcGg",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/626378178.mp3",
+    "audioDurationSeconds": 185.939592
   },
   {
     "id": "1015732766",
@@ -137,7 +149,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=AMQm0Sd-5n4",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1015732766.mp3",
+    "audioDurationSeconds": 168.933878
   },
   {
     "id": "1271854172",
@@ -177,7 +191,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=Eh2ZYcjgMAI",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1439639051.mp3",
+    "audioDurationSeconds": 179.043265
   },
   {
     "id": "1454321964",
@@ -197,7 +213,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=NOxoDeNCdG8",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1454321964.mp3",
+    "audioDurationSeconds": 214.334694
   },
   {
     "id": "1271854176",
@@ -217,7 +235,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=bHzA7r2cHLU",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1271854176.mp3",
+    "audioDurationSeconds": 204.878367
   },
   {
     "id": "1349911983",
@@ -237,7 +257,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=vxXUApp8Wwc",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1349911983.mp3",
+    "audioDurationSeconds": 220.551837
   },
   {
     "id": "1478559230",
@@ -257,7 +279,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=9wOWzuxbftk",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1478559230.mp3",
+    "audioDurationSeconds": 174.936
   },
   {
     "id": "1435778127",
@@ -277,7 +301,9 @@ const encoreTracks = [
       "channelId": "UCWNVPfzSAAJr2L4GyvF6y7g",
       "watchUrl": "https://www.youtube.com/watch?v=vXdA36z09zI",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1435778127.mp3",
+    "audioDurationSeconds": 214.360816
   },
   {
     "id": "1271854174",
@@ -297,7 +323,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=wqRM8LZkSNA",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1271854174.mp3",
+    "audioDurationSeconds": 199.079184
   },
   {
     "id": "1478559232",
@@ -317,7 +345,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=_UXBZ_dv_a0",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1478559232.mp3",
+    "audioDurationSeconds": 134.896327
   },
   {
     "id": "1478559227",
@@ -337,7 +367,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=q4i38aFIFyM",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1478559227.mp3",
+    "audioDurationSeconds": 210.99102
   },
   {
     "id": "1525020416",
@@ -351,7 +383,9 @@ const encoreTracks = [
     "videoVerification": {
       "status": "pending-official-full-version",
       "checkedAt": "2026-10-22T10:02:43.341Z"
-    }
+    },
+    "audioUrl": "./audio/1525020416.mp3",
+    "audioDurationSeconds": 193.018776
   },
   {
     "id": "6815101529",
@@ -365,7 +399,9 @@ const encoreTracks = [
     "videoVerification": {
       "status": "pending-official-full-version",
       "checkedAt": "2026-10-22T10:02:43.341Z"
-    }
+    },
+    "audioUrl": "./audio/6815101529.mp3",
+    "audioDurationSeconds": 165.511837
   },
   {
     "id": "6796607454",
@@ -379,7 +415,9 @@ const encoreTracks = [
     "videoVerification": {
       "status": "pending-official-full-version",
       "checkedAt": "2026-10-22T10:02:43.341Z"
-    }
+    },
+    "audioUrl": "./audio/6796607454.mp3",
+    "audioDurationSeconds": 170.24
   },
   {
     "id": "6789188248",
@@ -393,7 +431,9 @@ const encoreTracks = [
     "videoVerification": {
       "status": "pending-official-full-version",
       "checkedAt": "2026-10-22T10:02:43.341Z"
-    }
+    },
+    "audioUrl": "./audio/6789188248.mp3",
+    "audioDurationSeconds": 153.547755
   },
   {
     "id": "6766823609",
@@ -413,7 +453,9 @@ const encoreTracks = [
       "channelId": "UCJDQtPgwh6oV5MbPmclqIAg",
       "watchUrl": "https://www.youtube.com/watch?v=J8rf6YtNAPA",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/6766823609.mp3",
+    "audioDurationSeconds": 157.518367
   },
   {
     "id": "1818448920",
@@ -433,7 +475,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=Ux2R9ZEqsPA",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1818448920.mp3",
+    "audioDurationSeconds": 167.784
   },
   {
     "id": "1271854177",
@@ -453,7 +497,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=6bQpm4D64zE",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1271854177.mp3",
+    "audioDurationSeconds": 222.040816
   },
   {
     "id": "1271854175",
@@ -473,7 +519,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=Kr1xzr_dQ4Y",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1271854175.mp3",
+    "audioDurationSeconds": 179.09551
   },
   {
     "id": "1271854541",
@@ -493,7 +541,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=MUpcimkhvxA",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1271854541.mp3",
+    "audioDurationSeconds": 240.53551
   },
   {
     "id": "1137270483",
@@ -513,7 +563,9 @@ const encoreTracks = [
       "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
       "watchUrl": "https://www.youtube.com/watch?v=NKiN7Tg9HV0",
       "runtimeStatus": "not-certified"
-    }
+    },
+    "audioUrl": "./audio/1137270483.mp3",
+    "audioDurationSeconds": 237.87102
   }
 ];
 if (typeof module !== "undefined") module.exports = encoreTracks;

@@ -1,0 +1,587 @@
+{
+  "importedAt": "2026-10-22T13:20:31.102645+00:00",
+  "matchMethod": "Exact ID3 title and normalized artist list; track IDs unchanged.",
+  "providedFileCount": 27,
+  "importedTrackCount": 26,
+  "sourceFilesPreserved": true,
+  "imports": [
+    {
+      "sourceFile": "A Million Ways To Miss You - Jake Miller.mp3",
+      "trackId": "1818448920",
+      "title": "A Million Ways To Miss You",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "A Million Ways To Miss You",
+        "artist": "Jake Miller",
+        "album": "BALANCE"
+      },
+      "bytes": 6838265,
+      "sha256": "afadedd85418b552c6747719c1921806843cf0e1a1d889d30e3034c4983da9d3",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 48 kHz, Stereo",
+      "durationSeconds": 167.784,
+      "bitRate": 320000,
+      "audioUrl": "./audio/1818448920.mp3"
+    },
+    {
+      "sourceFile": "Answers - Jake Miller.mp3",
+      "trackId": "1271854175",
+      "title": "Answers",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Answers",
+        "artist": "Jake Miller",
+        "album": "2:00am in LA"
+      },
+      "bytes": 4970405,
+      "sha256": "0f64f89721a9760f4c6210912776baffa38744303382551c3cbfd1443292240a",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 179.09551,
+      "bitRate": 191999,
+      "audioUrl": "./audio/1271854175.mp3"
+    },
+    {
+      "sourceFile": "Back to the Start - Jake Miller.mp3",
+      "trackId": "1271854541",
+      "title": "Back to the Start",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Back to the Start",
+        "artist": "Jake Miller",
+        "album": "2:00am in LA"
+      },
+      "bytes": 10298601,
+      "sha256": "bc958bd4f9da19a9805d33ff4463b7da415f3099f6632405a9402887335d29bd",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 240.53551,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1271854541.mp3"
+    },
+    {
+      "sourceFile": "Lucky Me - Jake Miller.mp3",
+      "trackId": "1657249574",
+      "title": "Lucky Me",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Lucky Me",
+        "artist": "Jake Miller",
+        "album": "Songs For My Fiancée"
+      },
+      "bytes": 4753153,
+      "sha256": "004496b9cfd09671e1549d9f0fd335f2471b3433c8ee8f84602bd3e259772942",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 169.639184,
+      "bitRate": 191999,
+      "audioUrl": "./audio/1657249574.mp3"
+    },
+    {
+      "sourceFile": "Momentum - Jake Miller.mp3",
+      "trackId": "6815101529",
+      "title": "Momentum",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Momentum",
+        "artist": "Jake Miller",
+        "album": "Momentum"
+      },
+      "bytes": 4393706,
+      "sha256": "8072a459f200008898e40b4ff8563c3d720ea2811674d3b0d3b5be5c03c99b6d",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 165.511837,
+      "bitRate": 191999,
+      "audioUrl": "./audio/6815101529.mp3"
+    },
+    {
+      "sourceFile": "No Return - Jake Miller.mp3",
+      "trackId": "1271854177",
+      "title": "No Return",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "No Return",
+        "artist": "Jake Miller",
+        "album": "2:00am in LA"
+      },
+      "bytes": 6001504,
+      "sha256": "be58a75d31203c596f7ea5a0ff250854f5f561e428cc2b77f44a99678740300c",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 222.040816,
+      "bitRate": 191999,
+      "audioUrl": "./audio/1271854177.mp3"
+    },
+    {
+      "sourceFile": "Rumors - Jake Miller.mp3",
+      "trackId": "1015732764",
+      "title": "Rumors",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Rumors",
+        "artist": "Jake Miller",
+        "album": "Rumors"
+      },
+      "bytes": 7707253,
+      "sha256": "e78d22f350b7bc404cb95b39e99b843d6b20db2a1da2f894a0e9cf59405e8386",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 186.148571,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1015732764.mp3"
+    },
+    {
+      "sourceFile": "Spark - Jake Miller.mp3",
+      "trackId": "6789188248",
+      "title": "Spark",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Spark",
+        "artist": "Jake Miller",
+        "album": "Spark"
+      },
+      "bytes": 3844643,
+      "sha256": "8eb4b69ffcdb8d92cf29a0883b2b428ac073c9c0518df85f883a6c61814318da",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 153.547755,
+      "bitRate": 191999,
+      "audioUrl": "./audio/6789188248.mp3"
+    },
+    {
+      "sourceFile": "Still Dancing - Keenan Te、Jake Miller.mp3",
+      "trackId": "6772170211",
+      "title": "Still Dancing",
+      "artist": "Keenan Te & Jake Miller",
+      "id3": {
+        "title": "Still Dancing",
+        "artist": "Keenan Te、Jake Miller",
+        "album": "Still Dancing"
+      },
+      "bytes": 5075848,
+      "sha256": "e2cf3f0c2d69a973c6d515f3e1e844512d9d349f16402f70c3a0f07d71c12587",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 178.050612,
+      "bitRate": 191999,
+      "audioUrl": "./audio/6772170211.mp3"
+    },
+    {
+      "sourceFile": "Waiting On August - Jake Miller.mp3",
+      "trackId": "6796607454",
+      "title": "Waiting On August",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Waiting On August",
+        "artist": "Jake Miller",
+        "album": "Waiting On August"
+      },
+      "bytes": 4388524,
+      "sha256": "7ccb05f06e83d5c339687013facaca4fd2061a7c85fcb492d084bcaa47c991d3",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 170.24,
+      "bitRate": 192000,
+      "audioUrl": "./audio/6796607454.mp3"
+    },
+    {
+      "sourceFile": "15 MINUTES - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "trackId": "1478559227",
+      "title": "15 MINUTES",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "15 MINUTES",
+        "artist": "Jake Miller",
+        "album": "SUMMER 19"
+      },
+      "bytes": 8541740,
+      "sha256": "4e659dacc06187335301aa578d7881dfd6b6bfdbfb306ef456c69e4a116d0378",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 210.99102,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1478559227.mp3"
+    },
+    {
+      "sourceFile": "Better Me Better You - Clara Mae、Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "trackId": "1435778127",
+      "title": "Better Me Better You",
+      "artist": "Clara Mae & Jake Miller",
+      "id3": {
+        "title": "Better Me Better You",
+        "artist": "Clara Mae、Jake Miller",
+        "album": "Better Me Better You"
+      },
+      "bytes": 8750941,
+      "sha256": "46ef2897a3b92de67054e42b517529226702b90b0f1013266b474128afa76824",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 214.360816,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1435778127.mp3",
+      "albumMetadataNote": "Source release album differs; exact track title and artists match, with no alternate-version marker in the title. Project album metadata preserved."
+    },
+    {
+      "sourceFile": "Drinkin About You - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "trackId": "1349911983",
+      "title": "Drinkin About You",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Drinkin About You",
+        "artist": "Jake Miller",
+        "album": "Silver Lining"
+      },
+      "bytes": 5629864,
+      "sha256": "760d3b589ce5271228c7e30be25f2d2bff48f84b76bb41f698607c550359f461",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 220.551837,
+      "bitRate": 191999,
+      "audioUrl": "./audio/1349911983.mp3"
+    },
+    {
+      "sourceFile": "I Wish You Didn't Love Me - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "trackId": "1271854176",
+      "title": "I Wish You Didn't Love Me",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "I Wish You Didn't Love Me",
+        "artist": "Jake Miller",
+        "album": "2:00am in LA"
+      },
+      "bytes": 5589241,
+      "sha256": "4ce380e2619212e5e0d60f8bc8386f3aaca1d30180b5452bebbd748c29d6cd28",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 204.878367,
+      "bitRate": 191999,
+      "audioUrl": "./audio/1271854176.mp3"
+    },
+    {
+      "sourceFile": "LAST TEXT - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "trackId": "1478559230",
+      "title": "LAST TEXT",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "LAST TEXT",
+        "artist": "Jake Miller",
+        "album": "LAST TEXT"
+      },
+      "bytes": 7675613,
+      "sha256": "ec4e8a82cb271e78d79ae2f693005013185390ffad6bd48d7fa5585e4a781e2e",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 48 kHz, Stereo",
+      "durationSeconds": 174.936,
+      "bitRate": 320000,
+      "audioUrl": "./audio/1478559230.mp3",
+      "albumMetadataNote": "Source release album differs; exact track title and artists match, with no alternate-version marker in the title. Project album metadata preserved."
+    },
+    {
+      "sourceFile": "NIKES - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "trackId": "1454321964",
+      "title": "NIKES",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "NIKES",
+        "artist": "Jake Miller",
+        "album": "BASED ON A TRUE STORY. (EXTENDED)"
+      },
+      "bytes": 8709600,
+      "sha256": "46661228e32eb127662cd8062f185cf3760c105009fe9b3f6be171a3a16c0583",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 214.334694,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1454321964.mp3",
+      "albumMetadataNote": "Source release album differs; exact track title and artists match, with no alternate-version marker in the title. Project album metadata preserved."
+    },
+    {
+      "sourceFile": "OCEAN AWAY - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "trackId": "1478559232",
+      "title": "OCEAN AWAY",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "OCEAN AWAY",
+        "artist": "Jake Miller",
+        "album": "SUMMER 19"
+      },
+      "bytes": 5490635,
+      "sha256": "20b5105d59b6f90ff66d4fa5c014db6c42fef55ec15331a4f6a65ff063393be4",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 134.896327,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1478559232.mp3"
+    },
+    {
+      "sourceFile": "Palm Blvd - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "trackId": "1271854174",
+      "title": "Palm Blvd",
+      "artist": "Jake Miller",
+      "id3": {
+        "title": "Palm Blvd",
+        "artist": "Jake Miller",
+        "album": "2:00am in LA"
+      },
+      "bytes": 5450615,
+      "sha256": "a5f4ce0f18d253b6ebec1d872e801be008e0484cdfc79ff4002da2f065c21579",
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 199.079184,
+      "bitRate": 191999,
+      "audioUrl": "./audio/1271854174.mp3"
+    },
+    {
+      "bytes": 5270642,
+      "sha256": "014f2151e09b31acdd8fb5c6a432ebdf07cd702e9f1cc2b98821c92845ef50ab",
+      "id3": {
+        "title": "A Million Lives",
+        "artist": "Jake Miller",
+        "album": "A Million Lives - Music Video"
+      },
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "sourceFile": "A Million Lives - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/Jake miller2",
+      "trackId": "596194737",
+      "title": "A Million Lives",
+      "artist": "Jake Miller",
+      "durationSeconds": 213.524898,
+      "bitRate": 191999,
+      "audioUrl": "./audio/596194737.mp3",
+      "albumMetadataNote": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+    },
+    {
+      "bytes": 5688181,
+      "sha256": "19d94e23537c336cc04b7d2f2535e11d5759ca56f0875f5d1d1ed9fe2ed5ba4d",
+      "id3": {
+        "title": "Automatic",
+        "artist": "Fly By Midnight、Jake Miller",
+        "album": "Automatic"
+      },
+      "format": "Audio file with ID3 version 2.3.0",
+      "sourceFile": "Automatic - Fly By Midnight、Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/Jake miller2",
+      "trackId": "6766823609",
+      "title": "Automatic",
+      "artist": "Fly By Midnight & Jake Miller",
+      "durationSeconds": 157.518367,
+      "bitRate": 191999,
+      "audioUrl": "./audio/6766823609.mp3",
+      "albumMetadataNote": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+    },
+    {
+      "bytes": 4455393,
+      "sha256": "fd71ac42082481822631e536df2033869df4a8ede816a2a66616a5419a3c8495",
+      "id3": {
+        "title": "Dazed and Confused (feat. Travie McCoy)",
+        "artist": "Jake Miller、Travie McCoy",
+        "album": "Dazed And Confused EP"
+      },
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "sourceFile": "Dazed and Confused (feat. Travie McCoy) - Jake Miller、Travie McCoy.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/Jake miller2",
+      "trackId": "931185216",
+      "title": "Dazed and Confused (feat. Travie McCoy)",
+      "artist": "Jake Miller",
+      "durationSeconds": 176.091429,
+      "bitRate": 191999,
+      "audioUrl": "./audio/931185216.mp3",
+      "albumMetadataNote": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+    },
+    {
+      "bytes": 9770899,
+      "sha256": "57f2a02c3881cae9d88488aabcec66cb6d7aa897f4f7afea0a0293dffa4fae18",
+      "id3": {
+        "title": "Good Thing",
+        "artist": "Jake Miller",
+        "album": "Good Thing"
+      },
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "sourceFile": "Good Thing - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/Jake miller2",
+      "trackId": "1137270483",
+      "title": "Good Thing",
+      "artist": "Jake Miller",
+      "durationSeconds": 237.87102,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1137270483.mp3",
+      "albumMetadataNote": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+    },
+    {
+      "bytes": 7019038,
+      "sha256": "c2ae9c9c85f2c808d046aa60917e122a476f310ba14211678e73ba06b38e1dfd",
+      "id3": {
+        "title": "Selfish Girls",
+        "artist": "Jake Miller",
+        "album": "Rumors"
+      },
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "sourceFile": "Selfish Girls - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/Jake miller2",
+      "trackId": "1015732766",
+      "title": "Selfish Girls",
+      "artist": "Jake Miller",
+      "durationSeconds": 168.933878,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1015732766.mp3",
+      "albumMetadataNote": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+    },
+    {
+      "bytes": 7344590,
+      "sha256": "b8588aeb4329b9c81d9739527a32ff9a286d3451ae5578f0849445c1d7cd4975",
+      "id3": {
+        "title": "WAIT FOR YOU",
+        "artist": "Jake Miller",
+        "album": "WAIT FOR YOU"
+      },
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "sourceFile": "WAIT FOR YOU - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/Jake miller2",
+      "trackId": "1439639051",
+      "title": "Wait for You",
+      "artist": "Jake Miller",
+      "durationSeconds": 179.043265,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1439639051.mp3",
+      "albumMetadataNote": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+    },
+    {
+      "bytes": 7858115,
+      "sha256": "21210222f8a7a608268331264ea0987964cd41e95f042f469f482fd1399db904",
+      "id3": {
+        "title": "ROSS AND RACHEL",
+        "artist": "Jake Miller",
+        "album": "ROSS AND RACHEL"
+      },
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 320 kbps, 44.1 kHz, Stereo",
+      "sourceFile": "ROSS AND RACHEL - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Downloads",
+      "trackId": "1525020416",
+      "title": "ROSS AND RACHEL",
+      "artist": "Jake Miller",
+      "durationSeconds": 193.018776,
+      "bitRate": 319999,
+      "audioUrl": "./audio/1525020416.mp3"
+    },
+    {
+      "bytes": 4765701,
+      "sha256": "1d319a729affe3453f5ba7838cda3e517d1e5443700335ec9ed022285d32cc41",
+      "id3": {
+        "title": "Steven",
+        "artist": "Jake Miller",
+        "album": "The Road Less Traveled"
+      },
+      "format": "Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1, 192 kbps, 44.1 kHz, Stereo",
+      "sourceFile": "Steven - Jake Miller.mp3",
+      "sourceDirectory": "/Users/teyiyanmacmini/Downloads",
+      "trackId": "626378178",
+      "title": "Steven",
+      "artist": "Jake Miller",
+      "durationSeconds": 185.939592,
+      "bitRate": 191999,
+      "audioUrl": "./audio/626378178.mp3"
+    }
+  ],
+  "duplicates": [
+    {
+      "ignoredFile": "Rumors - Jake Miller (1).mp3",
+      "selectedFile": "Rumors - Jake Miller.mp3",
+      "trackId": "1015732764",
+      "reason": "Identical SHA-256, format, duration, and ID3 metadata.",
+      "sha256": "e78d22f350b7bc404cb95b39e99b843d6b20db2a1da2f894a0e9cf59405e8386"
+    }
+  ],
+  "anomalies": [],
+  "updatedAt": "2026-10-22T13:45:20.046930+00:00",
+  "additionalBatches": [
+    {
+      "importedAt": "2026-10-22T13:32:02.067215+00:00",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/jake miller",
+      "providedFileCount": 8,
+      "importedTrackCount": 8,
+      "trackIds": [
+        "1478559227",
+        "1435778127",
+        "1349911983",
+        "1271854176",
+        "1478559230",
+        "1454321964",
+        "1478559232",
+        "1271854174"
+      ],
+      "albumMetadataNotes": [
+        {
+          "title": "Better Me Better You",
+          "projectAlbum": "Sorry for Writing All the Songs About You - EP",
+          "sourceAlbum": "Better Me Better You",
+          "note": "Source release album differs; exact track title and artists match, with no alternate-version marker in the title. Project album metadata preserved."
+        },
+        {
+          "title": "LAST TEXT",
+          "projectAlbum": "SUMMER 19 - EP",
+          "sourceAlbum": "LAST TEXT",
+          "note": "Source release album differs; exact track title and artists match, with no alternate-version marker in the title. Project album metadata preserved."
+        },
+        {
+          "title": "NIKES",
+          "projectAlbum": "BASED ON A TRUE STORY. - EP",
+          "sourceAlbum": "BASED ON A TRUE STORY. (EXTENDED)",
+          "note": "Source release album differs; exact track title and artists match, with no alternate-version marker in the title. Project album metadata preserved."
+        }
+      ]
+    },
+    {
+      "importedAt": "2026-10-22T13:40:01.480165+00:00",
+      "sourceDirectory": "/Users/teyiyanmacmini/Desktop/Jake miller2",
+      "providedFileCount": 6,
+      "importedTrackCount": 6,
+      "trackIds": [
+        "596194737",
+        "6766823609",
+        "931185216",
+        "1137270483",
+        "1015732766",
+        "1439639051"
+      ],
+      "albumMetadataNotes": [
+        {
+          "title": "A Million Lives",
+          "projectAlbum": "A Million Lives - Single",
+          "sourceAlbum": "A Million Lives - Music Video",
+          "note": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+        },
+        {
+          "title": "Automatic",
+          "projectAlbum": "Plus One - EP",
+          "sourceAlbum": "Automatic",
+          "note": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+        },
+        {
+          "title": "Dazed and Confused (feat. Travie McCoy)",
+          "projectAlbum": "Dazed and Confused - EP",
+          "sourceAlbum": "Dazed And Confused EP",
+          "note": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+        },
+        {
+          "title": "Good Thing",
+          "projectAlbum": "Overnight",
+          "sourceAlbum": "Good Thing",
+          "note": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+        },
+        {
+          "title": "Selfish Girls",
+          "projectAlbum": "Rumors - EP",
+          "sourceAlbum": "Rumors",
+          "note": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+        },
+        {
+          "title": "Wait for You",
+          "projectAlbum": "Wait for You - Single",
+          "sourceAlbum": "WAIT FOR YOU",
+          "note": "Source release album tag differs; title and credited artists match. Project album metadata preserved."
+        }
+      ]
+    },
+    {
+      "importedAt": "2026-10-22T13:45:20.046930+00:00",
+      "sourceDirectory": "/Users/teyiyanmacmini/Downloads",
+      "providedFileCount": 2,
+      "importedTrackCount": 2,
+      "trackIds": [
+        "1525020416",
+        "626378178"
+      ]
+    }
+  ]
+}
