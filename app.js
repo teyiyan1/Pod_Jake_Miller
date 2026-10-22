@@ -4,7 +4,6 @@ const VIDEO_STORAGE_KEY = "encore-jake-miller-videos-v1";
 
 const deck = document.querySelector("#deck");
 const records = document.querySelector("#records");
-const videoFrame = document.querySelector("#video-frame");
 const lyricsView = document.querySelector("#lyrics-view");
 const noteCopy = document.querySelector("#note-copy");
 
@@ -29,6 +28,7 @@ let videoOverrides = {};
 let filteredIndexes = [];
 let activeLyricIndex = -1;
 let pendingAutoplay = false;
+let playbackRequested = false;
 let videoBlocked = false;
 let apiUnavailable = false;
 let apiReadyTimer = null;
@@ -62,6 +62,7 @@ function renderIcons() {
 }
 
 function setPlaybackAction(action, label) {
+  window.encoreAmbient?.setPlaying(action === "pause");
   const button = document.querySelector("#play-toggle");
   const icons = { play: "play", pause: "pause", retry: "play", unavailable: "play", loading: "loader-circle", empty: "play" };
   const labels = { play: "播放", pause: "暂停", retry: "重试播放", unavailable: "暂不可播放", loading: "正在载入", empty: "没有匹配的歌曲" };
@@ -91,7 +92,7 @@ function showConnectionFailure() {
   apiUnavailable = true;
   pendingAutoplay = false;
   clearTimeout(apiReadyTimer);
-  videoFrame.hidden = true;
+  playbackRequested = false;
   setPlaying(false);
 }
 
@@ -161,7 +162,7 @@ function loadYouTubeApi() {
           if (!activeVideoId || (reportedId && reportedId !== activeVideoId)) return;
           const playing = event.data === YT.PlayerState.PLAYING;
           if (playing) {
-            if (videoFrame.hidden) {
+            if (!playbackRequested) {
               ytPlayer.pauseVideo();
               return;
             }
@@ -193,7 +194,7 @@ function loadYouTubeApi() {
           setPlaying(false);
         },
         onAutoplayBlocked: () => {
-          if (activeVideoId && !videoBlocked) setPlaying(false, "播放被浏览器阻止，请点击视频中的播放按钮");
+          if (activeVideoId && !videoBlocked) setPlaying(false, "播放被浏览器阻止，请再次点击播放按钮");
         }
       }
     });
@@ -227,7 +228,10 @@ function makeCover(track, index) {
   reflection.className = "cover-reflection";
   reflection.setAttribute("aria-hidden", "true");
   reflection.append(image.cloneNode());
-  button.append(face, reflection);
+  const art = document.createElement("span");
+  art.className = "cover-art";
+  art.append(face, reflection);
+  button.append(art);
   return button;
 }
 
@@ -282,7 +286,7 @@ function renderTrack(autoplay = false) {
   document.querySelector("#track-title").textContent = track.title;
   document.querySelector("#track-artist").textContent = track.artist;
   document.querySelector("#track-album").textContent = track.album;
-  document.querySelector("#ambient-cover").style.backgroundImage = `url("${track.artwork}")`;
+  window.encoreAmbient?.setTrack(track);
   document.querySelector("#notes-track").textContent = track.title;
   document.querySelector("#notes-album").textContent = track.album;
   renderLyrics(track);
@@ -300,7 +304,7 @@ function syncVideo(autoplay = false) {
   pendingAutoplay = autoplay && !ytReady && hasVideo && !apiUnavailable;
   activeVideoId = videoId;
   videoBlocked = false;
-  videoFrame.hidden = !autoplay || !hasVideo || apiUnavailable;
+  playbackRequested = autoplay && hasVideo && !apiUnavailable;
   const query = encodeURIComponent(`${track.artist} ${track.title} official music video`);
   const searchUrl = `https://www.youtube.com/results?search_query=${query}`;
   document.querySelector("#video-external").href = videoId ? `https://www.youtube.com/watch?v=${videoId}` : searchUrl;
@@ -343,7 +347,7 @@ function togglePlayback() {
     setPlaying(false);
     return;
   }
-  videoFrame.hidden = false;
+  playbackRequested = true;
   if (ytReady) {
     const state = ytPlayer.getPlayerState();
     if (videoBlocked) {
@@ -384,7 +388,7 @@ function filterTracks() {
   if (empty) {
     pendingAutoplay = false;
     if (ytReady) ytPlayer.pauseVideo();
-    videoFrame.hidden = true;
+    playbackRequested = false;
     setPlaybackAction("empty", "No matching tracks");
     renderDeck();
   } else if (!filteredIndexes.includes(currentIndex)) {
@@ -585,11 +589,7 @@ function bindEvents() {
       gestureAxis = Math.abs(dx) > Math.abs(dy) ? "horizontal" : "vertical";
     }
     if (gestureAxis !== "horizontal") return;
-    if (!videoFrame.hidden) {
-      if (ytReady) ytPlayer.pauseVideo();
-      pendingAutoplay = false;
-      videoFrame.hidden = true;
-    }
+    window.encoreAmbient?.setDragging(true);
     dragOffset = Math.max(-2, Math.min(2, dx / (window.innerWidth <= 700 ? 120 : 160)));
     deck.classList.add("is-dragging");
     renderDeck();
@@ -599,6 +599,7 @@ function bindEvents() {
     const delta = event.clientX - dragStartX;
     const vertical = gestureAxis === "vertical";
     isDragging = false;
+    window.encoreAmbient?.setDragging(false);
     dragOffset = 0;
     deck.classList.remove("is-dragging");
     if (!vertical && Math.abs(delta) > 35) {
@@ -611,6 +612,7 @@ function bindEvents() {
   });
   window.addEventListener("pointercancel", () => {
     isDragging = false;
+    window.encoreAmbient?.setDragging(false);
     dragOffset = 0;
     deck.classList.remove("is-dragging");
     renderDeck();

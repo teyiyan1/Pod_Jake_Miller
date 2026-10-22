@@ -77,19 +77,43 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#play-toggle").getAttribute("aria-pressed"), "false");
     await page.locator("#play-toggle").click();
     assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
-    const frame = await page.locator("#youtube-player").boundingBox();
-    assert.ok(frame.width >= 200 && frame.height >= 200, "playing video is visible and at least 200px square");
-    const cover = await page.locator(".cover-card.is-active .cover-face").boundingBox();
-    for (const key of ["x", "y", "width", "height"]) {
-      assert.ok(Math.abs(frame[key] - cover[key]) < 2, `video matches center cover ${key}`);
-    }
+    assert.equal(await page.locator("#youtube-player").boundingBox(), null, "playback has no visible video or reserved space");
+    assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "running");
+    await page.waitForFunction(() => document.querySelector("#ambient-cover").dataset.palette);
+    const flow = page.locator(".ambient-layer.is-current .ambient-flow");
+    const motionA = await flow.evaluate(el => getComputedStyle(el).transform);
+    await page.waitForTimeout(300);
+    assert.notEqual(await flow.evaluate(el => getComputedStyle(el).transform), motionA, "playing background moves");
     await page.locator("#play-toggle").click();
     assert.equal(await page.locator("#playback-state").textContent(), "Paused");
+    assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused");
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    const pausedTransform = await flow.evaluate(el => getComputedStyle(el).transform);
+    await page.waitForTimeout(300);
+    assert.equal(await flow.evaluate(el => getComputedStyle(el).transform), pausedTransform, "paused background freezes without snapping");
     await page.locator("#repeat-toggle").click();
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.waitForFunction(() => document.documentElement.dataset.ambientMotion === "paused");
+    assert.equal(await flow.evaluate(el => getComputedStyle(el).animationName), "none");
+    await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.evaluate(() => window.__players[0].emit(0));
     assert.equal(await page.locator("#track-title").textContent(), "Parties");
     assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
     await page.locator("#repeat-toggle").click();
+    await page.evaluate(() => window.__players[0].emit(3));
+    assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused", "buffering stops motion");
+    await page.evaluate(() => window.__players[0].emit(1));
+    await page.evaluate(() => {
+      Object.defineProperty(document, "hidden", { configurable: true, value: true });
+      document.dispatchEvent(new Event("visibilitychange"));
+    });
+    assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused", "hidden page stops motion");
+    await page.evaluate(() => {
+      delete document.hidden;
+      document.dispatchEvent(new Event("visibilitychange"));
+    });
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "play", "returning to page does not autoplay");
+    await page.locator("#play-toggle").click();
 
     const side = await page.locator('.cover-card[data-index="8"] .cover-face').boundingBox();
     await page.mouse.click(side.x + side.width - 10, side.y + side.height / 2);
@@ -98,6 +122,7 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#play-toggle").isDisabled(), true);
     assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "unavailable");
     assert.equal(await page.locator("#video-frame").isVisible(), false);
+    assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused");
     assert.equal(await page.locator("#source-dialog").evaluate(el => el.open), false);
     await page.locator("#source-open").click();
     assert.equal(await page.locator("#source-dialog").evaluate(el => el.open), true);
@@ -158,17 +183,10 @@ async function selectFromQueue(page, index) {
     await selectFromQueue(page, 7);
     for (const [width, height] of [[1440,1000], [1920,1080], [390,844], [320,780]]) {
       await page.setViewportSize({ width, height });
+      await page.evaluate(() => scrollTo(0, 0));
       await page.waitForTimeout(500);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `no ${width}px horizontal overflow`);
-      const box = await page.locator("#youtube-player").boundingBox();
-      assert.ok(box.width >= 200 && box.height >= 200);
-      const coverBox = await page.locator(".cover-card.is-active .cover-face").boundingBox();
-      assert.ok(Math.abs(box.x - coverBox.x) < 2 && Math.abs(box.width - coverBox.width) < 2);
-      assert.equal(await page.evaluate(() => {
-        const frame = document.querySelector("#youtube-player");
-        const rect = frame.getBoundingClientRect();
-        return document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2) === frame;
-      }), true, "video is not covered by album artwork");
+      assert.equal(await page.locator("#youtube-player").boundingBox(), null, "video stays hidden on every viewport");
       const geometry = await page.evaluate(() => {
         const center = document.querySelector(".cover-card.is-active .cover-face").getBoundingClientRect();
         const next = document.querySelector('.cover-card[data-index="9"] .cover-face').getBoundingClientRect();
@@ -186,10 +204,11 @@ async function selectFromQueue(page, index) {
     await selectFromQueue(page, 7);
     const failedCallCount = await page.evaluate(() => window.__players[0].calls.length);
     await page.evaluate(() => window.__players[0].events.onError({ data: 150 }));
+    assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused", "failed playback stops motion");
     assert.equal(await page.locator("#play-toggle").isDisabled(), false);
     assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "retry");
     assert.equal(await page.locator("#play-toggle").getAttribute("aria-label"), "重试播放");
-    assert.equal(await page.locator("#video-frame").isVisible(), true, "native YouTube error remains visible");
+    assert.equal(await page.locator("#video-frame").isVisible(), false, "errors do not reveal the video region");
     assert.equal(await page.locator("#playback-state").textContent(), "YouTube 暂时无法播放此歌曲");
     const popups = [];
     page.on("popup", popup => popups.push(popup));
@@ -254,10 +273,10 @@ async function selectFromQueue(page, index) {
     await earlyPage.addScriptTag({ content: mockApi });
     await earlyPage.waitForFunction(() => document.querySelector("#play-toggle").dataset.action === "pause");
     assert.deepEqual(await earlyPage.evaluate(() => window.__players[0].calls), ["load"]);
-    assert.equal(await earlyPage.locator("#video-frame").isVisible(), true);
+    assert.equal(await earlyPage.locator("#video-frame").isVisible(), false);
     await earlyPage.close();
     assert.deepEqual(errors, []);
-    console.log("PASS: center-cover video, direct middle-button playback with no popup/editor, explicit retry only, missing-source state, early click, autoplay blocking, API failure/timeout/recovery, source persistence, search, drag, lyrics, desktop/mobile geometry");
+    console.log("PASS: hidden video with playback controls, album art retained, playback-driven ambient motion, pause/error/reduced-motion states, source persistence, search, drag, lyrics, desktop/mobile geometry");
     console.log(`Screenshots: ${output}`);
   } finally {
     await browser.close();

@@ -18,6 +18,7 @@ Then open `http://127.0.0.1:8766/`.
 - `index.html`: page structure and dialogs
 - `styles.css`: responsive layout and Cover Flow presentation
 - `app.js`: YouTube playback, carousel, and lyric import
+- `ambient.js`: cached artwork color sampling and playback-driven visual state
 - `data/tracks.js`: editable 27-track setlist and Apple Music artwork metadata
 - `vendor/lucide.min.js`: locally bundled Lucide icons (license in `vendor/LICENSE`)
 
@@ -25,11 +26,15 @@ Then open `http://127.0.0.1:8766/`.
 
 The current interface adapts the user's downloaded Vynora (Community) Make source: black iPod header, inset search, Cover Flow transforms, reflected covers, track metadata and large playback controls. The source archive was inspected at `../Vynora_Make_Source`. The previous Encore source is backed up at `../Jake_Miller_Encore-before-vynora-20261022.zip`.
 
-Unlike the reference's zero-size hidden audio player and additional background iframe, this version uses a single visible YouTube player with its own controls. Playback starts only following an explicit user action; the app does not claim music is playing until the player reports it. Unknown or blocked video sources are not silently replaced.
+The current view uses one hidden YouTube iframe, controlled by the central playback button. There is no additional background iframe. Playback starts only following an explicit user action; the app does not claim music is playing until the player reports it. Unknown or blocked video sources are not silently replaced.
 
-The main control only requests in-page playback or pause; it never opens a source editor or an external page. On playback, the single visible YouTube iframe replaces the center album cover. There is no separate YouTube information card or pending-source placeholder. Idle browsing shows artwork. The native player stays visible during playback and on playback errors, including any verification message from YouTube.
+The main control only requests in-page playback or pause; it never opens a source editor or an external page. The YouTube region remains hidden, with no reserved layout space, during idle, playback and error states on all screen sizes. Playback intent is tracked separately from DOM visibility. The center album cover and its reflection remain visible; failures appear in the existing playback status. Hiding the iframe does not turn it into a separate audio service or change video availability.
 
-Missing sources and unavailable API connections have an explicitly disabled play control with a short status. A video playback error offers a manual retry through the play button, with no automatic retry loop. Clicking before the API is ready queues one playback request, canceled on connection failure or navigation to another track. Browser autoplay refusal leaves the native controls visible. None of these UI changes bypass platform restrictions or guarantee full playback.
+The ambient background samples each cover once on a 32px canvas, caches the result, and crossfades between two full-screen texture layers. The palette also colors the active cover's glow. CSS transforms and opacity create slow drift and a shared 5.6-second simulated breathing rhythm for background, cover and reflection. This is not audio-frequency analysis: YouTube does not expose audio samples to this page. Motion begins only on a real PLAYING callback and pauses on pause, buffering, errors, track changes, dragging or a hidden tab. Reduced-motion preferences disable loops; mobile styling reduces blur and intensity. CORS/image failures use a neutral palette and the original artwork texture without blocking playback. There is no extra video player or animation-frame pixel processing.
+
+Reference: the requested Figma Make `qdgzDrEORQjCH9NpzkK6Se` exposed its source-file list, but the connector could not return source bodies or a Make screenshot. The implementation follows the agreed behavior and the previously downloaded Vynora reference at `../Vynora_Make_Source`; it is not a pixel-exact verification of the new Make preview.
+
+Missing sources and unavailable API connections have an explicitly disabled play control with a short status. A video playback error offers a manual retry through the play button, with no automatic retry loop. Clicking before the API is ready queues one playback request, canceled on connection failure or navigation to another track. Browser autoplay refusal asks for another explicit click on the central play control. None of these UI changes bypass platform restrictions or guarantee full playback.
 
 The header's link button opens a per-track YouTube source editor. Valid YouTube URLs or video IDs are stored only in the current browser. The lyrics button opens locally imported, per-track LRC/TXT text. Both the existing selected-track and lyrics storage keys are retained.
 
