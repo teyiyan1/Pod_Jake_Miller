@@ -6,10 +6,10 @@
     <meta name="theme-color" content="#050506">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Jake Miller · Listening Room</title>
-    <link rel="stylesheet" href="./styles.css?v=vynora-2">
-    <script src="./data/tracks.js" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=cover-player-1">
+    <script src="./data/tracks.js?v=video-links-20261022" defer></script>
     <script src="./vendor/lucide.min.js" defer></script>
-    <script src="./app.js?v=vynora-2" defer></script>
+    <script src="./app.js?v=cover-player-1" defer></script>
   </head>
   <body>
     <div class="ambient-cover" id="ambient-cover" aria-hidden="true"></div>
@@ -21,6 +21,8 @@
       </a>
       <h1>Jake Miller <span id="result-count">· 27 Tracks</span></h1>
       <div class="top-actions">
+        <button class="icon-button" id="source-open" type="button" aria-label="关联当前歌曲的 YouTube 视频" title="关联视频"><i data-lucide="link"></i></button>
+        <a id="video-external" class="icon-button" href="https://www.youtube.com/watch?v=oCkufmjcy3I" target="_blank" rel="noreferrer" aria-label="在 YouTube 打开" title="在 YouTube 打开"><i data-lucide="external-link"></i></a>
         <button class="icon-button" id="queue-open" type="button" aria-label="歌单" title="歌单"><i data-lucide="list-music"></i></button>
         <button class="icon-button" id="lyrics-open" type="button" aria-label="歌词" title="歌词"><i data-lucide="captions"></i></button>
         <span class="battery" aria-label="iPod 电量装饰"><span></span></span>
@@ -37,30 +39,12 @@
         </form>
       </section>
 
-      <section class="video-section" aria-label="YouTube 播放器">
-        <div class="video-heading">
-          <span><i data-lucide="youtube" aria-hidden="true"></i> YouTube</span>
-          <div>
-            <button class="icon-button" id="source-open" type="button" aria-label="关联当前歌曲的 YouTube 视频" title="关联视频"><i data-lucide="link"></i></button>
-            <a id="video-external" class="icon-button" href="https://www.youtube.com/watch?v=oCkufmjcy3I" target="_blank" rel="noreferrer" aria-label="在 YouTube 打开" title="在 YouTube 打开"><i data-lucide="external-link"></i></a>
-          </div>
-        </div>
-        <div class="video-frame" id="video-frame">
-          <div id="youtube-player"></div>
-          <div class="video-empty" id="video-empty">
-            <img id="video-poster" src="" alt="">
-            <div>
-              <p id="video-empty-title">Video unavailable</p>
-              <a id="video-search" href="https://www.youtube.com/results?search_query=Jake+Miller+Parties+official+music+video" target="_blank" rel="noreferrer">YouTube <i data-lucide="arrow-up-right"></i></a>
-            </div>
-          </div>
-        </div>
-        <p id="video-status" role="status">Ready</p>
-      </section>
-
       <section class="gallery" aria-label="Cover Flow 歌单">
         <div class="deck" id="deck">
           <div class="records" id="records"></div>
+          <div class="video-frame" id="video-frame" role="region" aria-label="当前歌曲的 YouTube 视频" hidden>
+            <div id="youtube-player"></div>
+          </div>
         </div>
         <p class="search-empty" id="search-empty" hidden>No tracks found</p>
         <div class="track-caption" aria-live="polite">

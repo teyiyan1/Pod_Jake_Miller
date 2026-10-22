@@ -554,7 +554,24 @@
     "trackId": "1818448920",
     "title": "A Million Ways To Miss You",
     "artist": "Jake Miller",
-    "candidates": []
+    "candidates": [
+      {
+        "videoId": "Ux2R9ZEqsPA",
+        "title": "Jake Miller - A Million Ways To Miss You (Music Video)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "2:48",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=Ux2R9ZEqsPA",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20A%20Million%20Ways%20To%20Miss%20You"
+      }
+    ]
   },
   {
     "trackId": "1271854177",

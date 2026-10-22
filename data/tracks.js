@@ -6,8 +6,18 @@ const encoreTracks = [
     "album": "Dazed and Confused - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music7/v4/c8/a9/90/c8a99024-9062-5453-f14f-bd520df90099/dj.ltdysgvv.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/dazed-and-confused-feat-travie-mccoy/931185207?i=931185216&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "x8Nh0rLS9yg",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Dazed and Confused (Feat. Travie McCoy)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=x8Nh0rLS9yg",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1015732764",
@@ -16,8 +26,18 @@ const encoreTracks = [
     "album": "Rumors - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8c/84/75/8c8475e9-405f-5164-aa69-f8c9fc1aa117/093624925569.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/rumors/1015732321?i=1015732764&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "wfkGR6PlWDk",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Rumors (Official Music Video)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=wfkGR6PlWDk",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "596194737",
@@ -26,8 +46,18 @@ const encoreTracks = [
     "album": "A Million Lives - Single",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/da/4a/12/da4a121a-447f-f94d-3477-4dd2a46c606d/Jake_Miller_A_Million_Lives_final.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/a-million-lives/596194729?i=596194737&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "oGGs65J3UEA",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - A Million Lives (Official Music Video)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=oGGs65J3UEA",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1657249574",
@@ -36,8 +66,18 @@ const encoreTracks = [
     "album": "Songs For My Fiancée - Single",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/a3/a2/ce/a3a2ce9b-57f7-a062-fa3b-b73986c9776d/197342023399_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/lucky-me/1657249573?i=1657249574&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "XysLGnlSjE0",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Lucky Me (The proposal)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=XysLGnlSjE0",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "6772170211",
@@ -46,8 +86,18 @@ const encoreTracks = [
     "album": "Still Dancing - Single",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ae/57/ec/ae57ec58-6a90-5953-a4eb-eb92443ac749/449106.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/still-dancing/6772170210?i=6772170211&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "TsrjN3MNmIs",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Keenan Te, Jake Miller - Still Dancing (Official Lyric Video)",
+      "publisher": "KeenanTeVEVO",
+      "publisherUrl": "https://www.youtube.com/@keenantevevo133",
+      "channelId": "UC_BdnSer2n7N-lIf8pd6MEQ",
+      "watchUrl": "https://www.youtube.com/watch?v=TsrjN3MNmIs",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "626378178",
@@ -56,8 +106,18 @@ const encoreTracks = [
     "album": "The Road Less Traveled - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features114/v4/ad/2e/62/ad2e628f-3568-7435-a659-a0f186f190b9/dj.qzxrifrc.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/steven/626377704?i=626378178&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "mWTWDY3HcGg",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Steven (Official Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=mWTWDY3HcGg",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1015732766",
@@ -66,8 +126,18 @@ const encoreTracks = [
     "album": "Rumors - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8c/84/75/8c8475e9-405f-5164-aa69-f8c9fc1aa117/093624925569.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/selfish-girls/1015732321?i=1015732766&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "AMQm0Sd-5n4",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Selfish Girls",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=AMQm0Sd-5n4",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1271854172",
@@ -77,7 +147,17 @@ const encoreTracks = [
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/parties/1271854156?i=1271854172&uo=4",
     "officialVideoId": "oCkufmjcy3I",
-    "note": "把热闹留给今晚。人群、灯光和重逢，都在这一刻有了位置。"
+    "note": "把热闹留给今晚。人群、灯光和重逢，都在这一刻有了位置。",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Parties (Official Music Video)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=oCkufmjcy3I",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1439639051",
@@ -86,8 +166,18 @@ const encoreTracks = [
     "album": "Wait for You - Single",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/ab/f5/b9/abf5b948-a409-bb90-e92f-2ea4d73bb403/193483114576.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/wait-for-you/1439638746?i=1439639051&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "Eh2ZYcjgMAI",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Wait For You (Official Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=Eh2ZYcjgMAI",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1454321964",
@@ -96,8 +186,18 @@ const encoreTracks = [
     "album": "BASED ON A TRUE STORY. - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/2d/8d/2d/2d8d2dc1-65fa-50c0-5e73-06e5ccc28b4a/886447581674.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/nikes/1454321944?i=1454321964&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "NOxoDeNCdG8",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - NIKES (Official Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=NOxoDeNCdG8",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1271854176",
@@ -106,8 +206,18 @@ const encoreTracks = [
     "album": "2:00am in LA",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/i-wish-you-didnt-love-me/1271854156?i=1271854176&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "bHzA7r2cHLU",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - I Wish You Didn't Love Me (Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=bHzA7r2cHLU",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1349911983",
@@ -116,8 +226,18 @@ const encoreTracks = [
     "album": "Silver Lining",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/45/3b/70/453b70d4-0ded-0d0e-35eb-d7acf0dcb1f5/888915562246_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/drinkin-about-you/1349911860?i=1349911983&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "vxXUApp8Wwc",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Drinkin About You (Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=vxXUApp8Wwc",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1478559230",
@@ -126,8 +246,18 @@ const encoreTracks = [
     "album": "SUMMER 19 - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/last-text/1478559212?i=1478559230&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "9wOWzuxbftk",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - LAST TEXT (Official Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=9wOWzuxbftk",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1435778127",
@@ -136,8 +266,18 @@ const encoreTracks = [
     "album": "Sorry for Writing All the Songs About You - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/17/34/25/17342575-83be-5163-3425-1fbe85f170bc/075679862631.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/better-me-better-you/1435778121?i=1435778127&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "vXdA36z09zI",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Clara Mae & Jake Miller - Better Me Better You (Official Video)",
+      "publisher": "Clara Mae",
+      "publisherUrl": "https://www.youtube.com/@iamclaramae",
+      "channelId": "UCWNVPfzSAAJr2L4GyvF6y7g",
+      "watchUrl": "https://www.youtube.com/watch?v=vXdA36z09zI",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1271854174",
@@ -146,8 +286,18 @@ const encoreTracks = [
     "album": "2:00am in LA",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/palm-blvd/1271854156?i=1271854174&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "wqRM8LZkSNA",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Palm Blvd (Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=wqRM8LZkSNA",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1478559232",
@@ -156,8 +306,18 @@ const encoreTracks = [
     "album": "SUMMER 19 - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/ocean-away/1478559212?i=1478559232&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "_UXBZ_dv_a0",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - OCEAN AWAY (Official Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=_UXBZ_dv_a0",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1478559227",
@@ -166,8 +326,18 @@ const encoreTracks = [
     "album": "SUMMER 19 - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/15-minutes/1478559212?i=1478559227&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "q4i38aFIFyM",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - 15 MINUTES (Official Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=q4i38aFIFyM",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1525020416",
@@ -177,7 +347,11 @@ const encoreTracks = [
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/05/59/e6/0559e6eb-1fee-2adc-d76f-f0a150012e55/195081707631.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/ross-and-rachel/1525020414?i=1525020416&uo=4",
     "officialVideoId": "",
-    "note": ""
+    "note": "",
+    "videoVerification": {
+      "status": "pending-official-full-version",
+      "checkedAt": "2026-10-22T10:02:43.341Z"
+    }
   },
   {
     "id": "6815101529",
@@ -187,7 +361,11 @@ const encoreTracks = [
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/82/43/2e/82432ed4-7844-ee2f-0f4f-8b14fcf3f29b/196874818664.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/momentum/6815101528?i=6815101529&uo=4",
     "officialVideoId": "",
-    "note": ""
+    "note": "",
+    "videoVerification": {
+      "status": "pending-official-full-version",
+      "checkedAt": "2026-10-22T10:02:43.341Z"
+    }
   },
   {
     "id": "6796607454",
@@ -197,7 +375,11 @@ const encoreTracks = [
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1b/e1/fa/1be1fa79-ce07-10e3-0ac3-af623605a961/196874653876.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/waiting-on-august/6796607452?i=6796607454&uo=4",
     "officialVideoId": "",
-    "note": ""
+    "note": "",
+    "videoVerification": {
+      "status": "pending-official-full-version",
+      "checkedAt": "2026-10-22T10:02:43.341Z"
+    }
   },
   {
     "id": "6789188248",
@@ -207,7 +389,11 @@ const encoreTracks = [
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/75/58/99/75589905-6f11-65e1-3b1b-f1d6675cb57f/196874598078.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/spark/6789188236?i=6789188248&uo=4",
     "officialVideoId": "",
-    "note": ""
+    "note": "",
+    "videoVerification": {
+      "status": "pending-official-full-version",
+      "checkedAt": "2026-10-22T10:02:43.341Z"
+    }
   },
   {
     "id": "6766823609",
@@ -216,8 +402,18 @@ const encoreTracks = [
     "album": "Plus One - EP",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7b/7d/90/7b7d90b1-f919-782a-900c-10952f89be34/61479.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/automatic/6766823598?i=6766823609&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "J8rf6YtNAPA",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Fly By Midnight - Automatic (feat. Jake Miller) (Official Video)",
+      "publisher": "Fly By Midnight",
+      "publisherUrl": "https://www.youtube.com/@FlyByMidnight",
+      "channelId": "UCJDQtPgwh6oV5MbPmclqIAg",
+      "watchUrl": "https://www.youtube.com/watch?v=J8rf6YtNAPA",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1818448920",
@@ -226,8 +422,18 @@ const encoreTracks = [
     "album": "BALANCE",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/18/76/20/18762093-e6a2-bfc9-1434-2b47f24976a4/199350723827.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/a-million-ways-to-miss-you/1818448581?i=1818448920&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "Ux2R9ZEqsPA",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - A Million Ways To Miss You (Music Video)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=Ux2R9ZEqsPA",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1271854177",
@@ -236,8 +442,18 @@ const encoreTracks = [
     "album": "2:00am in LA",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/no-return/1271854156?i=1271854177&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "6bQpm4D64zE",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - No Return (Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=6bQpm4D64zE",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1271854175",
@@ -246,8 +462,18 @@ const encoreTracks = [
     "album": "2:00am in LA",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/answers/1271854156?i=1271854175&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "Kr1xzr_dQ4Y",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Answers (Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=Kr1xzr_dQ4Y",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1271854541",
@@ -256,8 +482,18 @@ const encoreTracks = [
     "album": "2:00am in LA",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/back-to-the-start/1271854156?i=1271854541&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "MUpcimkhvxA",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Back To The Start (Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=MUpcimkhvxA",
+      "runtimeStatus": "not-certified"
+    }
   },
   {
     "id": "1137270483",
@@ -266,8 +502,18 @@ const encoreTracks = [
     "album": "Overnight",
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/42/32/bb/4232bb63-dcc0-116f-3f5f-2bb2edd90df2/093624917458.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/good-thing/1137270164?i=1137270483&uo=4",
-    "officialVideoId": "",
-    "note": ""
+    "officialVideoId": "NKiN7Tg9HV0",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Good Thing",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=NKiN7Tg9HV0",
+      "runtimeStatus": "not-certified"
+    }
   }
 ];
 if (typeof module !== "undefined") module.exports = encoreTracks;

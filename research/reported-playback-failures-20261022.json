@@ -1,0 +1,54 @@
+{
+  "checkedOn": "2026-10-22",
+  "environment": "Independent Google Chrome on the local application, real YouTube IFrame API",
+  "control": {
+    "title": "Parties",
+    "videoId": "oCkufmjcy3I",
+    "playerState": 1,
+    "currentTimeSeconds": 2.0049610343322755,
+    "playabilityStatus": "OK"
+  },
+  "reportedTracks": [
+    {
+      "title": "NIKES",
+      "videoId": "NOxoDeNCdG8",
+      "playerState": -1,
+      "currentTimeSeconds": 0,
+      "playabilityStatus": "UNPLAYABLE",
+      "reason": "This video is unavailable",
+      "playerVideoDataErrorCode": "auth"
+    },
+    {
+      "title": "I Wish You Didn't Love Me",
+      "videoId": "bHzA7r2cHLU",
+      "playerState": -1,
+      "currentTimeSeconds": 0,
+      "playabilityStatus": "UNPLAYABLE",
+      "reason": "This video is unavailable",
+      "playerVideoDataErrorCode": "auth"
+    },
+    {
+      "title": "OCEAN AWAY",
+      "videoId": "_UXBZ_dv_a0",
+      "playerState": -1,
+      "currentTimeSeconds": 0,
+      "playabilityStatus": "UNPLAYABLE",
+      "reason": "This video is unavailable",
+      "playerVideoDataErrorCode": "auth"
+    }
+  ],
+  "additionalChecks": {
+    "freshPlayerPerReportedTrack": "Same three failures",
+    "nikesWatchPage": { "status": "OK", "playableInEmbed": true },
+    "nikesOfficialPrivacyEnhancedEmbed": "UNPLAYABLE: This video is unavailable",
+    "nikesInitialPlaybackWithoutRecue": "Same failure",
+    "officialAlternateSearch": "No confirmed matching alternative found",
+    "publicUploadCandidates": [
+      { "videoId": "GQFGnX3A1Gk", "playerApiError": 150, "playbackVerified": false },
+      { "videoId": "ellhse7E5ZM", "playerApiError": 150, "playbackVerified": false },
+      { "videoId": "mbzgnd8p7UY", "playerApiError": 150, "playbackVerified": false }
+    ],
+    "publicUploadRetestInApp": "Parties control played, but GQFGnX3A1Gk remained loading after source reassociation. No successful playback was observed."
+  },
+  "conclusion": "The three reported failures are reproducible while the control plays. The exact platform cause is undetermined; neither owner-disabled embedding nor a specific login requirement is established by these results. No candidate replacement was verified, and no published source was changed. Metadata matching and one successful control do not establish catalog playability."
+}

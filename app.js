@@ -5,7 +5,6 @@ const VIDEO_STORAGE_KEY = "encore-jake-miller-videos-v1";
 const deck = document.querySelector("#deck");
 const records = document.querySelector("#records");
 const videoFrame = document.querySelector("#video-frame");
-const videoEmpty = document.querySelector("#video-empty");
 const lyricsView = document.querySelector("#lyrics-view");
 const noteCopy = document.querySelector("#note-copy");
 
@@ -31,6 +30,8 @@ let filteredIndexes = [];
 let activeLyricIndex = -1;
 let pendingAutoplay = false;
 let videoBlocked = false;
+let apiUnavailable = false;
+let apiReadyTimer = null;
 
 try {
   savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
@@ -60,18 +61,38 @@ function renderIcons() {
   window.lucide?.createIcons({ attrs: { "stroke-width": 1.6, "aria-hidden": "true" } });
 }
 
-function setPlaying(playing, label) {
+function setPlaybackAction(action, label) {
   const button = document.querySelector("#play-toggle");
-  const icon = playing ? "pause" : "play";
+  const icons = { play: "play", pause: "pause", retry: "play", unavailable: "play", loading: "loader-circle", empty: "play" };
+  const labels = { play: "播放", pause: "暂停", retry: "重试播放", unavailable: "暂不可播放", loading: "正在载入", empty: "没有匹配的歌曲" };
+  const icon = icons[action];
   if (button.dataset.icon !== icon) {
     button.innerHTML = `<i data-lucide="${icon}"></i>`;
     button.dataset.icon = icon;
     renderIcons();
   }
-  button.setAttribute("aria-pressed", String(playing));
-  button.setAttribute("aria-label", playing ? "暂停" : "播放");
-  button.title = playing ? "暂停" : "播放";
+  button.dataset.action = action;
+  button.disabled = ["loading", "empty", "unavailable"].includes(action);
+  button.setAttribute("aria-pressed", String(action === "pause"));
+  button.setAttribute("aria-label", labels[action]);
+  button.title = labels[action];
   if (label) document.querySelector("#playback-state").textContent = label;
+}
+
+function setPlaying(playing, label) {
+  if (!filteredIndexes.length) return setPlaybackAction("empty", "No matching tracks");
+  if (!videoIdFor(currentTrack())) return setPlaybackAction("unavailable", "此歌曲暂无可用音源");
+  if (apiUnavailable) return setPlaybackAction("unavailable", "无法连接 YouTube，请检查网络后刷新");
+  if (videoBlocked) return setPlaybackAction("retry", "YouTube 暂时无法播放此歌曲");
+  setPlaybackAction(playing ? "pause" : "play", label);
+}
+
+function showConnectionFailure() {
+  apiUnavailable = true;
+  pendingAutoplay = false;
+  clearTimeout(apiReadyTimer);
+  videoFrame.hidden = true;
+  setPlaying(false);
 }
 
 function currentTrack() {
@@ -113,6 +134,9 @@ function normalizeName(value) {
 }
 
 function loadYouTubeApi() {
+  apiReadyTimer = setTimeout(() => {
+    if (!ytReady) showConnectionFailure();
+  }, 12000);
   const initialize = () => {
     if (ytPlayer) return;
     const track = currentTrack();
@@ -125,6 +149,8 @@ function loadYouTubeApi() {
       events: {
         onReady: () => {
           ytReady = true;
+          apiUnavailable = false;
+          clearTimeout(apiReadyTimer);
           if (muted) ytPlayer.mute();
           const autoplay = pendingAutoplay;
           pendingAutoplay = false;
@@ -135,15 +161,17 @@ function loadYouTubeApi() {
           if (!activeVideoId || (reportedId && reportedId !== activeVideoId)) return;
           const playing = event.data === YT.PlayerState.PLAYING;
           if (playing) {
-            videoEmpty.hidden = true;
+            if (videoFrame.hidden) {
+              ytPlayer.pauseVideo();
+              return;
+            }
             videoBlocked = false;
             document.querySelector("#play-toggle").disabled = !filteredIndexes.length;
             setPlaying(true, "Now Playing");
-            document.querySelector("#video-status").textContent = currentTrack().title;
           } else if (event.data === YT.PlayerState.PAUSED) {
             setPlaying(false, "Paused");
           } else if (event.data === YT.PlayerState.BUFFERING) {
-            setPlaying(false, "Loading…");
+            if (!videoBlocked) setPlaybackAction("loading", "Loading…");
           } else if (event.data === YT.PlayerState.CUED) {
             document.querySelector("#play-toggle").disabled = !ytReady || !filteredIndexes.length;
             setPlaying(false, "Ready to play");
@@ -162,11 +190,10 @@ function loadYouTubeApi() {
           const reportedId = ytPlayer.getVideoData?.().video_id;
           if (!activeVideoId || (reportedId && reportedId !== activeVideoId)) return;
           videoBlocked = true;
-          videoEmpty.hidden = false;
-          document.querySelector("#play-toggle").disabled = true;
-          setPlaying(false, "Video unavailable");
-          document.querySelector("#video-status").textContent = `YouTube · ${event.data}`;
-          document.querySelector("#video-empty-title").textContent = "Unavailable in embedded player";
+          setPlaying(false);
+        },
+        onAutoplayBlocked: () => {
+          if (activeVideoId && !videoBlocked) setPlaying(false, "播放被浏览器阻止，请点击视频中的播放按钮");
         }
       }
     });
@@ -179,12 +206,7 @@ function loadYouTubeApi() {
   const script = document.createElement("script");
   script.src = "https://www.youtube.com/iframe_api";
   script.async = true;
-  script.onerror = () => {
-    videoEmpty.hidden = false;
-    document.querySelector("#video-empty-title").textContent = "YouTube connection unavailable";
-    document.querySelector("#video-status").textContent = "Connection unavailable";
-    setPlaying(false, "YouTube unavailable");
-  };
+  script.onerror = showConnectionFailure;
   document.head.append(script);
 }
 
@@ -275,20 +297,18 @@ function syncVideo(autoplay = false) {
   if (!track) return;
   const videoId = videoIdFor(track);
   const hasVideo = Boolean(videoId);
+  pendingAutoplay = autoplay && !ytReady && hasVideo && !apiUnavailable;
   activeVideoId = videoId;
   videoBlocked = false;
-  document.querySelector("#video-poster").src = track.artwork;
-  document.querySelector("#video-poster").alt = `${track.album} 专辑封面`;
-  videoFrame.classList.toggle("no-video", !hasVideo);
-  videoEmpty.hidden = hasVideo;
-  document.querySelector("#video-status").textContent = hasVideo ? track.title : "No linked video";
-  document.querySelector("#video-empty-title").textContent = "No video linked to this track";
+  videoFrame.hidden = !autoplay || !hasVideo || apiUnavailable;
   const query = encodeURIComponent(`${track.artist} ${track.title} official music video`);
   const searchUrl = `https://www.youtube.com/results?search_query=${query}`;
-  document.querySelector("#video-search").href = searchUrl;
   document.querySelector("#video-external").href = videoId ? `https://www.youtube.com/watch?v=${videoId}` : searchUrl;
-  document.querySelector("#play-toggle").disabled = true;
-  setPlaying(false, hasVideo ? (ytReady ? "Loading video…" : "Connecting to YouTube…") : "Video source needed");
+  if (!filteredIndexes.length) setPlaybackAction("empty", "No matching tracks");
+  else if (!hasVideo) setPlaybackAction("unavailable", "此歌曲暂无可用音源");
+  else if (apiUnavailable) setPlaying(false);
+  else if (!ytReady && !autoplay) setPlaybackAction("play", "Ready to play");
+  else setPlaybackAction("loading", ytReady ? "Loading video…" : "Connecting to YouTube…");
   if (ytReady) {
     if (hasVideo) {
       if (autoplay) ytPlayer.loadVideoById(videoId);
@@ -301,7 +321,6 @@ function syncVideo(autoplay = false) {
 
 function selectTrack(index, autoplay = false) {
   currentIndex = (index + tracks.length) % tracks.length;
-  pendingAutoplay = autoplay && !ytReady && Boolean(videoIdFor(currentTrack()));
   renderTrack(autoplay);
 }
 
@@ -316,13 +335,26 @@ function advanceTrack(direction, autoplay = false) {
 }
 
 function togglePlayback() {
+  if (document.querySelector("#play-toggle").disabled) return;
   const track = currentTrack();
-  if (videoIdFor(track) && ytReady && !videoBlocked) {
+  if (!filteredIndexes.length) return;
+  const videoId = videoIdFor(track);
+  if (!videoId || apiUnavailable) {
+    setPlaying(false);
+    return;
+  }
+  videoFrame.hidden = false;
+  if (ytReady) {
     const state = ytPlayer.getPlayerState();
-    if (state === YT.PlayerState.PLAYING) ytPlayer.pauseVideo();
+    if (videoBlocked) {
+      videoBlocked = false;
+      setPlaybackAction("loading", "Loading…");
+      ytPlayer.loadVideoById(videoId);
+    } else if (state === YT.PlayerState.PLAYING) ytPlayer.pauseVideo();
     else ytPlayer.playVideo();
   } else {
-    openSourceEditor();
+    pendingAutoplay = true;
+    setPlaybackAction("loading", "Connecting to YouTube…");
   }
 }
 
@@ -350,15 +382,18 @@ function filterTracks() {
   document.querySelector("#control-prev").disabled = empty;
   document.querySelector("#control-next").disabled = empty;
   if (empty) {
+    pendingAutoplay = false;
     if (ytReady) ytPlayer.pauseVideo();
-    setPlaying(false, "No matching tracks");
-    document.querySelector("#play-toggle").disabled = true;
+    videoFrame.hidden = true;
+    setPlaybackAction("empty", "No matching tracks");
     renderDeck();
   } else if (!filteredIndexes.includes(currentIndex)) {
     selectTrack(filteredIndexes[0]);
   } else {
     const state = ytReady ? ytPlayer.getPlayerState() : -1;
-    document.querySelector("#play-toggle").disabled = !videoIdFor(currentTrack()) || !ytReady || videoBlocked || ![1, 2, 5].includes(state);
+    if (!videoIdFor(currentTrack()) || videoBlocked || apiUnavailable) setPlaying(false);
+    else if ([1, 2, 5].includes(state)) setPlaying(state === 1, state === 1 ? "Now Playing" : state === 2 ? "Paused" : "Ready to play");
+    else setPlaybackAction(ytReady ? "loading" : "play", ytReady ? "Loading video…" : "Ready to play");
     renderDeck();
   }
 }
@@ -535,6 +570,7 @@ function bindEvents() {
     event.target.value = "";
   });
   deck.addEventListener("pointerdown", (event) => {
+    if (event.target.closest("#video-frame")) return;
     if (event.button && event.button !== 0) return;
     isDragging = true;
     dragStartX = event.clientX;
@@ -549,6 +585,11 @@ function bindEvents() {
       gestureAxis = Math.abs(dx) > Math.abs(dy) ? "horizontal" : "vertical";
     }
     if (gestureAxis !== "horizontal") return;
+    if (!videoFrame.hidden) {
+      if (ytReady) ytPlayer.pauseVideo();
+      pendingAutoplay = false;
+      videoFrame.hidden = true;
+    }
     dragOffset = Math.max(-2, Math.min(2, dx / (window.innerWidth <= 700 ? 120 : 160)));
     deck.classList.add("is-dragging");
     renderDeck();

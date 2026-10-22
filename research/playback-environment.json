@@ -1,0 +1,18 @@
+{
+  "checkedOn": "2026-10-22",
+  "status": "login-verification-required",
+  "controlVideoId": "oCkufmjcy3I",
+  "controlTitle": "Jake Miller - Parties (Official Music Video)",
+  "page": "http://127.0.0.1:8766/?ui=vynora",
+  "fixture": "http://127.0.0.1:8766/tests/fixtures/video-audit.html",
+  "playerApiError": 150,
+  "playabilityStatus": "LOGIN_REQUIRED",
+  "reason": "Sign in to confirm you’re not a bot",
+  "observations": [
+    "The previously working control video failed in both the application and the audit fixture.",
+    "The YouTube iframe and its player response explicitly requested sign-in verification.",
+    "The initial per-video error-150 attempts therefore do not prove that owners prohibit embedding.",
+    "Automated playback checks were stopped; no sign-in or bot-verification bypass was attempted."
+  ],
+  "scope": "Source metadata can be confirmed, but full playback cannot be certified in this test environment."
+}

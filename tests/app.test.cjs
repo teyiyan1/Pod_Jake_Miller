@@ -3,6 +3,7 @@ const assert = require("node:assert/strict");
 const { readFileSync } = require("node:fs");
 const { join } = require("node:path");
 const tracks = require("../data/tracks.js");
+const verification = require("../research/video-verification.json");
 
 test("rebuilt setlist has 27 unique tracks", () => {
   assert.equal(tracks.length, 27);
@@ -15,10 +16,38 @@ test("Parties is restored as the eighth track with its known video", () => {
   assert.ok(tracks[7].note);
 });
 
-test("unverified video and note data stay empty instead of being fabricated", () => {
+test("original listening notes are not fabricated", () => {
   const unknown = tracks.filter((track) => track.title !== "Parties");
-  assert.ok(unknown.every((track) => !track.officialVideoId));
   assert.ok(unknown.every((track) => !track.note));
+});
+
+test("all 23 published links have approved publisher, title and public metadata evidence", () => {
+  const linked = tracks.filter(track => track.officialVideoId);
+  assert.equal(linked.length, 23);
+  assert.equal(new Set(linked.map(track => track.officialVideoId)).size, 23);
+  for (const track of linked) {
+    const record = verification.tracks.find(row => row.trackId === track.id);
+    assert.equal(record.selectedVideoId, track.officialVideoId);
+    assert.equal(track.videoVerification.status, "publisher-title-confirmed");
+    const candidate = record.candidates.find(video => video.videoId === track.officialVideoId);
+    assert.equal(candidate.metadata.httpStatus, 200);
+    assert.ok(candidate.channelId);
+    assert.equal(candidate.metadata.title, track.videoVerification.title);
+    assert.notEqual(record.runtimeStatus, "full-playback-verified");
+  }
+});
+
+test("the four unresolved tracks remain explicitly pending with no substitute video", () => {
+  const pending = tracks.filter(track => !track.officialVideoId);
+  assert.deepEqual(pending.map(track => track.title), ["ROSS AND RACHEL", "Momentum", "Waiting On August", "Spark"]);
+  assert.ok(pending.every(track => track.videoVerification.status === "pending-official-full-version"));
+  assert.equal(verification.environment.playabilityStatus, "LOGIN_REQUIRED");
+});
+
+test("Answers is linked to the matching Jake Miller upload", () => {
+  const answers = tracks.find(track => track.title === "Answers");
+  assert.equal(answers.officialVideoId, "Kr1xzr_dQ4Y");
+  assert.equal(answers.videoVerification.title, "Jake Miller - Answers (Audio)");
 });
 
 test("removed controls have no remaining markup or script references", () => {

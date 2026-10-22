@@ -1,0 +1,25 @@
+{
+  "checkedOn": "2026-10-22",
+  "page": "http://127.0.0.1:8766/?ui=vynora&cover-player=1",
+  "environment": "Independent headless Google Chrome, real YouTube IFrame API, no API mocking",
+  "track": "Parties",
+  "videoId": "oCkufmjcy3I",
+  "action": "Clicked the main playback button once",
+  "observation": {
+    "playerState": 1,
+    "currentTimeSeconds": 9.35323106866455,
+    "appAction": "pause",
+    "appStatus": "Now Playing",
+    "videoVisibleAtCenterCover": true
+  },
+  "mobileViewportSample": {
+    "width": 390,
+    "height": 844,
+    "firstTimeSeconds": 6.373484956130982,
+    "secondTimeSeconds": 8.879804141143799,
+    "playerState": 1,
+    "muted": false,
+    "volume": 100
+  },
+  "scope": "Real playback-start samples for one song at desktop and mobile viewport sizes in desktop Chrome, not a physical-phone, full-song or all-track verification. This does not invalidate the earlier login-verification failures or guarantee playback in other browsers, accounts, networks or regions."
+}

@@ -28,6 +28,37 @@ async function metadata(videoId) {
     const page = await browser.newPage({ viewport: { width: 960, height: 760 } });
     await page.goto("http://127.0.0.1:8766/tests/fixtures/video-audit.html", { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => window.audit?.ready, null, { timeout: 30000 });
+    await page.waitForFunction(() => audit.error !== null || auditPlayer.getPlayerState() === 5, null, { timeout: 16000 });
+    if (await page.evaluate(() => audit.error === null)) {
+      await page.locator("#play").click();
+      await page.waitForFunction(() => audit.error !== null || (
+        auditPlayer.getPlayerState() === 1 && auditPlayer.getCurrentTime() >= 1.5
+      ), null, { timeout: 18000 }).catch(() => {});
+    }
+    const control = await page.evaluate(() => ({
+      error: audit.error,
+      state: auditPlayer.getPlayerState(),
+      currentTime: auditPlayer.getCurrentTime()
+    }));
+    if (control.state !== 1 || control.currentTime < 1.5 || control.error !== null) {
+      const frame = page.frames().find(value => value.url().includes("youtube.com/embed/"));
+      const restriction = await frame?.evaluate(() => {
+        const value = document.querySelector("#movie_player")?.getPlayerResponse?.()?.playabilityStatus;
+        return value ? { status: value.status, reason: value.reason } : null;
+      }).catch(() => null);
+      const diagnostic = {
+        checkedAt: new Date().toISOString(),
+        status: "control-playback-blocked",
+        controlVideoId: "oCkufmjcy3I",
+        playerApiError: control.error,
+        playabilityStatus: restriction?.status || "UNCONFIRMED",
+        reason: restriction?.reason || "Known control video did not advance",
+        scope: "Bulk playback checks stopped. This result does not establish per-video owner restrictions."
+      };
+      fs.writeFileSync(path.join(__dirname, "../research/playback-environment.json"), JSON.stringify(diagnostic, null, 2) + "\n");
+      throw new Error(`Control playback unavailable; bulk verification stopped: ${diagnostic.reason}`);
+    }
+    await page.evaluate(() => auditPlayer.pauseVideo());
     for (let index = start; index < end; index++) {
       const item = candidates[index];
       const record = { trackId: item.trackId, title: item.title, checkedAt: new Date().toISOString(), attempts: [] };
@@ -76,7 +107,7 @@ async function metadata(videoId) {
         }
       }
       record.status = record.selectedVideoId ? "playback-verified"
-        : record.attempts.some(attempt => attempt.status === "embed-error") ? "embed-restricted"
+        : record.attempts.some(attempt => attempt.status === "embed-error") ? "player-api-error"
         : item.candidates.length ? "unconfirmed" : "no-approved-match";
       results.push(record);
       fs.writeFileSync(destination, JSON.stringify(results, null, 2) + "\n");

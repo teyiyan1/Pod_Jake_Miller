@@ -2,6 +2,7 @@ const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
+const catalog = require("../data/tracks.js");
 
 const base = process.env.PREVIEW_URL || "http://127.0.0.1:8766/";
 const output = process.env.QA_OUTPUT_DIR || "/tmp/encore-vynora-qa";
@@ -59,18 +60,29 @@ async function selectFromQueue(page, index) {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     const errors = [];
     page.on("pageerror", error => errors.push(error.message));
+    await page.route("**/data/tracks.js*", route => route.fulfill({
+      contentType: "application/javascript",
+      body: `window.ENCORE_TRACKS = ${JSON.stringify(catalog.map((track, index) => index === 8
+        ? { ...track, officialVideoId: "", videoVerification: undefined } : track))};`
+    }));
     await page.route("https://www.youtube.com/iframe_api", route =>
       route.fulfill({ contentType: "application/javascript", body: mockApi }));
     await page.goto(base, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => window.__players?.length === 1);
     await page.waitForTimeout(200);
     assert.equal(await page.locator(".cover-card").count(), 27);
-    const frame = await page.locator("#youtube-player").boundingBox();
-    assert.ok(frame.width >= 200 && frame.height >= 200, "player remains visible and at least 200px square");
+    assert.equal(await page.locator("#video-frame").isVisible(), false, "no player information card before playback");
+    assert.equal(await page.locator("#video-empty, .video-section").count(), 0);
     assert.equal(await page.locator("iframe").count(), 1, "only one playback source");
     assert.equal(await page.locator("#play-toggle").getAttribute("aria-pressed"), "false");
     await page.locator("#play-toggle").click();
     assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
+    const frame = await page.locator("#youtube-player").boundingBox();
+    assert.ok(frame.width >= 200 && frame.height >= 200, "playing video is visible and at least 200px square");
+    const cover = await page.locator(".cover-card.is-active .cover-face").boundingBox();
+    for (const key of ["x", "y", "width", "height"]) {
+      assert.ok(Math.abs(frame[key] - cover[key]) < 2, `video matches center cover ${key}`);
+    }
     await page.locator("#play-toggle").click();
     assert.equal(await page.locator("#playback-state").textContent(), "Paused");
     await page.locator("#repeat-toggle").click();
@@ -84,7 +96,11 @@ async function selectFromQueue(page, index) {
     await page.waitForTimeout(450);
     assert.equal(await page.locator("#track-title").textContent(), "Wait for You");
     assert.equal(await page.locator("#play-toggle").isDisabled(), true);
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "unavailable");
+    assert.equal(await page.locator("#video-frame").isVisible(), false);
+    assert.equal(await page.locator("#source-dialog").evaluate(el => el.open), false);
     await page.locator("#source-open").click();
+    assert.equal(await page.locator("#source-dialog").evaluate(el => el.open), true);
     await page.locator("#video-url").fill("https://example.com/watch?v=tEsTvId_001");
     await page.locator("#source-form").evaluate(form => form.requestSubmit());
     assert.match(await page.locator("#source-error").textContent(), /valid YouTube/);
@@ -139,12 +155,20 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#video-external").getAttribute("href"), "https://www.youtube.com/watch?v=tEsTvId_001");
     await page.locator("#source-open").click();
     await page.locator("#source-reset").click();
+    await selectFromQueue(page, 7);
     for (const [width, height] of [[1440,1000], [1920,1080], [390,844], [320,780]]) {
       await page.setViewportSize({ width, height });
       await page.waitForTimeout(500);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `no ${width}px horizontal overflow`);
       const box = await page.locator("#youtube-player").boundingBox();
       assert.ok(box.width >= 200 && box.height >= 200);
+      const coverBox = await page.locator(".cover-card.is-active .cover-face").boundingBox();
+      assert.ok(Math.abs(box.x - coverBox.x) < 2 && Math.abs(box.width - coverBox.width) < 2);
+      assert.equal(await page.evaluate(() => {
+        const frame = document.querySelector("#youtube-player");
+        const rect = frame.getBoundingClientRect();
+        return document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2) === frame;
+      }), true, "video is not covered by album artwork");
       const geometry = await page.evaluate(() => {
         const center = document.querySelector(".cover-card.is-active .cover-face").getBoundingClientRect();
         const next = document.querySelector('.cover-card[data-index="9"] .cover-face').getBoundingClientRect();
@@ -160,15 +184,80 @@ async function selectFromQueue(page, index) {
     }));
     assert.ok(layout.captionBottom <= layout.controlsTop, "long titles do not overlap playback controls");
     await selectFromQueue(page, 7);
+    const failedCallCount = await page.evaluate(() => window.__players[0].calls.length);
     await page.evaluate(() => window.__players[0].events.onError({ data: 150 }));
-    assert.equal(await page.locator("#play-toggle").isDisabled(), true);
-    assert.equal(await page.locator("#video-empty").isVisible(), true);
-    assert.equal(await page.locator("#playback-state").textContent(), "Video unavailable");
+    assert.equal(await page.locator("#play-toggle").isDisabled(), false);
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "retry");
+    assert.equal(await page.locator("#play-toggle").getAttribute("aria-label"), "重试播放");
+    assert.equal(await page.locator("#video-frame").isVisible(), true, "native YouTube error remains visible");
+    assert.equal(await page.locator("#playback-state").textContent(), "YouTube 暂时无法播放此歌曲");
+    const popups = [];
+    page.on("popup", popup => popups.push(popup));
+    assert.equal(await page.evaluate(() => window.__players[0].calls.length), failedCallCount, "no automatic retries");
+    await page.locator("#play-toggle").click();
+    assert.equal(await page.evaluate(() => window.__players[0].calls.length), failedCallCount + 1, "one explicit retry on click");
+    assert.equal(await page.evaluate(() => window.__players[0].video), "oCkufmjcy3I");
+    assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
+    assert.equal(popups.length, 0, "middle play button never navigates away");
+    await page.evaluate(() => window.__players[0].events.onAutoplayBlocked({}));
+    assert.equal(await page.locator("#play-toggle").isEnabled(), true);
+    assert.match(await page.locator("#playback-state").textContent(), /浏览器阻止/);
     await page.locator("#control-next").click();
     await page.evaluate(() => window.__players[0].events.onError({ data: 150 }));
-    assert.equal(await page.locator("#video-empty-title").textContent(), "No video linked to this track");
+    assert.equal(await page.locator("#playback-state").textContent(), "此歌曲暂无可用音源");
+    assert.equal(await page.locator("#video-frame").isVisible(), false);
+    await selectFromQueue(page, 24);
+    assert.equal(await page.locator("#track-title").textContent(), "Answers");
+    assert.equal(await page.locator("#video-external").getAttribute("href"), "https://www.youtube.com/watch?v=Kr1xzr_dQ4Y");
+    assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
+    await selectFromQueue(page, 17);
+    assert.equal(await page.locator("#play-toggle").isDisabled(), true);
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "unavailable");
+    await page.locator("#source-open").click();
+    assert.match(await page.locator("#source-track").textContent(), /ROSS AND RACHEL/);
+    await page.locator('[data-close="source-dialog"]').click();
+    await selectFromQueue(page, 18);
+    assert.equal(await page.locator("#track-title").textContent(), "Momentum");
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-icon"), "play");
+    assert.equal(await page.locator("#play-toggle").isDisabled(), true);
+    assert.equal(await page.locator("#video-frame").isVisible(), false);
+    await page.screenshot({ path: path.join(output, "momentum-no-source.png"), fullPage: true });
+
+    const failurePage = await browser.newPage();
+    await failurePage.route("https://www.youtube.com/iframe_api", route => route.abort());
+    await failurePage.goto(base, { waitUntil: "domcontentloaded" });
+    await failurePage.waitForFunction(() => document.querySelector("#play-toggle").dataset.action === "unavailable");
+    assert.equal(await failurePage.locator("#play-toggle").isEnabled(), false);
+    assert.match(await failurePage.locator("#playback-state").textContent(), /无法连接 YouTube/);
+    await failurePage.close();
+
+    const timeoutPage = await browser.newPage();
+    await timeoutPage.clock.install();
+    await timeoutPage.route("https://www.youtube.com/iframe_api", route =>
+      route.fulfill({ contentType: "application/javascript", body: "" }));
+    await timeoutPage.goto(base, { waitUntil: "domcontentloaded" });
+    await timeoutPage.clock.fastForward(12001);
+    assert.equal(await timeoutPage.locator("#play-toggle").getAttribute("data-action"), "unavailable");
+    assert.equal(await timeoutPage.locator("#play-toggle").isEnabled(), false);
+    await timeoutPage.addScriptTag({ content: mockApi });
+    await timeoutPage.clock.runFor(10);
+    assert.equal(await timeoutPage.locator("#play-toggle").getAttribute("data-action"), "play");
+    assert.equal(await timeoutPage.locator("#video-frame").isVisible(), false);
+    await timeoutPage.close();
+
+    const earlyPage = await browser.newPage();
+    await earlyPage.route("https://www.youtube.com/iframe_api", route =>
+      route.fulfill({ contentType: "application/javascript", body: "" }));
+    await earlyPage.goto(base, { waitUntil: "domcontentloaded" });
+    await earlyPage.locator("#play-toggle").click();
+    assert.equal(await earlyPage.locator("#source-dialog").evaluate(el => el.open), false);
+    await earlyPage.addScriptTag({ content: mockApi });
+    await earlyPage.waitForFunction(() => document.querySelector("#play-toggle").dataset.action === "pause");
+    assert.deepEqual(await earlyPage.evaluate(() => window.__players[0].calls), ["load"]);
+    assert.equal(await earlyPage.locator("#video-frame").isVisible(), true);
+    await earlyPage.close();
     assert.deepEqual(errors, []);
-    console.log("PASS: visible single player, real-state controls, loop, side click, source validation/persistence, search/empty/clear, keyboard/drag, per-track LRC/persistence, desktop/mobile geometry");
+    console.log("PASS: center-cover video, direct middle-button playback with no popup/editor, explicit retry only, missing-source state, early click, autoplay blocking, API failure/timeout/recovery, source persistence, search, drag, lyrics, desktop/mobile geometry");
     console.log(`Screenshots: ${output}`);
   } finally {
     await browser.close();
