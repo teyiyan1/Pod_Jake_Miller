@@ -1,0 +1,490 @@
+[
+  {
+    "trackId": "1454321964",
+    "title": "NIKES",
+    "checkedAt": "2026-10-22T09:46:12.248Z",
+    "attempts": [
+      {
+        "videoId": "NOxoDeNCdG8",
+        "title": "Jake Miller - NIKES (Official Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:35",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=NOxoDeNCdG8",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22NIKES%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - NIKES (Official Audio)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "NOxoDeNCdG8",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": -1,
+              "at": 1792662373390
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1271854176",
+    "title": "I Wish You Didn't Love Me",
+    "checkedAt": "2026-10-22T09:46:13.406Z",
+    "attempts": [
+      {
+        "videoId": "bHzA7r2cHLU",
+        "title": "Jake Miller - I Wish You Didn't Love Me (Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:25",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=bHzA7r2cHLU",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22I%20Wish%20You%20Didn't%20Love%20Me%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - I Wish You Didn't Love Me (Audio)",
+          "author": "JakeMillerVideoVEVO",
+          "authorUrl": "https://www.youtube.com/@JakeMillerVideoVEVO"
+        },
+        "playback": {
+          "videoId": "bHzA7r2cHLU",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662373561
+            },
+            {
+              "state": -1,
+              "at": 1792662373636
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1349911983",
+    "title": "Drinkin About You",
+    "checkedAt": "2026-10-22T09:46:13.660Z",
+    "attempts": [
+      {
+        "videoId": "vxXUApp8Wwc",
+        "title": "Jake Miller - Drinkin About You (Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:42",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=vxXUApp8Wwc",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Drinkin%20About%20You%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Drinkin About You (Audio)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "vxXUApp8Wwc",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662373929
+            },
+            {
+              "state": -1,
+              "at": 1792662374020
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1478559230",
+    "title": "LAST TEXT",
+    "checkedAt": "2026-10-22T09:46:14.068Z",
+    "attempts": [
+      {
+        "videoId": "9wOWzuxbftk",
+        "title": "Jake Miller - LAST TEXT (Official Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "2:56",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=9wOWzuxbftk",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22LAST%20TEXT%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - LAST TEXT (Official Audio)",
+          "author": "JakeMillerVideoVEVO",
+          "authorUrl": "https://www.youtube.com/@JakeMillerVideoVEVO"
+        },
+        "playback": {
+          "videoId": "9wOWzuxbftk",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662374318
+            },
+            {
+              "state": -1,
+              "at": 1792662374519
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1435778127",
+    "title": "Better Me Better You",
+    "checkedAt": "2026-10-22T09:46:14.703Z",
+    "attempts": [
+      {
+        "videoId": "vXdA36z09zI",
+        "title": "Clara Mae & Jake Miller - Better Me Better You (Official Video)",
+        "channel": "Clara Mae",
+        "channelId": "UCWNVPfzSAAJr2L4GyvF6y7g",
+        "channelPath": "/channel/UCWNVPfzSAAJr2L4GyvF6y7g",
+        "duration": "3:30",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=vXdA36z09zI",
+        "searchUrl": "https://www.youtube.com/results?search_query=Clara%20Mae%20%26%20Jake%20Miller%20%22Better%20Me%20Better%20You%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Clara Mae & Jake Miller - Better Me Better You (Official Video)",
+          "author": "Clara Mae",
+          "authorUrl": "https://www.youtube.com/@iamclaramae"
+        },
+        "playback": {
+          "videoId": "vXdA36z09zI",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662374893
+            },
+            {
+              "state": -1,
+              "at": 1792662374956
+            }
+          ]
+        },
+        "status": "embed-error"
+      },
+      {
+        "videoId": "wVGTXeSJYRw",
+        "title": "Clara Mae & Jake Miller - Better Me, Better You",
+        "channel": "Big Beat Records",
+        "channelId": "UCDCCLsZ0OBG8Dt-3JMc3hkA",
+        "channelPath": "/@wearebigbeat",
+        "duration": "3:35",
+        "badges": [],
+        "url": "https://www.youtube.com/watch?v=wVGTXeSJYRw",
+        "searchUrl": "https://www.youtube.com/results?search_query=Clara%20Mae%20%26%20Jake%20Miller%20%22Better%20Me%20Better%20You%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Clara Mae & Jake Miller - Better Me, Better You",
+          "author": "Big Beat Records",
+          "authorUrl": "https://www.youtube.com/@wearebigbeat"
+        },
+        "playback": {
+          "videoId": "wVGTXeSJYRw",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662375310
+            },
+            {
+              "state": -1,
+              "at": 1792662375564
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1271854174",
+    "title": "Palm Blvd",
+    "checkedAt": "2026-10-22T09:46:15.615Z",
+    "attempts": [
+      {
+        "videoId": "wqRM8LZkSNA",
+        "title": "Jake Miller - Palm Blvd (Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:20",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=wqRM8LZkSNA",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Palm%20Blvd%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Palm Blvd (Audio)",
+          "author": "JakeMillerVideoVEVO",
+          "authorUrl": "https://www.youtube.com/@JakeMillerVideoVEVO"
+        },
+        "playback": {
+          "videoId": "wqRM8LZkSNA",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662375744
+            },
+            {
+              "state": -1,
+              "at": 1792662375822
+            }
+          ]
+        },
+        "status": "embed-error"
+      },
+      {
+        "videoId": "LSwK8Q-E8jk",
+        "title": "Jake Miller - Palm Blvd (Official Music Video)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "4:01",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=LSwK8Q-E8jk",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Palm%20Blvd%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Palm Blvd (Official Music Video)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "LSwK8Q-E8jk",
+          "title": "Jake Miller - Palm Blvd (Official Music Video)",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 241,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662376061
+            },
+            {
+              "state": -1,
+              "at": 1792662376177
+            },
+            {
+              "state": 5,
+              "at": 1792662376177
+            },
+            {
+              "state": -1,
+              "at": 1792662376238
+            },
+            {
+              "state": 3,
+              "at": 1792662376251
+            },
+            {
+              "state": -1,
+              "at": 1792662376462
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1478559232",
+    "title": "OCEAN AWAY",
+    "checkedAt": "2026-10-22T09:46:16.471Z",
+    "attempts": [
+      {
+        "videoId": "_UXBZ_dv_a0",
+        "title": "Jake Miller - OCEAN AWAY (Official Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "2:15",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=_UXBZ_dv_a0",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22OCEAN%20AWAY%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - OCEAN AWAY (Official Audio)",
+          "author": "JakeMillerVideoVEVO",
+          "authorUrl": "https://www.youtube.com/@JakeMillerVideoVEVO"
+        },
+        "playback": {
+          "videoId": "_UXBZ_dv_a0",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662376615
+            },
+            {
+              "state": -1,
+              "at": 1792662376709
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1478559227",
+    "title": "15 MINUTES",
+    "checkedAt": "2026-10-22T09:46:16.720Z",
+    "attempts": [
+      {
+        "videoId": "q4i38aFIFyM",
+        "title": "Jake Miller - 15 MINUTES (Official Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:31",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=q4i38aFIFyM",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%2215%20MINUTES%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - 15 MINUTES (Official Audio)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "q4i38aFIFyM",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662376824
+            },
+            {
+              "state": -1,
+              "at": 1792662376978
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1525020416",
+    "title": "ROSS AND RACHEL",
+    "checkedAt": "2026-10-22T09:46:17.002Z",
+    "attempts": [],
+    "status": "no-approved-match"
+  }
+]

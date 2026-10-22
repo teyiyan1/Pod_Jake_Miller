@@ -1,0 +1,13 @@
+{
+  "name": "jake-miller-encore",
+  "version": "1.4.1-rebuilt",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "test:browser": "node tests/vynora.browser.cjs",
+    "serve": "python3 -m http.server 8766"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>YouTube Embed Verification</title>
+<style>
+  body { background: #101012; color: white; font: 16px system-ui; padding: 24px; }
+  input, button { font: inherit; margin: 8px 4px 18px 0; padding: 8px; }
+  #audit-player { display: block; width: 640px; height: 360px; }
+</style>
+<h1>YouTube Embed Verification</h1>
+<label for="video-id">Video ID</label>
+<input id="video-id">
+<button id="load">Load</button>
+<button id="play">Play</button>
+<div id="audit-player"></div>
+<script>
+  window.audit = { ready: false, requestedId: "", error: null, states: [] };
+  window.onYouTubeIframeAPIReady = () => {
+    window.auditPlayer = new YT.Player("audit-player", {
+      width: 640,
+      height: 360,
+      videoId: "oCkufmjcy3I",
+      playerVars: { origin: location.origin, playsinline: 1, controls: 1, rel: 0 },
+      events: {
+        onReady: () => { audit.ready = true; },
+        onStateChange: event => { audit.states.push({ state: event.data, at: Date.now() }); },
+        onError: event => { audit.error = event.data; }
+      }
+    });
+  };
+  document.querySelector("#load").onclick = () => {
+    auditPlayer.stopVideo();
+    audit.requestedId = document.querySelector("#video-id").value.trim();
+    audit.error = null;
+    audit.states = [];
+    auditPlayer.cueVideoById(audit.requestedId);
+  };
+  document.querySelector("#play").onclick = () => auditPlayer.playVideo();
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</html>

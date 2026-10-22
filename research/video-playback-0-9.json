@@ -1,0 +1,698 @@
+[
+  {
+    "trackId": "931185216",
+    "title": "Dazed and Confused (feat. Travie McCoy)",
+    "checkedAt": "2026-10-22T09:46:12.565Z",
+    "attempts": [
+      {
+        "videoId": "x8Nh0rLS9yg",
+        "title": "Jake Miller - Dazed and Confused (Feat. Travie McCoy)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:46",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=x8Nh0rLS9yg",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Dazed%20and%20Confused%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Dazed and Confused (Feat. Travie McCoy)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "x8Nh0rLS9yg",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": -1,
+              "at": 1792662373397
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1015732764",
+    "title": "Rumors",
+    "checkedAt": "2026-10-22T09:46:13.406Z",
+    "attempts": [
+      {
+        "videoId": "wfkGR6PlWDk",
+        "title": "Jake Miller - Rumors (Official Music Video)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:39",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=wfkGR6PlWDk",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Rumors%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Rumors (Official Music Video)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "wfkGR6PlWDk",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662373578
+            },
+            {
+              "state": -1,
+              "at": 1792662373651
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "596194737",
+    "title": "A Million Lives",
+    "checkedAt": "2026-10-22T09:46:13.772Z",
+    "attempts": [
+      {
+        "videoId": "oGGs65J3UEA",
+        "title": "Jake Miller - A Million Lives (Official Music Video)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:50",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=oGGs65J3UEA",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22A%20Million%20Lives%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - A Million Lives (Official Music Video)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "oGGs65J3UEA",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662373948
+            },
+            {
+              "state": -1,
+              "at": 1792662374025
+            }
+          ]
+        },
+        "status": "embed-error"
+      },
+      {
+        "videoId": "e3_JOQfXTQ8",
+        "title": "Jake Miller - A Million Lives",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:37",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=e3_JOQfXTQ8",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22A%20Million%20Lives%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - A Million Lives",
+          "author": "JakeMillerVideoVEVO",
+          "authorUrl": "https://www.youtube.com/@JakeMillerVideoVEVO"
+        },
+        "playback": {
+          "videoId": "e3_JOQfXTQ8",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662374577
+            },
+            {
+              "state": -1,
+              "at": 1792662374685
+            }
+          ]
+        },
+        "status": "embed-error"
+      },
+      {
+        "videoId": "D36QVyofa8A",
+        "title": "Jake Miller \"A Million Lives\"",
+        "channel": "MNRK Music Group",
+        "channelId": "UCWQB5QgiVIiuGLvQ1kuI5TA",
+        "channelPath": "/@MNRKMusicGroup",
+        "duration": "3:35",
+        "badges": [],
+        "url": "https://www.youtube.com/watch?v=D36QVyofa8A",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22A%20Million%20Lives%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller \"A Million Lives\"",
+          "author": "MNRK Music Group",
+          "authorUrl": "https://www.youtube.com/@MNRKMusicGroup"
+        },
+        "playback": {
+          "videoId": "D36QVyofa8A",
+          "title": "Jake Miller \"A Million Lives\"",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 215,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662374972
+            },
+            {
+              "state": -1,
+              "at": 1792662375092
+            },
+            {
+              "state": 5,
+              "at": 1792662375092
+            },
+            {
+              "state": -1,
+              "at": 1792662375246
+            },
+            {
+              "state": 3,
+              "at": 1792662375285
+            },
+            {
+              "state": -1,
+              "at": 1792662375566
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1657249574",
+    "title": "Lucky Me",
+    "checkedAt": "2026-10-22T09:46:15.677Z",
+    "attempts": [
+      {
+        "videoId": "XysLGnlSjE0",
+        "title": "Jake Miller - Lucky Me (The proposal)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "2:49",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=XysLGnlSjE0",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Lucky%20Me%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Lucky Me (The proposal)",
+          "author": "JakeMillerVideoVEVO",
+          "authorUrl": "https://www.youtube.com/@JakeMillerVideoVEVO"
+        },
+        "playback": {
+          "videoId": "XysLGnlSjE0",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662375797
+            },
+            {
+              "state": -1,
+              "at": 1792662375933
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "6772170211",
+    "title": "Still Dancing",
+    "checkedAt": "2026-10-22T09:46:15.957Z",
+    "attempts": [
+      {
+        "videoId": "TsrjN3MNmIs",
+        "title": "Keenan Te, Jake Miller - Still Dancing (Official Lyric Video)",
+        "channel": "Keenan Te",
+        "channelId": "UC_BdnSer2n7N-lIf8pd6MEQ",
+        "channelPath": "/channel/UC_BdnSer2n7N-lIf8pd6MEQ",
+        "duration": "2:59",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=TsrjN3MNmIs",
+        "searchUrl": "https://www.youtube.com/results?search_query=Keenan%20Te%20%26%20Jake%20Miller%20%22Still%20Dancing%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Keenan Te, Jake Miller - Still Dancing (Official Lyric Video)",
+          "author": "KeenanTeVEVO",
+          "authorUrl": "https://www.youtube.com/@keenantevevo133"
+        },
+        "playback": {
+          "videoId": "TsrjN3MNmIs",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662376095
+            },
+            {
+              "state": -1,
+              "at": 1792662376162
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "626378178",
+    "title": "Steven",
+    "checkedAt": "2026-10-22T09:46:16.172Z",
+    "attempts": [
+      {
+        "videoId": "mWTWDY3HcGg",
+        "title": "Jake Miller - Steven (Official Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:05",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=mWTWDY3HcGg",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Steven%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Steven (Official Audio)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "mWTWDY3HcGg",
+          "title": "Jake Miller - Steven (Official Audio)",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 185,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662376307
+            },
+            {
+              "state": -1,
+              "at": 1792662376499
+            },
+            {
+              "state": 5,
+              "at": 1792662376499
+            },
+            {
+              "state": -1,
+              "at": 1792662376555
+            },
+            {
+              "state": 3,
+              "at": 1792662376561
+            },
+            {
+              "state": -1,
+              "at": 1792662376681
+            }
+          ]
+        },
+        "status": "embed-error"
+      },
+      {
+        "videoId": "baXVwbCmd_Q",
+        "title": "Jake Miller \"Steven\"",
+        "channel": "MNRK Music Group",
+        "channelId": "UCWQB5QgiVIiuGLvQ1kuI5TA",
+        "channelPath": "/@MNRKMusicGroup",
+        "duration": "3:07",
+        "badges": [],
+        "url": "https://www.youtube.com/watch?v=baXVwbCmd_Q",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Steven%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller \"Steven\"",
+          "author": "MNRK Music Group",
+          "authorUrl": "https://www.youtube.com/@MNRKMusicGroup"
+        },
+        "playback": {
+          "videoId": "baXVwbCmd_Q",
+          "title": "Jake Miller \"Steven\"",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 187,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662376806
+            },
+            {
+              "state": -1,
+              "at": 1792662376976
+            },
+            {
+              "state": 5,
+              "at": 1792662376976
+            },
+            {
+              "state": -1,
+              "at": 1792662377020
+            },
+            {
+              "state": 3,
+              "at": 1792662377024
+            },
+            {
+              "state": -1,
+              "at": 1792662377156
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1015732766",
+    "title": "Selfish Girls",
+    "checkedAt": "2026-10-22T09:46:17.168Z",
+    "attempts": [
+      {
+        "videoId": "AMQm0Sd-5n4",
+        "title": "Jake Miller - Selfish Girls",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "2:51",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=AMQm0Sd-5n4",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Selfish%20Girls%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Selfish Girls",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "AMQm0Sd-5n4",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662377273
+            },
+            {
+              "state": -1,
+              "at": 1792662377342
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1271854172",
+    "title": "Parties",
+    "checkedAt": "2026-10-22T09:46:17.353Z",
+    "attempts": [
+      {
+        "videoId": "oCkufmjcy3I",
+        "title": "Jake Miller - Parties (Official Music Video)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:02",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=oCkufmjcy3I",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Parties%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Parties (Official Music Video)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "oCkufmjcy3I",
+          "title": "Jake Miller - Parties (Official Music Video)",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 182,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662377538
+            },
+            {
+              "state": -1,
+              "at": 1792662377639
+            },
+            {
+              "state": 5,
+              "at": 1792662377639
+            },
+            {
+              "state": -1,
+              "at": 1792662377687
+            },
+            {
+              "state": 3,
+              "at": 1792662377691
+            },
+            {
+              "state": -1,
+              "at": 1792662377833
+            }
+          ]
+        },
+        "status": "embed-error"
+      },
+      {
+        "videoId": "7KDksdVFGmc",
+        "title": "Jake Miller - Parties (Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "2:50",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=7KDksdVFGmc",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Parties%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Parties (Audio)",
+          "author": "JakeMillerVideoVEVO",
+          "authorUrl": "https://www.youtube.com/@JakeMillerVideoVEVO"
+        },
+        "playback": {
+          "videoId": "7KDksdVFGmc",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662377940
+            },
+            {
+              "state": -1,
+              "at": 1792662378083
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  },
+  {
+    "trackId": "1439639051",
+    "title": "Wait for You",
+    "checkedAt": "2026-10-22T09:46:18.101Z",
+    "attempts": [
+      {
+        "videoId": "Eh2ZYcjgMAI",
+        "title": "Jake Miller - Wait For You (Official Audio)",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "3:00",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=Eh2ZYcjgMAI",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Wait%20for%20You%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - Wait For You (Official Audio)",
+          "author": "Jake Miller",
+          "authorUrl": "https://www.youtube.com/@jakemiller"
+        },
+        "playback": {
+          "videoId": "Eh2ZYcjgMAI",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662378206
+            },
+            {
+              "state": -1,
+              "at": 1792662378270
+            }
+          ]
+        },
+        "status": "embed-error"
+      },
+      {
+        "videoId": "Ttt-YV79KbY",
+        "title": "Jake Miller - WAIT FOR YOU",
+        "channel": "Jake Miller",
+        "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+        "channelPath": "/channel/UCemWUaSsUwgeYpGfkbvSQjg",
+        "duration": "2:48",
+        "badges": [
+          {
+            "type": "BADGE_STYLE_TYPE_VERIFIED_ARTIST",
+            "label": "Official Artist Channel"
+          }
+        ],
+        "url": "https://www.youtube.com/watch?v=Ttt-YV79KbY",
+        "searchUrl": "https://www.youtube.com/results?search_query=Jake%20Miller%20%22Wait%20for%20You%22%20official%20audio",
+        "metadata": {
+          "httpStatus": 200,
+          "title": "Jake Miller - WAIT FOR YOU",
+          "author": "JakeMillerVideoVEVO",
+          "authorUrl": "https://www.youtube.com/@JakeMillerVideoVEVO"
+        },
+        "playback": {
+          "videoId": "Ttt-YV79KbY",
+          "title": "",
+          "state": -1,
+          "error": 150,
+          "currentTime": 0,
+          "duration": 0,
+          "states": [
+            {
+              "state": 5,
+              "at": 1792662378407
+            },
+            {
+              "state": -1,
+              "at": 1792662378550
+            }
+          ]
+        },
+        "status": "embed-error"
+      }
+    ],
+    "status": "embed-restricted"
+  }
+]
