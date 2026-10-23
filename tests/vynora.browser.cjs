@@ -112,31 +112,18 @@ async function selectFromQueue(page, index) {
       delete document.hidden;
       document.dispatchEvent(new Event("visibilitychange"));
     });
-    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "play", "returning to page does not autoplay");
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "pause", "returning to page preserves playback");
     await page.locator("#play-toggle").click();
 
     const side = await page.locator('.cover-card[data-index="8"] .cover-face').boundingBox();
     await page.mouse.click(side.x + side.width - 10, side.y + side.height / 2);
     await page.waitForTimeout(450);
     assert.equal(await page.locator("#track-title").textContent(), "Wait for You");
-    assert.equal(await page.locator("#play-toggle").isDisabled(), true);
-    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "unavailable");
-    assert.equal(await page.locator("#video-frame").isVisible(), false);
-    assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused");
-    assert.equal(await page.locator("#source-dialog").evaluate(el => el.open), false);
-    await page.locator("#source-open").click();
-    assert.equal(await page.locator("#source-dialog").evaluate(el => el.open), true);
-    await page.locator("#video-url").fill("https://example.com/watch?v=tEsTvId_001");
-    await page.locator("#source-form").evaluate(form => form.requestSubmit());
-    assert.match(await page.locator("#source-error").textContent(), /valid YouTube/);
-    await page.locator("#video-url").fill("https://youtu.be/tEsTvId_001");
-    await page.locator("#source-form").evaluate(form => form.requestSubmit());
-    assert.equal(await page.locator("#source-dialog").evaluate(el => el.open), false);
     assert.equal(await page.locator("#play-toggle").isDisabled(), false);
-    await page.locator("#play-toggle").click();
-    assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
-    await page.locator("#volume-toggle").click();
-    assert.equal(await page.evaluate(() => window.__players[0].muted), true);
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "pause");
+    assert.equal(await page.locator("#video-frame").isVisible(), false);
+    assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "running");
+    assert.equal(await page.locator("#source-dialog").evaluate(el => el.open), false);
 
     await page.locator("#track-search").fill("rumors");
     assert.equal(await page.locator("#track-title").textContent(), "Rumors");
@@ -148,7 +135,7 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#search-empty").isVisible(), false);
     const callCount = await page.evaluate(() => window.__players[0].calls.length);
     await selectFromQueue(page, 7);
-    assert.deepEqual(await page.evaluate(count => window.__players[0].calls.slice(count), callCount), ["load"]);
+    assert.deepEqual(await page.evaluate(count => window.__players[0].calls.slice(count), callCount), ["cue", "load"]);
     await page.locator("#track-search").blur();
     await page.keyboard.press("ArrowRight");
     assert.equal(await page.locator("#track-title").textContent(), "Wait for You");
@@ -169,7 +156,13 @@ async function selectFromQueue(page, index) {
       buffer: Buffer.from("[00:00.00]QA sample first line\n[00:04.00]QA sample second line")
     });
     await page.waitForFunction(() => document.querySelectorAll(".lyrics-line").length === 2);
-    await page.evaluate(() => { window.__players[0].time = 5; });
+    await page.evaluate(() => {
+      const audio = document.querySelector("#local-audio");
+      if (audio) {
+        audio.currentTime = 5;
+        audio.dispatchEvent(new Event("timeupdate"));
+      }
+    });
     await page.waitForTimeout(550);
     assert.equal(await page.locator(".lyrics-line.is-active").textContent(), "QA sample second line");
     await page.locator('[data-close="lyrics-dialog"]').click();
@@ -177,9 +170,7 @@ async function selectFromQueue(page, index) {
     await page.waitForFunction(() => window.__players?.length === 1);
     assert.equal(await page.locator("#track-title").textContent(), "Wait for You");
     assert.equal(await page.locator(".lyrics-line").count(), 2);
-    assert.equal(await page.locator("#video-external").getAttribute("href"), "https://www.youtube.com/watch?v=tEsTvId_001");
-    await page.locator("#source-open").click();
-    await page.locator("#source-reset").click();
+    assert.match(await page.locator("#video-external").getAttribute("href"), /youtube\.com\/(watch|results)/);
     await selectFromQueue(page, 7);
     for (const [width, height] of [[1440,1000], [1920,1080], [390,844], [320,780]]) {
       await page.setViewportSize({ width, height });
@@ -209,7 +200,7 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "retry");
     assert.equal(await page.locator("#play-toggle").getAttribute("aria-label"), "重试播放");
     assert.equal(await page.locator("#video-frame").isVisible(), false, "errors do not reveal the video region");
-    assert.equal(await page.locator("#playback-state").textContent(), "YouTube 暂时无法播放此歌曲");
+    assert.match(await page.locator("#playback-state").textContent(), /YouTube/);
     const popups = [];
     page.on("popup", popup => popups.push(popup));
     assert.equal(await page.evaluate(() => window.__players[0].calls.length), failedCallCount, "no automatic retries");

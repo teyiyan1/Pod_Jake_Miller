@@ -86,6 +86,11 @@ function renderIcons() {
 
 function setPlaybackAction(action, label) {
   window.encoreAmbient?.setPlaying(action === "pause");
+  if (navigator.mediaSession) {
+    try {
+      navigator.mediaSession.playbackState = action === "pause" ? "playing" : action === "play" ? "paused" : "none";
+    } catch {}
+  }
   const button = document.querySelector("#play-toggle");
   const icons = { play: "play", pause: "pause", retry: "play", unavailable: "play", loading: "loader-circle", empty: "play" };
   const labels = { play: "播放", pause: "暂停", retry: "重试播放", unavailable: "暂不可播放", loading: "正在载入", empty: "没有匹配的歌曲" };
@@ -182,7 +187,8 @@ function startLocalPlayback(track) {
     const audio = document.createElement("audio");
     audio.id = "local-audio";
     audio.hidden = true;
-    audio.preload = "metadata";
+    audio.preload = "auto";
+    audio.playsInline = true;
     localAudio = audio;
     localTrackId = track.id;
     // A removed player's late events must not affect a newly selected song.
@@ -393,6 +399,31 @@ function normalizeName(value) {
   return value.toLowerCase().replace(/\.[^.]+$/, "").replace(/[^a-z0-9]/g, "");
 }
 
+function updateMediaSessionMetadata(track) {
+  if (!navigator.mediaSession || typeof MediaMetadata !== "function") return;
+  try {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: track.title,
+      artist: track.artist,
+      album: track.album,
+      artwork: track.artwork ? [{ src: track.artwork, sizes: "600x600", type: "image/jpeg" }] : []
+    });
+  } catch {}
+}
+
+function setupMediaSession() {
+  if (!navigator.mediaSession?.setActionHandler) return;
+  const actions = {
+    play: () => togglePlayback(),
+    pause: () => togglePlayback(),
+    previoustrack: () => advanceTrack(-1, true),
+    nexttrack: () => advanceTrack(1, true)
+  };
+  Object.entries(actions).forEach(([action, handler]) => {
+    try { navigator.mediaSession.setActionHandler(action, handler); } catch {}
+  });
+}
+
 function loadYouTubeApi() {
   apiReadyTimer = setTimeout(() => {
     if (!ytReady) showConnectionFailure();
@@ -557,6 +588,7 @@ function renderTrack(autoplay = false) {
   document.querySelector("#track-title").textContent = track.title;
   document.querySelector("#track-artist").textContent = track.artist;
   document.querySelector("#track-album").textContent = track.album;
+  updateMediaSessionMetadata(track);
   window.encoreAmbient?.setTrack(track);
   document.querySelector("#notes-track").textContent = track.title;
   document.querySelector("#notes-album").textContent = track.album;
@@ -1375,11 +1407,7 @@ function bindEvents() {
     if (event.code === "Space") { event.preventDefault(); togglePlayback(); }
   });
   window.addEventListener("resize", renderDeck);
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden && localAudio) pauseLocalPlayback();
-    if (document.hidden && ytReady) ytPlayer.pauseVideo();
-    if (document.hidden && activeProvider === "apple") window.EncAppleMusic?.pause();
-  });
+  setupMediaSession();
   window.setInterval(updateProgress, 250);
 }
 

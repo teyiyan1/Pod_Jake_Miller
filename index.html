@@ -13,7 +13,7 @@
     <script src="./vendor/lucide.min.js" defer></script>
     <script src="./ambient.js?v=ambient-3" defer></script>
     <script src="./apple-music.js?v=apple-music-3" defer></script>
-    <script src="./app.js?v=audio-alignment-3" defer></script>
+    <script src="./app.js?v=background-playback-1" defer></script>
   </head>
   <body>
     <div class="ambient-cover" id="ambient-cover" aria-hidden="true">
@@ -27,9 +27,9 @@
         <span>iPod</span>
         <i data-lucide="triangle" class="eject-icon" aria-hidden="true"></i>
       </a>
-      <h1>Jake Miller <span id="result-count">· 27 Tracks</span></h1>
+      <h1>Jake Miller <span id="result-count" hidden>· 27 Tracks</span></h1>
       <div class="top-actions">
-        <button class="icon-button" id="apple-connect" type="button" aria-label="连接 Apple Music" title="连接 Apple Music"><i data-lucide="music-2"></i></button>
+        <button class="icon-button" id="apple-connect" type="button" aria-label="连接 Apple Music" title="连接 Apple Music" hidden><i data-lucide="music-2"></i></button>
         <button class="icon-button" id="source-open" type="button" aria-label="关联当前歌曲的 YouTube 视频" title="关联视频" hidden><i data-lucide="link"></i></button>
         <a id="video-external" class="icon-button" href="https://www.youtube.com/watch?v=oCkufmjcy3I" target="_blank" rel="noreferrer" aria-label="在 YouTube 打开" title="在 YouTube 打开" hidden><i data-lucide="external-link"></i></a>
         <button class="icon-button" id="queue-open" type="button" aria-label="歌单" title="歌单"><i data-lucide="list-music"></i></button>

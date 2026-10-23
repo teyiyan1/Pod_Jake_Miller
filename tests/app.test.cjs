@@ -64,3 +64,9 @@ test("removed controls have no remaining markup or script references", () => {
     assert.doesNotMatch(html, new RegExp(`class="${selector}"`));
   }
 });
+
+test("selected header metadata and Apple Music control stay hidden", () => {
+  const html = readFileSync(join(__dirname, "../index.html"), "utf8");
+  assert.match(html, /id="result-count" hidden/);
+  assert.match(html, /id="apple-connect"[^>]* hidden/);
+});
