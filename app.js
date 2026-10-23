@@ -186,7 +186,8 @@ function startLocalPlayback(track) {
     releaseLocalAudio();
     const audio = document.createElement("audio");
     audio.id = "local-audio";
-    audio.hidden = true;
+    audio.setAttribute("aria-hidden", "true");
+    audio.className = "sr-only-media";
     audio.preload = "auto";
     audio.playsInline = true;
     localAudio = audio;

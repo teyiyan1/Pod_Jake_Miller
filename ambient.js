@@ -2,6 +2,10 @@
   const root = document.documentElement;
   const background = document.querySelector("#ambient-cover");
   if (!background) return;
+  // Mobile WebViews can suspend Web Audio in the background. Keep the media
+  // element on its native output there so background playback remains possible.
+  const useReactiveAudio = !(/Android|iPhone|iPad|iPod|MicroMessenger/i.test(navigator.userAgent)
+    || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
   const layers = [...background.querySelectorAll(".ambient-layer")];
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const cache = new Map();
@@ -73,6 +77,11 @@
 
   async function attachAudio(audio) {
     attachedAudio = audio;
+    if (!useReactiveAudio) {
+      analyser = spectrum = waveform = null;
+      updateMotion();
+      return;
+    }
     try {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) return;
