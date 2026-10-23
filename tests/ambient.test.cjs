@@ -21,7 +21,7 @@ function setup() {
     this.destroy = () => { this.destroyed = true; };
     this.mute = () => { this.muted = true; };
     this.playVideo = () => { this.started = true; };
-    this.getIframe = () => ({});
+    this.getIframe = () => ({ setAttribute() {} });
     players.push(this);
   } } };
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, "../ambient.js"), "utf8"), {

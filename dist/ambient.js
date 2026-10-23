@@ -53,6 +53,8 @@
             const iframe = event.target.getIframe();
             iframe.title = "Background video";
             iframe.tabIndex = -1;
+            iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
+            iframe.setAttribute("playsinline", "");
             event.target.mute();
             event.target.playVideo();
           },

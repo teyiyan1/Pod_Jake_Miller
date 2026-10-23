@@ -36,6 +36,7 @@ let localPlayAttempt = 0;
 let localAction = "play";
 let localLabel = "本地音频 · 点击播放";
 let playbackAttempt = 0;
+let ambientRequested = false;
 let savedState = {};
 let videoOverrides = {};
 let filteredIndexes = [];
@@ -85,7 +86,9 @@ function renderIcons() {
 }
 
 function setPlaybackAction(action, label) {
-  window.encoreAmbient?.setPlaying(action === "pause");
+  if (action === "pause") ambientRequested = true;
+  else if (["play", "retry", "unavailable", "empty"].includes(action)) ambientRequested = false;
+  window.encoreAmbient?.setPlaying(ambientRequested);
   if (navigator.mediaSession) {
     try {
       navigator.mediaSession.playbackState = action === "pause" ? "playing" : action === "play" ? "paused" : "none";
@@ -127,6 +130,11 @@ function setPlaying(playing, label) {
   if (apiUnavailable) return setPlaybackAction("unavailable", "无法连接 YouTube，请检查网络后刷新");
   if (videoBlocked) return setPlaybackAction("retry", youtubeErrorMessage(videoErrorCode));
   setPlaybackAction(playing ? "pause" : "play", label);
+}
+
+function requestAmbientPlayback() {
+  ambientRequested = true;
+  window.encoreAmbient?.setPlaying(true);
 }
 
 function youtubeErrorMessage(code) {
@@ -237,6 +245,8 @@ function startLocalPlayback(track) {
   audio.muted = muted;
   if (audio.ended) audio.currentTime = 0;
   setLocalPlaybackAction("loading", "正在载入本地音频…");
+  // Start the muted shared background in the same user gesture on mobile browsers.
+  requestAmbientPlayback();
   audio.play().catch((error) => {
     if (localAudio !== audio || attempt !== localPlayAttempt || activeProvider !== "local") return;
     setLocalPlaybackAction("retry", error.name === "NotAllowedError"
@@ -268,10 +278,12 @@ function startYouTubePlayback(label = "") {
   playbackRequested = true;
   if (ytReady) {
     setPlaybackAction("loading", label || "Loading YouTube…");
+    requestAmbientPlayback();
     ytPlayer.loadVideoById(videoId);
   } else {
     pendingAutoplay = true;
     setPlaybackAction("loading", label || "Connecting to YouTube…");
+    requestAmbientPlayback();
   }
   return true;
 }
@@ -293,6 +305,7 @@ async function startPreferredPlayback() {
     playbackRequested = false;
     if (ytReady) ytPlayer.pauseVideo();
     setPlaybackAction("loading", "正在连接 Apple Music…");
+    requestAmbientPlayback();
     try {
       await appleMusic.play(track);
       if (attempt !== playbackAttempt || currentTrack()?.id !== track.id) {
@@ -584,10 +597,12 @@ function renderTrack(autoplay = false) {
   activeAppleTrackId = "";
   const track = currentTrack();
   if (!track) return;
+  ambientRequested = false;
   document.querySelector("#track-title").textContent = track.title;
   document.querySelector("#track-artist").textContent = track.artist;
   document.querySelector("#track-album").textContent = track.album;
   updateMediaSessionMetadata(track);
+  window.encoreAmbient?.setTrack();
   document.querySelector("#notes-track").textContent = track.title;
   document.querySelector("#notes-album").textContent = track.album;
   document.querySelector("#lyrics-dialog").style.setProperty("--lyrics-artwork", `url("${track.artwork}")`);
@@ -603,7 +618,6 @@ function syncVideo(autoplay = false) {
   const track = currentTrack();
   if (!track) return;
   const videoId = videoIdFor(track);
-  window.encoreAmbient?.setTrack(track, videoId);
   const hasVideo = Boolean(videoId);
   pendingAutoplay = autoplay && !ytReady && hasVideo && !apiUnavailable;
   activeVideoId = videoId;
