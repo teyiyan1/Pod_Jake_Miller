@@ -259,6 +259,7 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
 }
 #lyrics-dialog .dialog-head { flex: 0 0 auto; border-color: rgba(255,255,255,.18); }
 #lyrics-dialog .dialog-head h2, #lyrics-dialog .dialog-head .icon-button { color: #fff; }
+#lyrics-dialog .dialog-head .icon-button:focus,
 #lyrics-dialog .dialog-head .icon-button:focus-visible { outline: 0; outline-offset: 0; box-shadow: none; }
 #lyrics-dialog .notes-content {
   display: flex; flex: 1; flex-direction: column; min-height: 0; overflow: hidden;
