@@ -166,7 +166,6 @@ function releaseLocalAudio() {
   localPlayAttempt += 1;
   localAction = "play";
   localLabel = "本地音频 · 点击播放";
-  window.encoreAmbient?.detachAudio();
   if (previous) {
     previous.pause();
     previous.removeAttribute("src");
@@ -237,7 +236,6 @@ function startLocalPlayback(track) {
   if (ytReady) ytPlayer.pauseVideo();
   audio.muted = muted;
   if (audio.ended) audio.currentTime = 0;
-  window.encoreAmbient?.attachAudio(audio);
   setLocalPlaybackAction("loading", "正在载入本地音频…");
   audio.play().catch((error) => {
     if (localAudio !== audio || attempt !== localPlayAttempt || activeProvider !== "local") return;
@@ -590,7 +588,6 @@ function renderTrack(autoplay = false) {
   document.querySelector("#track-artist").textContent = track.artist;
   document.querySelector("#track-album").textContent = track.album;
   updateMediaSessionMetadata(track);
-  window.encoreAmbient?.setTrack(track);
   document.querySelector("#notes-track").textContent = track.title;
   document.querySelector("#notes-album").textContent = track.album;
   document.querySelector("#lyrics-dialog").style.setProperty("--lyrics-artwork", `url("${track.artwork}")`);
@@ -606,6 +603,7 @@ function syncVideo(autoplay = false) {
   const track = currentTrack();
   if (!track) return;
   const videoId = videoIdFor(track);
+  window.encoreAmbient?.setTrack(track, videoId);
   const hasVideo = Boolean(videoId);
   pendingAutoplay = autoplay && !ytReady && hasVideo && !apiUnavailable;
   activeVideoId = videoId;
