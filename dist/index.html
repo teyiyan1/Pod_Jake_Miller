@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#050506">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Jake Miller · Listening Room</title>
+    <link rel="stylesheet" href="./styles.css?v=vynora-background-1">
+    <script src="./data/tracks.js?v=local-audio-4" defer></script>
+    <script src="./lyric-timing.js?v=audio-alignment-2" defer></script>
+    <script src="./data/lyric-timings.js?v=audio-alignment-2" defer></script>
+    <script src="./vendor/lucide.min.js" defer></script>
+    <script src="./ambient.js?v=vynora-background-2" defer></script>
+    <script src="./apple-music.js?v=apple-music-3" defer></script>
+    <script src="./app.js?v=background-playback-2" defer></script>
+  </head>
+  <body>
+    <div class="ambient-cover" id="ambient-cover" aria-hidden="true">
+    </div>
+    <div class="ambient-shade" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="ipod-brand" href="./?ui=vynora" aria-label="Listening Room">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>iPod</span>
+        <i data-lucide="triangle" class="eject-icon" aria-hidden="true"></i>
+      </a>
+      <h1>Jake Miller <span id="result-count" hidden>· 27 Tracks</span></h1>
+      <div class="top-actions">
+        <button class="icon-button" id="apple-connect" type="button" aria-label="连接 Apple Music" title="连接 Apple Music" hidden><i data-lucide="music-2"></i></button>
+        <button class="icon-button" id="source-open" type="button" aria-label="关联当前歌曲的 YouTube 视频" title="关联视频" hidden><i data-lucide="link"></i></button>
+        <a id="video-external" class="icon-button" href="https://www.youtube.com/watch?v=oCkufmjcy3I" target="_blank" rel="noreferrer" aria-label="在 YouTube 打开" title="在 YouTube 打开" hidden><i data-lucide="external-link"></i></a>
+        <button class="icon-button" id="queue-open" type="button" aria-label="歌单" title="歌单"><i data-lucide="list-music"></i></button>
+        <button class="icon-button" id="lyrics-open" type="button" aria-label="歌词" title="歌词"><i data-lucide="captions"></i></button>
+        <span class="battery" aria-label="iPod 电量装饰"><span></span></span>
+        <span class="battery-label" aria-hidden="true">100%</span>
+      </div>
+    </header>
+
+    <main class="listening-room">
+      <section class="search-section" aria-label="搜索歌单">
+        <form id="search-form" role="search">
+          <i data-lucide="search" aria-hidden="true"></i>
+          <input id="track-search" type="search" placeholder="Search songs" aria-label="搜索歌曲" autocomplete="off">
+          <button id="search-clear" class="icon-button" type="button" aria-label="清空搜索" title="清空搜索" hidden><i data-lucide="x"></i></button>
+        </form>
+      </section>
+
+      <div class="video-frame" id="video-frame" aria-hidden="true" hidden>
+        <div id="youtube-player"></div>
+      </div>
+
+      <section class="gallery" aria-label="Cover Flow 歌单">
+        <div class="deck" id="deck">
+          <div class="records" id="records"></div>
+        </div>
+        <p class="search-empty" id="search-empty" hidden>No tracks found</p>
+        <div class="track-caption" aria-live="polite">
+          <h2 id="track-title">Parties</h2>
+          <p id="track-artist">Jake Miller</p>
+          <p class="album-caption">from <span id="track-album">2:00am in LA</span></p>
+        </div>
+      </section>
+
+      <section class="player-bar" aria-label="播放控制">
+        <div class="transport">
+          <button class="skip-button" id="control-prev" type="button" aria-label="上一首" title="上一首"><i data-lucide="skip-back"></i></button>
+          <button class="play-button" id="play-toggle" type="button" aria-label="播放" title="播放" aria-pressed="false"><i data-lucide="play"></i></button>
+          <button class="skip-button" id="control-next" type="button" aria-label="下一首" title="下一首"><i data-lucide="skip-forward"></i></button>
+        </div>
+        <p id="playback-state" class="sr-only" role="status">Ready to play</p>
+        <div class="player-options">
+          <button class="icon-button" id="shuffle-toggle" type="button" aria-label="随机播放" title="随机播放" aria-pressed="false"><i data-lucide="shuffle"></i></button>
+          <button class="icon-button" id="repeat-toggle" type="button" aria-label="单曲循环" title="单曲循环" aria-pressed="false"><i data-lucide="repeat"></i></button>
+          <button class="icon-button" id="volume-toggle" type="button" aria-label="静音" title="静音" aria-pressed="false"><i data-lucide="volume-2"></i></button>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="queue-dialog" aria-labelledby="queue-heading">
+      <div class="dialog-head"><h2 id="queue-heading">Jake Miller <span>27 tracks</span></h2><button class="icon-button" data-close="queue-dialog" aria-label="关闭" title="关闭"><i data-lucide="x"></i></button></div>
+      <ol class="queue-list" id="queue-list"></ol>
+    </dialog>
+
+    <dialog id="lyrics-dialog" aria-labelledby="notes-heading">
+      <section class="notes-section">
+        <div class="dialog-head">
+          <h2 id="notes-heading">Lyrics</h2>
+          <div class="dialog-actions">
+            <button class="icon-button lyrics-sync-start" id="lyrics-sync-start" type="button" title="逐句打点，制作同步 LRC" aria-label="制作同步 LRC" hidden><i data-lucide="clock"></i></button>
+            <label class="icon-button lyrics-import-button" for="lyrics-import" title="导入 LRC/TXT 歌词" aria-label="导入歌词"><i data-lucide="upload"></i></label>
+            <button class="icon-button" data-close="lyrics-dialog" aria-label="关闭" title="关闭"><i data-lucide="x"></i></button>
+          </div>
+          <input id="lyrics-import" type="file" accept=".lrc,.txt,text/plain" multiple hidden>
+        </div>
+        <div class="notes-content" id="notes-content">
+          <h3 id="notes-track">Parties</h3>
+          <p class="notes-album" id="notes-album">2:00am in LA</p>
+          <p class="note-copy" id="note-copy">Lyrics unavailable</p>
+          <p class="notes-disclaimer" id="notes-disclaimer">LRC / TXT</p>
+          <div class="lyrics-sync-controls" id="lyrics-sync-controls" hidden>
+            <p id="lyrics-sync-status" aria-live="polite"></p>
+            <div>
+              <button class="icon-button" id="lyrics-sync-play" type="button" aria-label="播放音乐" title="播放音乐"><i data-lucide="play"></i></button>
+              <button class="text-button" id="lyrics-sync-undo" type="button" disabled>撤销上一句</button>
+              <button class="primary-button" id="lyrics-sync-save" type="button" disabled>保存同步歌词</button>
+              <button class="text-button" id="lyrics-sync-cancel" type="button">取消</button>
+            </div>
+          </div>
+          <div class="lyrics-view" id="lyrics-view" hidden></div>
+        </div>
+      </section>
+    </dialog>
+
+    <dialog id="source-dialog" aria-labelledby="source-heading">
+      <form id="source-form">
+        <div class="dialog-head"><h2 id="source-heading">YouTube video</h2><button class="icon-button" type="button" data-close="source-dialog" aria-label="关闭" title="关闭"><i data-lucide="x"></i></button></div>
+        <p id="source-track"></p>
+        <label class="field-label" for="video-url">YouTube URL / Video ID</label>
+        <input id="video-url" type="text" placeholder="https://www.youtube.com/watch?v=…" autocomplete="off" required>
+        <p id="source-error" role="alert"></p>
+        <div class="source-form-actions">
+          <button id="source-reset" class="text-button" type="button">Reset</button>
+          <button class="primary-button" type="submit"><i data-lucide="check"></i> Save</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
