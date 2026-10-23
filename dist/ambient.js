@@ -2,105 +2,67 @@
   const root = document.documentElement;
   const background = document.querySelector("#ambient-cover");
   if (!background) return;
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  // Use Parties as the single shared visual layer for every track.
-  const sharedVideoId = "oCkufmjcy3I";
-  let playing = false;
-  let videoId = "";
-  let player = null;
-  let poll = 0;
-  let timeout = 0;
-  let generation = 0;
-  let mounted = false;
 
-  function removeVideo() {
-    generation++;
-    clearInterval(poll);
-    clearTimeout(timeout);
-    player?.destroy();
-    player = null;
-    background.replaceChildren();
-    background.dataset.videoState = "fallback";
-    mounted = false;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const layers = [...background.querySelectorAll(".ambient-layer")];
+  const partiesArtwork = "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg";
+  let playing = false;
+  let dragging = false;
+
+  function paintSound() {
+    root.style.setProperty("--ambient-energy", "0");
+    root.style.setProperty("--ambient-bass", "0");
+    root.style.setProperty("--ambient-hit", "0");
   }
 
-  function mountVideo() {
-    mounted = true;
-    const token = ++generation;
-    background.dataset.videoState = "loading";
-    const fail = () => {
-      if (token !== generation) return;
-      removeVideo();
-      // Retry only after another playback/visibility change.
-      mounted = true;
-    };
-    timeout = setTimeout(fail, 15000);
-    const initialize = () => {
-      if (token !== generation || !window.YT?.Player) return;
-      clearInterval(poll);
-      const host = document.createElement("div");
-      background.append(host);
-      player = new window.YT.Player(host, {
-        videoId,
-        playerVars: {
-          autoplay: 1, mute: 1, controls: 0, disablekb: 1,
-          playsinline: 1, loop: 1, playlist: videoId, rel: 0, fs: 0,
-          origin: location.origin
-        },
-        events: {
-          onReady(event) {
-            if (token !== generation) return;
-            const iframe = event.target.getIframe();
-            iframe.title = "Background video";
-            iframe.tabIndex = -1;
-            iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
-            iframe.setAttribute("playsinline", "");
-            event.target.mute();
-            event.target.playVideo();
-          },
-          onStateChange(event) {
-            if (token !== generation) return;
-            if (event.data === 1) {
-              clearTimeout(timeout);
-              background.dataset.videoState = "playing";
-            }
-          },
-          onError: fail
-        }
-      });
-    };
-    // Reuse the main player's API script without replacing its ready callback.
-    poll = setInterval(initialize, 100);
-    initialize();
+  function setPartiesArtwork() {
+    layers.forEach(layer => {
+      const flow = layer.querySelector(".ambient-flow");
+      if (flow) flow.style.backgroundImage = `url(${JSON.stringify(partiesArtwork)})`;
+      layer.style.setProperty("--light-1", "150, 78, 62");
+      layer.style.setProperty("--light-2", "86, 70, 92");
+      layer.style.setProperty("--light-3", "42, 82, 96");
+      layer.style.setProperty("--light-x-1", "22%");
+      layer.style.setProperty("--light-y-1", "28%");
+      layer.style.setProperty("--light-x-2", "78%");
+      layer.style.setProperty("--light-y-2", "58%");
+      layer.style.setProperty("--light-x-3", "38%");
+      layer.style.setProperty("--light-y-3", "84%");
+      layer.style.setProperty("--drift-duration", "27s");
+    });
+    background.dataset.artwork = "Parties";
+    background.dataset.artworkSource = partiesArtwork;
   }
 
   function updateMotion() {
     const visible = playing && !document.hidden;
-    const active = visible && !reducedMotion.matches;
+    const active = visible && !reducedMotion.matches && !dragging;
     root.dataset.ambientPlaying = String(visible);
     root.dataset.ambientMotion = active ? "running" : "paused";
-    if (active && videoId) {
-      if (!mounted) mountVideo();
-    } else if (mounted) {
-      removeVideo();
-    }
+    root.dataset.ambientDragging = String(dragging);
+    root.dataset.ambientAudio = "atmosphere";
+    if (!active) paintSound();
   }
 
   reducedMotion.addEventListener("change", updateMotion);
   document.addEventListener("visibilitychange", updateMotion);
+  setPartiesArtwork();
+  updateMotion();
+
   window.encoreAmbient = {
     setTrack() {
-      const next = sharedVideoId;
-      if (next !== videoId) {
-        removeVideo();
-        videoId = next;
-      }
-      // Track selection must not start the decorative video before audio plays.
+      // The artwork stays on Parties so every song shares one visual language.
+      setPartiesArtwork();
       playing = false;
       updateMotion();
     },
-    setPlaying(value) { playing = Boolean(value); updateMotion(); },
-    setDragging(value) { root.dataset.ambientDragging = String(Boolean(value)); }
+    setPlaying(value) {
+      playing = Boolean(value);
+      updateMotion();
+    },
+    setDragging(value) {
+      dragging = Boolean(value);
+      updateMotion();
+    }
   };
-  updateMotion();
 })();

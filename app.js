@@ -86,8 +86,7 @@ function renderIcons() {
 }
 
 function setPlaybackAction(action, label) {
-  if (action === "pause") ambientRequested = true;
-  else if (["play", "retry", "unavailable", "empty"].includes(action)) ambientRequested = false;
+  ambientRequested = action === "pause";
   window.encoreAmbient?.setPlaying(ambientRequested);
   if (navigator.mediaSession) {
     try {
@@ -130,11 +129,6 @@ function setPlaying(playing, label) {
   if (apiUnavailable) return setPlaybackAction("unavailable", "无法连接 YouTube，请检查网络后刷新");
   if (videoBlocked) return setPlaybackAction("retry", youtubeErrorMessage(videoErrorCode));
   setPlaybackAction(playing ? "pause" : "play", label);
-}
-
-function requestAmbientPlayback() {
-  ambientRequested = true;
-  window.encoreAmbient?.setPlaying(true);
 }
 
 function youtubeErrorMessage(code) {
@@ -245,8 +239,6 @@ function startLocalPlayback(track) {
   audio.muted = muted;
   if (audio.ended) audio.currentTime = 0;
   setLocalPlaybackAction("loading", "正在载入本地音频…");
-  // Start the muted shared background in the same user gesture on mobile browsers.
-  requestAmbientPlayback();
   audio.play().catch((error) => {
     if (localAudio !== audio || attempt !== localPlayAttempt || activeProvider !== "local") return;
     setLocalPlaybackAction("retry", error.name === "NotAllowedError"
@@ -278,12 +270,10 @@ function startYouTubePlayback(label = "") {
   playbackRequested = true;
   if (ytReady) {
     setPlaybackAction("loading", label || "Loading YouTube…");
-    requestAmbientPlayback();
     ytPlayer.loadVideoById(videoId);
   } else {
     pendingAutoplay = true;
     setPlaybackAction("loading", label || "Connecting to YouTube…");
-    requestAmbientPlayback();
   }
   return true;
 }
@@ -305,7 +295,6 @@ async function startPreferredPlayback() {
     playbackRequested = false;
     if (ytReady) ytPlayer.pauseVideo();
     setPlaybackAction("loading", "正在连接 Apple Music…");
-    requestAmbientPlayback();
     try {
       await appleMusic.play(track);
       if (attempt !== playbackAttempt || currentTrack()?.id !== track.id) {

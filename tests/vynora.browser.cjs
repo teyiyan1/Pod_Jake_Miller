@@ -83,16 +83,13 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
     assert.equal(await page.locator("#youtube-player").boundingBox(), null, "playback has no visible video or reserved space");
     assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "running");
-    await page.waitForFunction(() => document.querySelector("#ambient-cover").dataset.videoState === "playing");
-    assert.equal(await page.locator("#ambient-cover iframe").count(), 1, "background video is mounted separately");
+    assert.equal(await page.locator("#ambient-cover").getAttribute("data-artwork"), "Parties");
     await page.locator("#play-toggle").click();
     assert.equal(await page.locator("#playback-state").textContent(), "Paused");
     assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused");
-    assert.equal(await page.locator("#ambient-cover").getAttribute("data-video-state"), "fallback");
     await page.locator("#repeat-toggle").click();
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.waitForFunction(() => document.documentElement.dataset.ambientMotion === "paused");
-    assert.equal(await page.locator("#ambient-cover").getAttribute("data-video-state"), "fallback");
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.evaluate(() => window.__players[0].emit(0));
     assert.equal(await page.locator("#track-title").textContent(), "Parties");
