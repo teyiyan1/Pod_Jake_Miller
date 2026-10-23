@@ -161,6 +161,8 @@ const encoreTracks = [
     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/us/album/parties/1271854156?i=1271854172&uo=4",
     "officialVideoId": "oCkufmjcy3I",
+    "lyricsVideoId": "7KDksdVFGmc",
+    "lyricsDurationSeconds": 169.84,
     "note": "把热闹留给今晚。人群、灯光和重逢，都在这一刻有了位置。",
     "videoVerification": {
       "status": "publisher-title-confirmed",

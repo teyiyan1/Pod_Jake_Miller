@@ -1,0 +1,81 @@
+{
+  "checkedAt": "2026-10-23",
+  "method": "Local stable-ts 2.19.1 / Whisper small.en acoustic alignment, followed by independent transcription comparison and recording-bound playback-time tests",
+  "lyricTextBundled": false,
+  "audioUploaded": false,
+  "tests": {
+    "unitAndTimelineChecks": 15,
+    "passed": 15
+  },
+  "tracks": [
+    {
+      "id": "1439639051",
+      "title": "Wait for You",
+      "status": "local-synchronization-enabled",
+      "timedLines": 58,
+      "textProvider": "lyrics.ovh",
+      "apiExactFingerprintMatch": true,
+      "browserSample": {
+        "playbackTime": 28.251837,
+        "activeLineStart": 26.2
+      },
+      "notes": "Older LRCLIB plain text omitted the first pre-chorus; full text now refreshes from the provider used for alignment."
+    },
+    {
+      "id": "6815101529",
+      "title": "Momentum",
+      "status": "local-synchronization-enabled",
+      "timedLines": 63,
+      "textProvider": "lyrics.ovh",
+      "apiExactFingerprintMatch": true,
+      "browserSample": {
+        "playbackTime": 18.945548,
+        "activeLineStart": 13.64
+      }
+    },
+    {
+      "id": "6796607454",
+      "title": "Waiting On August",
+      "status": "local-synchronization-enabled",
+      "timedLines": 39,
+      "textProvider": "lyrics.ovh",
+      "apiExactFingerprintMatch": true,
+      "browserSample": {
+        "playbackTime": 55.614,
+        "activeLineStart": 51.43
+      },
+      "notes": "Second verse alignment excludes the spoken family clip; production credits are omitted."
+    },
+    {
+      "id": "6789188248",
+      "title": "Spark",
+      "status": "local-synchronization-enabled",
+      "timedLines": 47,
+      "textProvider": "lyrics.ovh",
+      "apiExactFingerprintMatch": true,
+      "browserSample": {
+        "playbackTime": 27.622833,
+        "activeLineStart": 26.44
+      }
+    },
+    {
+      "id": "1271854172",
+      "title": "Parties",
+      "status": "blocked-matching-playback-source",
+      "timedLines": 36,
+      "textProvider": "lrclib",
+      "referenceRecordId": 11279170,
+      "apiMatchedRecordId": 16248443,
+      "apiExactFingerprintMatch": true,
+      "referenceVideoId": "7KDksdVFGmc",
+      "referenceDurationSeconds": 170,
+      "embedError": 150,
+      "defaultVideoIdRetained": "oCkufmjcy3I",
+      "notes": "The user confirmed there is no local file. Official audio played on its watch page, but in-page playback failed. Audio-version timestamps are not applied to the different music-video edit.",
+      "originalVideoPlaybackStatus": "Now Playing",
+      "additionalOfficialAlbumVideoId": "0uoy8oVVgFg",
+      "additionalOfficialAlbumVideoStatus": "Video unavailable on watch page"
+    }
+  ],
+  "limits": "Machine-aligned line timestamps are not manually certified against every sung phrase. Browser samples verify actual playback-driven highlighting and scrolling at selected points, not full-song listening."
+}

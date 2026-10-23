@@ -1,5 +1,6 @@
 const STORAGE_KEY = "encore-recovered-jake-miller-v1";
 const LYRICS_STORAGE_KEY = "encore-jake-miller-lyrics-v1";
+const LYRICS_DRAFT_STORAGE_KEY = "encore-jake-miller-lyric-drafts-v1";
 const VIDEO_STORAGE_KEY = "encore-jake-miller-videos-v1";
 
 const deck = document.querySelector("#deck");
@@ -22,6 +23,7 @@ let repeat = false;
 let muted = false;
 let activeLyrics = [];
 let lyricsByTrack = {};
+let lyricsSyncDrafts = {};
 const lyricsLookupRequests = new Map();
 const lyricsLookupRetryAfter = new Map();
 const lyricsSyncRefreshAttempted = new Set();
@@ -56,6 +58,11 @@ try {
 
 try {
   lyricsByTrack = JSON.parse(localStorage.getItem(LYRICS_STORAGE_KEY) || "{}");
+} catch {}
+
+try {
+  const savedDrafts = JSON.parse(localStorage.getItem(LYRICS_DRAFT_STORAGE_KEY) || "{}");
+  if (savedDrafts && typeof savedDrafts === "object" && !Array.isArray(savedDrafts)) lyricsSyncDrafts = savedDrafts;
 } catch {}
 
 try {
@@ -196,6 +203,10 @@ function startLocalPlayback(track) {
     });
     audio.addEventListener("ended", () => {
       if (!isCurrent() || !filteredIndexes.length) return;
+      if (lyricsSyncMode && lyricsSyncTrackId === track.id) {
+        setLocalPlaybackAction("play", "播放结束 · 打点进度已保存");
+        return;
+      }
       if (repeat) {
         audio.currentTime = 0;
         startLocalPlayback(track);
@@ -324,7 +335,8 @@ function handleAppleMusicEvent(event) {
     else if (detail.state === "paused") setPlaybackAction("play", "Apple Music · 已暂停");
     else if (detail.state === "loading") setPlaybackAction("loading", "正在载入 Apple Music…");
     else if (detail.state === "ended") {
-      if (repeat) startPreferredPlayback();
+      if (lyricsSyncMode) setPlaybackAction("play", "播放结束 · 打点进度已保存");
+      else if (repeat) startPreferredPlayback();
       else advanceTrack(1, true);
     }
   } else if (detail.type === "error" && activeProvider === "apple" && currentTrack()?.id === activeAppleTrackId) {
@@ -427,6 +439,7 @@ function loadYouTubeApi() {
           }
           if (event.data === YT.PlayerState.ENDED) {
             setPlaying(false, "Finished");
+            if (lyricsSyncMode) return;
             if (repeat) {
               ytPlayer.seekTo(0, true);
               ytPlayer.playVideo();
@@ -726,6 +739,15 @@ function parseLrc(text) {
   return lines.sort((a, b) => a.time - b.time);
 }
 
+function alignedLyricsForTrack(track, lyrics) {
+  const timing = window.ENCORE_LYRIC_TIMINGS?.[track.id];
+  if (!timing || !window.EncoreLyricTiming || !lyrics?.text) return null;
+  if (timing.audioUrl && timing.audioUrl !== track.audioUrl) return null;
+  if (timing.videoId && videoIdFor(track) !== timing.videoId) return null;
+  const lines = window.EncoreLyricTiming.synchronize(lyrics.text, timing);
+  return lines?.length ? { lines, source: timing.source || "audio-alignment" } : null;
+}
+
 function renderLyrics(track) {
   cancelLyricsSync({ render: false });
   const lyrics = lyricsByTrack[track.id];
@@ -741,21 +763,32 @@ function renderLyrics(track) {
     document.querySelector("#notes-disclaimer").textContent = "LRC / TXT";
     return;
   }
+  // Imported or manually saved LRC remains the listener's chosen timeline.
+  if (lyrics.format === "lrc" && parseLrc(lyrics.text).length) {
+    showLyrics(lyrics.text, "lrc", lyrics.source || "");
+    return;
+  }
+  const aligned = alignedLyricsForTrack(track, lyrics);
   const syncedText = lyrics.syncedText?.trim();
-  if (syncedText && parseLrc(syncedText).length) {
+  const timing = window.ENCORE_LYRIC_TIMINGS?.[track.id];
+  const matchingVideo = !timing?.videoId || videoIdFor(track) === timing.videoId;
+  if (aligned && !(aligned.source === "lrclib" && matchingVideo && syncedText && parseLrc(syncedText).length)) {
+    showLyrics(lyrics.text, "lrc", aligned.source, aligned.lines);
+  } else if (matchingVideo && syncedText && parseLrc(syncedText).length) {
     showLyrics(syncedText, "lrc", lyrics.source || "");
   } else {
     showLyrics(lyrics.text, lyrics.format, lyrics.source || "");
+    if (!matchingVideo) document.querySelector("#notes-disclaimer").textContent = "TXT · 当前播放版本暂无同步时间轴";
   }
 }
 
-function showLyrics(text, format, source = "") {
+function showLyrics(text, format, source = "", timedLines = null) {
   const isLrc = format === "lrc";
-  activeLyrics = isLrc ? parseLrc(text) : [];
+  activeLyrics = timedLines || (isLrc ? parseLrc(text) : []);
   document.querySelector("#lyrics-sync-start").hidden = Boolean(activeLyrics.length);
   noteCopy.hidden = true;
   document.querySelector("#notes-disclaimer").hidden = false;
-  const sourceLabel = source === "lrclib" ? "LRCLIB" : source === "lyrics.ovh" ? "Lyrics.ovh" : "On this device";
+  const sourceLabel = source === "audio-alignment" ? "音频对齐" : source === "lrclib" ? "LRCLIB" : source === "lyrics.ovh" ? "Lyrics.ovh" : "On this device";
   document.querySelector("#notes-disclaimer").textContent = `${isLrc ? "LRC" : "TXT"} · ${sourceLabel}`;
   lyricsView.hidden = false;
   lyricsView.replaceChildren();
@@ -815,7 +848,10 @@ async function loadLyricsForTrack(track, { refresh = false, silent = false } = {
   if (existing?.text?.trim() && !refresh) {
     if (currentTrack()?.id === track.id) renderLyrics(track);
     const isOnlineLyrics = ["lrclib", "lyrics.ovh"].includes(existing.source);
-    if (isOnlineLyrics && !existing.syncedText?.trim() && existing.format !== "lrc" && !lyricsSyncRefreshAttempted.has(track.id)) {
+    const timing = window.ENCORE_LYRIC_TIMINGS?.[track.id];
+    const completeAlignedText = timing?.audioUrl === track.audioUrl
+      && window.EncoreLyricTiming?.matchesText(existing.text, timing);
+    if (isOnlineLyrics && !completeAlignedText && !existing.syncedText?.trim() && existing.format !== "lrc" && !lyricsSyncRefreshAttempted.has(track.id)) {
       lyricsSyncRefreshAttempted.add(track.id);
       void loadLyricsForTrack(track, { refresh: true, silent: true });
     }
@@ -836,8 +872,12 @@ async function loadLyricsForTrack(track, { refresh = false, silent = false } = {
     artist_name: track.artist,
     album_name: track.album
   });
-  if (Number.isFinite(track.audioDurationSeconds) && track.audioDurationSeconds > 0) {
-    params.set("duration", String(track.audioDurationSeconds));
+  if (window.ENCORE_LYRIC_TIMINGS?.[track.id]?.audioUrl === track.audioUrl && track.audioUrl) {
+    params.set("prefer_plain", "1");
+  }
+  const lyricsDuration = track.audioDurationSeconds || track.lyricsDurationSeconds;
+  if (Number.isFinite(lyricsDuration) && lyricsDuration > 0) {
+    params.set("duration", String(lyricsDuration));
   }
   const isLocalPreview = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
   const lyricsUrl = isLocalPreview
@@ -881,7 +921,7 @@ async function loadLyricsForTrack(track, { refresh = false, silent = false } = {
       if (!titleMatches || !artistMatches || !text) throw new Error("lyrics-not-available");
 
       const latestLyrics = lyricsByTrack[track.id];
-      if (latestLyrics?.source === "local-sync" && latestLyrics.format === "lrc") return;
+      if (["local-sync", "imported"].includes(latestLyrics?.source)) return;
 
       lyricsByTrack[track.id] = {
         text,
@@ -924,6 +964,7 @@ function updateLyrics(time) {
   activeLyrics.forEach((line, index) => {
     if (line.time <= time) active = index;
   });
+  if (active >= 0 && Number.isFinite(activeLyrics[active].end) && time > activeLyrics[active].end + 1) active = -1;
   if (active === activeLyricIndex) return;
   activeLyricIndex = active;
   [...lyricsView.children].forEach((line, index) => {
@@ -958,9 +999,23 @@ function formatLrcTime(time) {
 function updateLyricsSyncControls() {
   const stampedCount = lyricsSyncDraft.filter((line) => Number.isFinite(line.time)).length;
   document.querySelector("#lyrics-sync-status").textContent =
-    `听到每句开头时点击对应歌词打点 · 已标记 ${stampedCount} / ${lyricsSyncDraft.length} 句`;
+    `听到每句开头时点击对应歌词打点 · 已标记 ${stampedCount} / ${lyricsSyncDraft.length} 句 · 进度自动保存`;
   document.querySelector("#lyrics-sync-undo").disabled = lyricsSyncHistory.length === 0;
   document.querySelector("#lyrics-sync-save").disabled = stampedCount !== lyricsSyncDraft.length;
+}
+
+function persistLyricsSyncDraft() {
+  if (!lyricsSyncMode || !lyricsSyncTrackId) return;
+  lyricsSyncDrafts[lyricsSyncTrackId] = {
+    lines: lyricsSyncDraft.map(line => line.text),
+    times: lyricsSyncDraft.map(line => line.time),
+    history: [...lyricsSyncHistory]
+  };
+  try {
+    localStorage.setItem(LYRICS_DRAFT_STORAGE_KEY, JSON.stringify(lyricsSyncDrafts));
+  } catch {
+    document.querySelector("#lyrics-sync-status").textContent = "浏览器空间不足，打点进度暂时无法保存。";
+  }
 }
 
 function startLyricsSync() {
@@ -971,21 +1026,34 @@ function startLyricsSync() {
 
   lyricsSyncMode = true;
   lyricsSyncTrackId = track.id;
-  lyricsSyncDraft = lines.map((text) => ({ text, time: null }));
-  lyricsSyncHistory = [];
+  const draft = lyricsSyncDrafts[track.id];
+  const canResume = Array.isArray(draft?.lines) && Array.isArray(draft?.times)
+    && draft.lines.length === lines.length && draft.lines.every((text, index) => text === lines[index]);
+  lyricsSyncDraft = lines.map((text, index) => ({ text, time: canResume && Number.isFinite(draft.times[index]) ? draft.times[index] : null }));
+  lyricsSyncHistory = canResume && Array.isArray(draft.history)
+    ? draft.history.filter(index => Number.isInteger(index) && Number.isFinite(lyricsSyncDraft[index]?.time)) : [];
+  activeLyrics = [];
+  activeLyricIndex = -1;
   document.querySelector("#lyrics-sync-start").hidden = true;
   document.querySelector("#lyrics-sync-controls").hidden = false;
   lyricsView.hidden = false;
   noteCopy.hidden = true;
   lyricsView.replaceChildren(...lyricsSyncDraft.map((line, index) => {
     const el = document.createElement("div");
-    el.className = "lyrics-line is-sync-target";
+    el.className = `lyrics-line ${Number.isFinite(line.time) ? "is-stamped" : "is-sync-target"}`;
     el.dataset.syncIndex = String(index);
     el.textContent = line.text;
+    if (Number.isFinite(line.time)) {
+      const stamp = document.createElement("span");
+      stamp.className = "lyrics-sync-time";
+      stamp.textContent = formatLrcTime(line.time);
+      el.append(stamp);
+    }
     el.addEventListener("click", () => stampLyricsLine(index));
     return el;
   }));
   updateLyricsSyncControls();
+  persistLyricsSyncDraft();
 }
 
 function stampLyricsLine(index) {
@@ -1015,6 +1083,7 @@ function stampLyricsLine(index) {
     behavior: "smooth"
   });
   updateLyricsSyncControls();
+  persistLyricsSyncDraft();
 }
 
 function undoLyricsStamp() {
@@ -1026,10 +1095,12 @@ function undoLyricsStamp() {
   line.classList.add("is-sync-target");
   line.querySelector(".lyrics-sync-time")?.remove();
   updateLyricsSyncControls();
+  persistLyricsSyncDraft();
 }
 
 function cancelLyricsSync({ render = true } = {}) {
   if (!lyricsSyncMode && !lyricsSyncTrackId) return;
+  persistLyricsSyncDraft();
   const trackId = lyricsSyncTrackId;
   lyricsSyncMode = false;
   lyricsSyncTrackId = "";
@@ -1042,14 +1113,20 @@ function cancelLyricsSync({ render = true } = {}) {
 function saveLyricsSync() {
   if (!lyricsSyncMode || currentTrack()?.id !== lyricsSyncTrackId) return;
   if (lyricsSyncDraft.some((line) => !Number.isFinite(line.time))) return;
+  const outOfOrder = lyricsSyncDraft.findIndex((line, index) => index > 0 && line.time < lyricsSyncDraft[index - 1].time);
+  if (outOfOrder !== -1) {
+    document.querySelector("#lyrics-sync-status").textContent = `第 ${outOfOrder + 1} 句早于上一句，请重新打点后保存。`;
+    return;
+  }
   const track = currentTrack();
   const lrcText = lyricsSyncDraft
     .map((line) => ({ ...line, lrcTime: formatLrcTime(line.time) }))
-    .sort((a, b) => a.time - b.time)
     .map((line) => `${line.lrcTime}${line.text}`)
     .join("\n");
   lyricsByTrack[track.id] = { text: lrcText, format: "lrc", source: "local-sync" };
   saveLyrics();
+  delete lyricsSyncDrafts[track.id];
+  try { localStorage.setItem(LYRICS_DRAFT_STORAGE_KEY, JSON.stringify(lyricsSyncDrafts)); } catch {}
   lyricsSyncMode = false;
   lyricsSyncTrackId = "";
   lyricsSyncDraft = [];
@@ -1169,7 +1246,8 @@ function bindEvents() {
       if (!track) continue;
       lyricsByTrack[track.id] = {
         text: await file.text(),
-        format: file.name.toLowerCase().endsWith(".lrc") ? "lrc" : "txt"
+        format: file.name.toLowerCase().endsWith(".lrc") ? "lrc" : "txt",
+        source: "imported"
       };
       imported++;
     }

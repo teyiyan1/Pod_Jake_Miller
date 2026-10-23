@@ -161,6 +161,16 @@ async function searchLyricsRecords(trackName, artistName, albumName, duration, h
     .sort((a, b) => b.score - a.score);
 }
 
+async function fetchPlainLyrics(trackName, artistName, albumName, headers, signal) {
+  const url = `https://api.lyrics.ovh/v1/${encodeURIComponent(artistName)}/${encodeURIComponent(trackName)}`;
+  const upstream = await fetch(url, { headers, signal });
+  if (upstream.status === 404) return null;
+  if (!upstream.ok) throw new Error(`Lyrics.ovh returned ${upstream.status}`);
+  const result = await upstream.json();
+  const plainLyrics = typeof result?.lyrics === "string" ? result.lyrics.trim() : "";
+  return plainLyrics ? { trackName, artistName, albumName, plainLyrics, syncedLyrics: null, provider: "lyrics.ovh" } : null;
+}
+
 const server = http.createServer((request, response) => {
   const requestUrl = new URL(request.url, `http://${HOST}:${PORT}`);
   if (request.method !== "GET" && request.method !== "HEAD") {
@@ -220,6 +230,21 @@ const server = http.createServer((request, response) => {
       "Lrclib-Client": "JakeMillerListeningRoom/1.4.1"
     };
     (async () => {
+      // Local acoustic timing was built against this full text. Some catalog
+      // records omit entire verses, so fetch the matching text first on request.
+      if (requestUrl.searchParams.get("prefer_plain") === "1") {
+        try {
+          const plain = await fetchPlainLyrics(trackName, artistName, albumName, headers,
+            AbortSignal.any([controller.signal, AbortSignal.timeout(6_000)]));
+          if (plain) {
+            sendJson(response, 200, plain);
+            return;
+          }
+        } catch (error) {
+          if (controller.signal.aborted) throw error;
+          console.error("Preferred plain lyrics failed:", error.message);
+        }
+      }
       const upstream = await fetch(upstreamUrl, { headers, signal: controller.signal });
       if (upstream.ok) {
         const record = await upstream.json();
@@ -255,27 +280,10 @@ const server = http.createServer((request, response) => {
         }
 
         if (upstream.status === 404 || upstream.status >= 500) {
-          const lyricsOvhUrl = `https://api.lyrics.ovh/v1/${encodeURIComponent(artistName)}/${encodeURIComponent(trackName)}`;
-          const lyricsOvhResponse = await fetch(lyricsOvhUrl, {
-            headers: { Accept: "application/json" },
-            signal: controller.signal
-          });
-          if (lyricsOvhResponse.ok) {
-            const lyricsOvhResult = await lyricsOvhResponse.json();
-            const plainLyrics = typeof lyricsOvhResult?.lyrics === "string" ? lyricsOvhResult.lyrics.trim() : "";
-            if (plainLyrics) {
-              sendJson(response, 200, {
-                trackName,
-                artistName,
-                albumName,
-                plainLyrics,
-                syncedLyrics: null,
-                provider: "lyrics.ovh"
-              });
-              return;
-            }
-          } else if (lyricsOvhResponse.status !== 404) {
-            throw new Error(`Lyrics.ovh returned ${lyricsOvhResponse.status}`);
+          const plain = await fetchPlainLyrics(trackName, artistName, albumName, headers, controller.signal);
+          if (plain) {
+            sendJson(response, 200, plain);
+            return;
           }
         }
       }
