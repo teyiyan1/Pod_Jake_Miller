@@ -22,7 +22,9 @@ window.YT = {
       iframe.title = "YouTube test player";
       iframe.src = "about:blank";
       iframe.style.cssText = "width:100%;height:100%;border:0;background:black";
-      document.getElementById(id).replaceWith(iframe);
+      this.iframe = iframe;
+      const host = typeof id === "string" ? document.getElementById(id) : id;
+      host?.replaceWith(iframe);
       window.__players.push(this);
       setTimeout(() => this.events.onReady({ target: this }), 0);
     }
@@ -38,6 +40,8 @@ window.YT = {
     seekTo(time) { this.time = time; }
     mute() { this.muted = true; }
     unMute() { this.muted = false; }
+    getIframe() { return this.iframe; }
+    destroy() { this.iframe?.remove(); this.state = -1; }
   }
 };
 window.onYouTubeIframeAPIReady();
@@ -79,22 +83,16 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
     assert.equal(await page.locator("#youtube-player").boundingBox(), null, "playback has no visible video or reserved space");
     assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "running");
-    await page.waitForFunction(() => document.querySelector("#ambient-cover").dataset.palette);
-    const flow = page.locator(".ambient-layer.is-current .ambient-flow");
-    const motionA = await flow.evaluate(el => getComputedStyle(el).transform);
-    await page.waitForTimeout(300);
-    assert.notEqual(await flow.evaluate(el => getComputedStyle(el).transform), motionA, "playing background moves");
+    await page.waitForFunction(() => document.querySelector("#ambient-cover").dataset.videoState === "playing");
+    assert.equal(await page.locator("#ambient-cover iframe").count(), 1, "background video is mounted separately");
     await page.locator("#play-toggle").click();
     assert.equal(await page.locator("#playback-state").textContent(), "Paused");
     assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused");
-    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-    const pausedTransform = await flow.evaluate(el => getComputedStyle(el).transform);
-    await page.waitForTimeout(300);
-    assert.equal(await flow.evaluate(el => getComputedStyle(el).transform), pausedTransform, "paused background freezes without snapping");
+    assert.equal(await page.locator("#ambient-cover").getAttribute("data-video-state"), "fallback");
     await page.locator("#repeat-toggle").click();
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.waitForFunction(() => document.documentElement.dataset.ambientMotion === "paused");
-    assert.equal(await flow.evaluate(el => getComputedStyle(el).animationName), "none");
+    assert.equal(await page.locator("#ambient-cover").getAttribute("data-video-state"), "fallback");
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.evaluate(() => window.__players[0].emit(0));
     assert.equal(await page.locator("#track-title").textContent(), "Parties");
@@ -117,7 +115,7 @@ async function selectFromQueue(page, index) {
 
     const side = await page.locator('.cover-card[data-index="8"] .cover-face').boundingBox();
     await page.mouse.click(side.x + side.width - 10, side.y + side.height / 2);
-    await page.waitForTimeout(450);
+    await page.waitForFunction(() => document.querySelector("#play-toggle").dataset.action === "pause");
     assert.equal(await page.locator("#track-title").textContent(), "Wait for You");
     assert.equal(await page.locator("#play-toggle").isDisabled(), false);
     assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "pause");
