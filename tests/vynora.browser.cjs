@@ -214,22 +214,19 @@ async function selectFromQueue(page, index) {
     assert.match(await page.locator("#playback-state").textContent(), /浏览器阻止/);
     await page.locator("#control-next").click();
     await page.evaluate(() => window.__players[0].events.onError({ data: 150 }));
-    assert.equal(await page.locator("#playback-state").textContent(), "此歌曲暂无可用音源");
+    assert.match(await page.locator("#playback-state").textContent(), /本地音频/);
     assert.equal(await page.locator("#video-frame").isVisible(), false);
     await selectFromQueue(page, 24);
     assert.equal(await page.locator("#track-title").textContent(), "Answers");
     assert.equal(await page.locator("#video-external").getAttribute("href"), "https://www.youtube.com/watch?v=Kr1xzr_dQ4Y");
-    assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
+    assert.match(await page.locator("#playback-state").textContent(), /本地音频/);
     await selectFromQueue(page, 17);
-    assert.equal(await page.locator("#play-toggle").isDisabled(), true);
-    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "unavailable");
-    await page.locator("#source-open").click();
-    assert.match(await page.locator("#source-track").textContent(), /ROSS AND RACHEL/);
-    await page.locator('[data-close="source-dialog"]').click();
+    assert.equal(await page.locator("#play-toggle").isDisabled(), false);
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-action"), "pause");
     await selectFromQueue(page, 18);
     assert.equal(await page.locator("#track-title").textContent(), "Momentum");
-    assert.equal(await page.locator("#play-toggle").getAttribute("data-icon"), "play");
-    assert.equal(await page.locator("#play-toggle").isDisabled(), true);
+    assert.equal(await page.locator("#play-toggle").getAttribute("data-icon"), "pause");
+    assert.equal(await page.locator("#play-toggle").isDisabled(), false);
     assert.equal(await page.locator("#video-frame").isVisible(), false);
     await page.screenshot({ path: path.join(output, "momentum-no-source.png"), fullPage: true });
 
