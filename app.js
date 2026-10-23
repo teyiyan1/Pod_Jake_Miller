@@ -842,6 +842,35 @@ function updateStaticLyricsFocus() {
   [...lyricsView.children].forEach((line) => line.classList.toggle("is-active", line === closest));
 }
 
+function buildLyricsQueryVariants(track) {
+  const lyricsDuration = track.audioDurationSeconds || track.lyricsDurationSeconds;
+  const variants = [];
+  const seen = new Set();
+  const addVariant = ({ includeAlbum, includeDuration }) => {
+    const params = new URLSearchParams({
+      track_name: track.title,
+      artist_name: track.artist
+    });
+    if (includeAlbum && track.album) params.set("album_name", track.album);
+    if (includeDuration && Number.isFinite(lyricsDuration) && lyricsDuration > 0) {
+      params.set("duration", String(lyricsDuration));
+    }
+    if (window.ENCORE_LYRIC_TIMINGS?.[track.id]?.audioUrl === track.audioUrl && track.audioUrl) {
+      params.set("prefer_plain", "1");
+    }
+    const key = params.toString();
+    if (!seen.has(key)) {
+      seen.add(key);
+      variants.push(params);
+    }
+  };
+
+  addVariant({ includeAlbum: true, includeDuration: true });
+  addVariant({ includeAlbum: false, includeDuration: true });
+  addVariant({ includeAlbum: false, includeDuration: false });
+  return variants;
+}
+
 async function loadLyricsForTrack(track, { refresh = false, silent = false } = {}) {
   if (!track) return;
   const existing = lyricsByTrack[track.id];
@@ -867,22 +896,8 @@ async function loadLyricsForTrack(track, { refresh = false, silent = false } = {
   if (Date.now() < retryAfter) return;
 
   if (!silent) setLyricsMessage("Looking up lyrics…", "Searching LRCLIB");
-  const params = new URLSearchParams({
-    track_name: track.title,
-    artist_name: track.artist,
-    album_name: track.album
-  });
-  if (window.ENCORE_LYRIC_TIMINGS?.[track.id]?.audioUrl === track.audioUrl && track.audioUrl) {
-    params.set("prefer_plain", "1");
-  }
-  const lyricsDuration = track.audioDurationSeconds || track.lyricsDurationSeconds;
-  if (Number.isFinite(lyricsDuration) && lyricsDuration > 0) {
-    params.set("duration", String(lyricsDuration));
-  }
+  const queryVariants = buildLyricsQueryVariants(track);
   const isLocalPreview = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
-  const lyricsUrl = isLocalPreview
-    ? `/api/lyrics?${params}`
-    : `https://lrclib.net/api/get?${params}`;
 
   const request = (async () => {
     let cooldown = 15_000;
@@ -891,34 +906,84 @@ async function loadLyricsForTrack(track, { refresh = false, silent = false } = {
     try {
       const controller = new AbortController();
       timeoutId = setTimeout(() => controller.abort(), 15_000);
-      let response = await fetch(lyricsUrl, {
-        headers: { Accept: "application/json" },
-        signal: controller.signal,
-        cache: "no-store"
-      });
-      if (isLocalPreview && response.status >= 500) {
-        response = await fetch(`https://lrclib.net/api/get?${params}`, {
+      let result = null;
+      let lastFailure = null;
+      for (const params of queryVariants) {
+        const lyricsUrl = isLocalPreview
+          ? `/api/lyrics?${params}`
+          : `https://lrclib.net/api/get?${params}`;
+        let response = await fetch(lyricsUrl, {
           headers: { Accept: "application/json" },
           signal: controller.signal,
           cache: "no-store"
         });
+        if (isLocalPreview && response.status >= 500) {
+          response = await fetch(`https://lrclib.net/api/get?${params}`, {
+            headers: { Accept: "application/json" },
+            signal: controller.signal,
+            cache: "no-store"
+          });
+        }
+        if (response.status === 404) {
+          lastFailure = "not-found";
+          continue;
+        }
+        if (!response.ok) {
+          lastFailure = `lyrics-request-${response.status}`;
+          continue;
+        }
+        const candidate = await response.json();
+        const expectedTitle = normalizeName(track.title);
+        const expectedArtist = normalizeName(track.artist);
+        const matchedTitle = normalizeName(candidate.trackName || candidate.name || "");
+        const matchedArtist = normalizeName(candidate.artistName || "");
+        const titleMatches = matchedTitle && (matchedTitle.includes(expectedTitle) || expectedTitle.includes(matchedTitle));
+        const artistMatches = matchedArtist && (matchedArtist.includes(expectedArtist) || expectedArtist.includes(matchedArtist));
+        const plainLyrics = candidate.plainLyrics?.trim();
+        const syncedLyrics = candidate.syncedLyrics?.trim();
+        const text = plainLyrics || (syncedLyrics ? syncedLyrics.replace(/\[[^\]]+\]/g, "").trim() : "");
+        if (titleMatches && artistMatches && text) {
+          result = candidate;
+          break;
+        }
+        lastFailure = "lyrics-not-available";
       }
-      if (response.status === 404) {
+
+      if (!result && !isLocalPreview) {
+        try {
+          const plainUrl = `https://api.lyrics.ovh/v1/${encodeURIComponent(track.artist)}/${encodeURIComponent(track.title)}`;
+          const plainResponse = await fetch(plainUrl, {
+            headers: { Accept: "application/json" },
+            signal: controller.signal,
+            cache: "no-store"
+          });
+          if (plainResponse.ok) {
+            const plainResult = await plainResponse.json();
+            if (plainResult.lyrics?.trim()) {
+              result = {
+                trackName: track.title,
+                artistName: track.artist,
+                albumName: track.album,
+                plainLyrics: plainResult.lyrics.trim(),
+                syncedLyrics: "",
+                provider: "lyrics.ovh"
+              };
+            }
+          }
+        } catch (error) {
+          if (error.name === "AbortError") throw error;
+          lastFailure = `lyrics-plain-request-${error.message}`;
+        }
+      }
+
+      if (!result) {
         cooldown = 30 * 60_000;
-        throw new Error("not-found");
+        throw new Error(lastFailure === "not-found" || lastFailure === "lyrics-not-available" ? "not-found" : lastFailure || "lyrics-not-available");
       }
-      if (!response.ok) throw new Error(`lyrics-request-${response.status}`);
-      const result = await response.json();
-      const expectedTitle = normalizeName(track.title);
-      const expectedArtist = normalizeName(track.artist);
-      const matchedTitle = normalizeName(result.trackName || result.name || "");
-      const matchedArtist = normalizeName(result.artistName || "");
-      const titleMatches = matchedTitle && (matchedTitle.includes(expectedTitle) || expectedTitle.includes(matchedTitle));
-      const artistMatches = matchedArtist && (matchedArtist.includes(expectedArtist) || expectedArtist.includes(matchedArtist));
+
       const plainLyrics = result.plainLyrics?.trim();
       const syncedLyrics = result.syncedLyrics?.trim();
       const text = plainLyrics || (syncedLyrics ? syncedLyrics.replace(/\[[^\]]+\]/g, "").trim() : "");
-      if (!titleMatches || !artistMatches || !text) throw new Error("lyrics-not-available");
 
       const latestLyrics = lyricsByTrack[track.id];
       if (["local-sync", "imported"].includes(latestLyrics?.source)) return;
