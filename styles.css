@@ -223,6 +223,7 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
 .dialog-head h2 { margin: 0; font-size: 16px; font-weight: 500; }
 .dialog-head h2 span { margin-left: 7px; font-size: 11px; color: var(--muted); font-weight: 400; }
 .dialog-actions { gap: 6px; }
+#lyrics-dialog .lyrics-import-button { display: none; }
 .queue-list { list-style: none; padding: 8px 0 0; margin: 0; max-height: 62vh; overflow-y: auto; }
 .queue-list button { width: 100%; display: grid; grid-template-columns: 24px 42px minmax(0,1fr); gap: 10px; align-items: center; border: 0; background: none; padding: 8px 3px; text-align: left; }
 .queue-list button:hover, .queue-list button[aria-current="true"] { background: #1e1e23; }
@@ -272,6 +273,14 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
   font-size: 16px; text-align: center;
 }
 #lyrics-dialog .notes-disclaimer { flex: 0 0 auto; margin: 14px 0 0; color: rgba(255,255,255,.62); text-align: center; }
+#lyrics-dialog .lyrics-sync-controls { flex: 0 0 auto; display: grid; justify-items: center; gap: 8px; padding: 10px 0 4px; }
+#lyrics-dialog .lyrics-sync-controls[hidden] { display: none; }
+#lyrics-dialog .lyrics-sync-controls p { margin: 0; color: rgba(255,255,255,.8); font-size: 13px; text-align: center; }
+#lyrics-dialog .lyrics-sync-controls > div { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+#lyrics-dialog .lyrics-sync-controls .icon-button { color: #fff; }
+#lyrics-dialog .lyrics-sync-controls .icon-button:disabled { cursor: not-allowed; opacity: .45; }
+#lyrics-dialog .lyrics-sync-controls .text-button { color: rgba(255,255,255,.78); }
+#lyrics-dialog .lyrics-sync-controls .primary-button { padding: 8px 12px; }
 #lyrics-dialog .lyrics-view {
   flex: 1; width: 100%; min-height: 0; max-height: none; margin: 0; padding: 24vh 0;
   overflow: auto; white-space: normal; scroll-snap-type: y proximity; scrollbar-width: none;
@@ -289,6 +298,10 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
   color: #fff; filter: none; opacity: 1; transform: scale(1);
   text-shadow: 0 3px 24px rgba(0,0,0,.26);
 }
+#lyrics-dialog .lyrics-line.is-stamped { color: rgba(255,255,255,.86); filter: none; opacity: .88; }
+#lyrics-dialog .lyrics-line.is-sync-target { cursor: pointer; }
+#lyrics-dialog .lyrics-line.is-sync-target:hover { color: #fff; }
+#lyrics-dialog .lyrics-sync-time { display: inline-block; margin-left: .55em; color: rgba(255,255,255,.62); font-size: .38em; font-weight: 500; letter-spacing: 0; vertical-align: middle; }
 #source-track { margin: 22px 0; color: #a6a6b0; font-size: 13px; }
 .field-label { display: block; font-size: 11px; margin: 0 0 8px; color: #858591; }
 #video-url { width: 100%; height: 42px; border-radius: 5px; padding: 0 12px; border: 1px solid #3a3a44; color: white; background: #08080a; font-size: 12px; }

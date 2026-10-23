@@ -110,14 +110,30 @@ function normalizeLyricsValue(value) {
     .trim();
 }
 
+function normalizeLyricsTitle(value) {
+  const withoutFeatureCredit = String(value || "")
+    .replace(/\s*[([]?\s*(?:feat(?:uring)?|ft)\.?\s+[^)\]]*[)\]]?/gi, "")
+    .replace(/\s+(?:feat(?:uring)?|ft)\.?\s+.+$/i, "");
+  return normalizeLyricsValue(withoutFeatureCredit);
+}
+
+function lyricsArtistCreditsMatch(recordArtist, expectedArtist) {
+  const tokens = value => new Set(normalizeLyricsValue(value)
+    .split(/\s+/)
+    .filter(token => token && !["and", "feat", "featuring", "ft", "with"].includes(token)));
+  const recordTokens = tokens(recordArtist);
+  const expectedTokens = tokens(expectedArtist);
+  if (!recordTokens.size || !expectedTokens.size) return false;
+  return [...recordTokens].every(token => expectedTokens.has(token))
+    || [...expectedTokens].every(token => recordTokens.has(token));
+}
+
 function rankLyricsSearchResult(record, trackName, artistName, albumName, duration) {
   if (!record || typeof record !== "object") return null;
-  const expectedTitle = normalizeLyricsValue(trackName);
-  const expectedArtist = normalizeLyricsValue(artistName);
-  const recordTitle = normalizeLyricsValue(record.trackName || record.name);
-  const recordArtist = normalizeLyricsValue(record.artistName);
+  const expectedTitle = normalizeLyricsTitle(trackName);
+  const recordTitle = normalizeLyricsTitle(record.trackName || record.name);
   if (!recordTitle || recordTitle !== expectedTitle) return null;
-  if (!recordArtist || !(recordArtist === expectedArtist || recordArtist.includes(expectedArtist) || expectedArtist.includes(recordArtist))) return null;
+  if (!lyricsArtistCreditsMatch(record.artistName, artistName)) return null;
   if (!record.plainLyrics?.trim() && !record.syncedLyrics?.trim()) return null;
 
   const recordDuration = Number(record.duration);
@@ -128,7 +144,21 @@ function rankLyricsSearchResult(record, trackName, artistName, albumName, durati
   if (duration && durationDifference > 2) return null;
 
   const albumMatches = albumName && normalizeLyricsValue(record.albumName) === normalizeLyricsValue(albumName);
-  return { record, score: (albumMatches ? 100 : 0) - (Number.isFinite(durationDifference) ? durationDifference : 0) };
+  const syncBonus = record.syncedLyrics?.trim() ? 100 : 0;
+  return { record, score: syncBonus + (albumMatches ? 20 : 0) - (Number.isFinite(durationDifference) ? durationDifference : 0) };
+}
+
+async function searchLyricsRecords(trackName, artistName, albumName, duration, headers, signal) {
+  const searchUrl = new URL("https://lrclib.net/api/search");
+  searchUrl.searchParams.set("track_name", trackName);
+  searchUrl.searchParams.set("artist_name", artistName);
+  const searchResponse = await fetch(searchUrl, { headers, signal });
+  if (!searchResponse.ok) return [];
+  const results = await searchResponse.json();
+  return (Array.isArray(results) ? results : [])
+    .map((record) => rankLyricsSearchResult(record, trackName, artistName, albumName, duration))
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score);
 }
 
 const server = http.createServer((request, response) => {
@@ -191,22 +221,62 @@ const server = http.createServer((request, response) => {
     };
     (async () => {
       const upstream = await fetch(upstreamUrl, { headers, signal: controller.signal });
-      if (upstream.status === 404) {
-        const searchUrl = new URL("https://lrclib.net/api/search");
-        searchUrl.searchParams.set("track_name", trackName);
-        searchUrl.searchParams.set("artist_name", artistName);
-        const searchResponse = await fetch(searchUrl, { headers, signal: controller.signal });
-        if (!searchResponse.ok) {
-          throw new Error(`LRCLIB search returned ${searchResponse.status}`);
+      if (upstream.ok) {
+        const record = await upstream.json();
+        if (!record.syncedLyrics?.trim()) {
+          try {
+            const syncedMatch = (await searchLyricsRecords(
+              trackName, artistName, albumName, duration, headers, controller.signal
+            )).find((candidate) => candidate.record.syncedLyrics?.trim());
+            if (syncedMatch) {
+              sendJson(response, 200, syncedMatch.record);
+              return;
+            }
+          } catch (error) {
+            if (error.name === "AbortError") throw error;
+            console.error("LRCLIB synced search failed:", error.message);
+          }
         }
-        const results = await searchResponse.json();
-        const match = (Array.isArray(results) ? results : [])
-          .map((record) => rankLyricsSearchResult(record, trackName, artistName, albumName, duration))
-          .filter(Boolean)
-          .sort((a, b) => b.score - a.score)[0];
-        if (match) {
-          sendJson(response, 200, match.record);
-          return;
+        sendJson(response, upstream.status, record);
+        return;
+      }
+      if (upstream.status === 404 || upstream.status === 429 || upstream.status >= 500) {
+        try {
+          const match = (await searchLyricsRecords(
+            trackName, artistName, albumName, duration, headers, controller.signal
+          ))[0];
+          if (match) {
+            sendJson(response, 200, match.record);
+            return;
+          }
+        } catch (error) {
+          if (error.name === "AbortError") throw error;
+          console.error("LRCLIB search failed:", error.message);
+        }
+
+        if (upstream.status === 404 || upstream.status >= 500) {
+          const lyricsOvhUrl = `https://api.lyrics.ovh/v1/${encodeURIComponent(artistName)}/${encodeURIComponent(trackName)}`;
+          const lyricsOvhResponse = await fetch(lyricsOvhUrl, {
+            headers: { Accept: "application/json" },
+            signal: controller.signal
+          });
+          if (lyricsOvhResponse.ok) {
+            const lyricsOvhResult = await lyricsOvhResponse.json();
+            const plainLyrics = typeof lyricsOvhResult?.lyrics === "string" ? lyricsOvhResult.lyrics.trim() : "";
+            if (plainLyrics) {
+              sendJson(response, 200, {
+                trackName,
+                artistName,
+                albumName,
+                plainLyrics,
+                syncedLyrics: null,
+                provider: "lyrics.ovh"
+              });
+              return;
+            }
+          } else if (lyricsOvhResponse.status !== 404) {
+            throw new Error(`Lyrics.ovh returned ${lyricsOvhResponse.status}`);
+          }
         }
       }
 
