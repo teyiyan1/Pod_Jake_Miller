@@ -5,9 +5,9 @@ const { join } = require("node:path");
 const tracks = require("../data/tracks.js");
 const verification = require("../research/video-verification.json");
 
-test("rebuilt setlist has 27 unique tracks", () => {
-  assert.equal(tracks.length, 27);
-  assert.equal(new Set(tracks.map((track) => track.id)).size, 27);
+test("rebuilt setlist has 28 unique tracks", () => {
+  assert.equal(tracks.length, 28);
+  assert.equal(new Set(tracks.map((track) => track.id)).size, 28);
 });
 
 test("Parties is restored as the eighth track with its known video", () => {
@@ -38,7 +38,7 @@ test("all 23 published links have approved publisher, title and public metadata 
 });
 
 test("the four unresolved tracks remain explicitly pending with no substitute video", () => {
-  const pending = tracks.filter(track => !track.officialVideoId);
+  const pending = tracks.filter(track => !track.officialVideoId && track.id !== "local-the-girl-thats-underneath");
   assert.deepEqual(pending.map(track => track.title), ["ROSS AND RACHEL", "Momentum", "Waiting On August", "Spark"]);
   assert.ok(pending.every(track => track.videoVerification.status === "pending-official-full-version"));
   assert.equal(verification.environment.playabilityStatus, "LOGIN_REQUIRED");

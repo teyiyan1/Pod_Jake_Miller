@@ -155,6 +155,13 @@ function currentTrack() {
   return tracks[currentIndex];
 }
 
+function lyricsForTrack(track) {
+  const saved = lyricsByTrack[track?.id];
+  if (saved?.text?.trim()) return saved;
+  const embedded = track?.embeddedLyricsLrc?.trim();
+  return embedded ? { text: embedded, format: "lrc", source: "embedded" } : null;
+}
+
 function setLocalPlaybackAction(action, label) {
   localAction = action;
   localLabel = label;
@@ -534,6 +541,7 @@ function makeCover(track, index) {
 
 function renderQueue() {
   const list = document.querySelector("#queue-list");
+  document.querySelector("#queue-heading span").textContent = `${tracks.length} tracks`;
   list.replaceChildren(...tracks.map((track, index) => {
     const item = document.createElement("li");
     const button = document.createElement("button");
@@ -786,7 +794,7 @@ function alignedLyricsForTrack(track, lyrics) {
 
 function renderLyrics(track) {
   cancelLyricsSync({ render: false });
-  const lyrics = lyricsByTrack[track.id];
+  const lyrics = lyricsForTrack(track);
   activeLyrics = [];
   activeLyricIndex = -1;
   lyricsView.replaceChildren();
@@ -824,7 +832,7 @@ function showLyrics(text, format, source = "", timedLines = null) {
   document.querySelector("#lyrics-sync-start").hidden = Boolean(activeLyrics.length);
   noteCopy.hidden = true;
   document.querySelector("#notes-disclaimer").hidden = false;
-  const sourceLabel = source === "audio-alignment" ? "音频对齐" : source === "lrclib" ? "LRCLIB" : source === "lyrics.ovh" ? "Lyrics.ovh" : "On this device";
+  const sourceLabel = source === "embedded" ? "MP3 内嵌" : source === "audio-alignment" ? "音频对齐" : source === "lrclib" ? "LRCLIB" : source === "lyrics.ovh" ? "Lyrics.ovh" : "On this device";
   document.querySelector("#notes-disclaimer").textContent = `${isLrc ? "LRC" : "TXT"} · ${sourceLabel}`;
   lyricsView.hidden = false;
   lyricsView.replaceChildren();
@@ -909,7 +917,7 @@ function buildLyricsQueryVariants(track) {
 
 async function loadLyricsForTrack(track, { refresh = false, silent = false } = {}) {
   if (!track) return;
-  const existing = lyricsByTrack[track.id];
+  const existing = lyricsForTrack(track);
   if (existing?.text?.trim() && !refresh) {
     if (currentTrack()?.id === track.id) renderLyrics(track);
     const isOnlineLyrics = ["lrclib", "lyrics.ovh"].includes(existing.source);
@@ -1068,10 +1076,14 @@ function updateLyrics(time) {
   if (active >= 0 && Number.isFinite(activeLyrics[active].end) && time > activeLyrics[active].end + 1) active = -1;
   if (active === activeLyricIndex) return;
   activeLyricIndex = active;
+  const activeTime = active >= 0 ? activeLyrics[active].time : Number.NaN;
+  const firstAtActiveTime = Number.isFinite(activeTime)
+    ? activeLyrics.findIndex((line) => line.time === activeTime)
+    : -1;
   [...lyricsView.children].forEach((line, index) => {
-    const isActive = index === active;
+    const isActive = Number.isFinite(activeTime) && activeLyrics[index]?.time === activeTime;
     line.classList.toggle("is-active", isActive);
-    if (isActive && document.querySelector("#lyrics-dialog").open) {
+    if (isActive && index === firstAtActiveTime && document.querySelector("#lyrics-dialog").open) {
       lyricsView.scrollTo({ top: line.offsetTop - lyricsView.clientHeight / 2 + line.clientHeight / 2, behavior: "smooth" });
     }
   });
@@ -1121,7 +1133,7 @@ function persistLyricsSyncDraft() {
 
 function startLyricsSync() {
   const track = currentTrack();
-  const lyrics = track && lyricsByTrack[track.id];
+  const lyrics = track && lyricsForTrack(track);
   const lines = lyrics?.text?.split(/\r?\n/).map((line) => line.trim()).filter(Boolean) || [];
   if (!track || !lines.length) return;
 
@@ -1418,6 +1430,7 @@ function bindEvents() {
 async function init() {
   if (!Array.isArray(window.ENCORE_TRACKS)) throw new Error("Track data did not load");
   tracks = window.ENCORE_TRACKS;
+  document.querySelector("#result-count").textContent = `· ${tracks.length} Tracks`;
   currentIndex = ((currentIndex % tracks.length) + tracks.length) % tracks.length;
   filteredIndexes = tracks.map((_, index) => index);
   records.replaceChildren(...tracks.map(makeCover));

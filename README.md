@@ -16,13 +16,13 @@ Then open `http://127.0.0.1:8766/`.
 
 Tracks with an `audioUrl` in `data/tracks.js` play the matching local MP3 first. This does not require YouTube access, an Apple Music subscription or Apple developer credentials. The existing play/pause, previous/next, shuffle, repeat, mute and timed lyrics controls use the local audio player. The queue marks these tracks with **本地音频**. A local file load failure offers a retry; it does not silently switch to a different recording.
 
-Twenty-six songs were imported on October 22, 2026. The first batch added A Million Ways To Miss You, Answers, Back to the Start, Lucky Me, Momentum, No Return, Rumors, Spark, Still Dancing and Waiting On August. Its 11 supplied files contained two byte-identical copies of Rumors, so only one was copied. A second batch from the user's `jake miller` folder added 15 MINUTES, Better Me Better You, Drinkin About You, I Wish You Didn't Love Me, LAST TEXT, NIKES, OCEAN AWAY and Palm Blvd. A third batch from `Jake miller2` added A Million Lives, Automatic, Dazed and Confused (feat. Travie McCoy), Good Thing, Selfish Girls and Wait for You. A fourth batch from Downloads added ROSS AND RACHEL and Steven. All source files are preserved. The mappings, file hashes and metadata are recorded in `research/local-audio-import.json`.
+Twenty-seven songs are available as local MP3s. The first batch added A Million Ways To Miss You, Answers, Back to the Start, Lucky Me, Momentum, No Return, Rumors, Spark, Still Dancing and Waiting On August. Its 11 supplied files contained two byte-identical copies of Rumors, so only one was copied. A second batch from the user's `jake miller` folder added 15 MINUTES, Better Me Better You, Drinkin About You, I Wish You Didn't Love Me, LAST TEXT, NIKES, OCEAN AWAY and Palm Blvd. A third batch from `Jake miller2` added A Million Lives, Automatic, Dazed and Confused (feat. Travie McCoy), Good Thing, Selfish Girls and Wait for You. A fourth batch from Downloads added ROSS AND RACHEL and Steven. The latest addition is The Girl That's Underneath by Jake Miller & Jabbar Hakeem; its supplied MP3 contains 102 timestamped bilingual lyric lines and its album cover. All source files are preserved. The mappings, file hashes and metadata are recorded in `research/local-audio-import.json`.
 
-Audio files live in `audio/<track-id>.mp3` and are included in Git, so they travel with a clone. The 26 bundled MP3s play through the local server, which supports byte-range requests. The remaining track without a local file, Parties, uses its official YouTube source and still depends on that service's availability.
+Audio files live in `audio/<track-id>.mp3` and are included in Git, so they travel with a clone. The 27 bundled MP3s play through the local server, which supports byte-range requests. The remaining track without a local file, Parties, uses its official YouTube source and still depends on that service's availability.
 
 ## Apple Music playback
 
-For tracks without local audio, the player prefers Apple Music when MusicKit is configured and authorized, and falls back to the official YouTube player when Apple Music is not configured or cannot play a selected catalog item. All 27 tracks have Apple Music catalog IDs in `data/tracks.js`; catalog availability can still vary by the subscriber's storefront.
+For tracks without local audio, the player prefers Apple Music when MusicKit is configured and authorized, and falls back to the official YouTube player when Apple Music is not configured or cannot play a selected catalog item. The 27 catalog-backed tracks have Apple Music catalog IDs in `data/tracks.js`; availability can still vary by the subscriber's storefront. The Girl That's Underneath is local-only and plays from its bundled MP3.
 
 An Apple Music subscription alone is not enough to configure MusicKit. In the Apple Developer account, register a Media ID with MusicKit enabled and create a Media Services private key. Copy `.env.example` to `.env`, fill in the Team ID and Key ID, and put the downloaded `.p8` private key at the ignored `secrets/` path shown in the example. Keep the private key out of Git and out of browser code. The local Node server signs a short-lived ES256 developer token and serves it only through `/api/apple-music-token` while binding to `127.0.0.1`.
 
@@ -34,7 +34,7 @@ Restart `npm run serve` after editing `.env`. On the page, choose **Connect Appl
 - `styles.css`: responsive layout and Cover Flow presentation
 - `app.js`: local audio, Apple Music and YouTube playback, carousel, and lyric import
 - `ambient.js`: the shared muted Parties video and playback-driven visual state
-- `data/tracks.js`: editable 27-track setlist and Apple Music artwork metadata
+- `data/tracks.js`: editable 28-track setlist and Apple Music artwork metadata
 - `vendor/lucide.min.js`: locally bundled Lucide icons (license in `vendor/LICENSE`)
 
 ## Vynora UI
@@ -67,7 +67,7 @@ The setlist is reconstructed from cached artist/catalog data and the retained sc
 
 ## Shared Video Sources
 
-23 of the 27 tracks now have publisher/title-confirmed YouTube IDs in `data/tracks.js`, so these associations travel with the source code rather than existing only in one browser. This includes `Answers`, linked to `Kr1xzr_dQ4Y`.
+23 of the 28 tracks now have publisher/title-confirmed YouTube IDs in `data/tracks.js`, so these associations travel with the source code rather than existing only in one browser. This includes `Answers`, linked to `Kr1xzr_dQ4Y`.
 
 YouTube IDs still pending: `ROSS AND RACHEL`, `Momentum`, `Waiting On August`, and `Spark`. All four now have local MP3 sources. No unrelated video or unconfirmed third-party lyric upload is substituted for these tracks.
 
@@ -75,7 +75,7 @@ The current automated playback environment requested sign-in verification ("Sign
 
 After moving playback into the center cover, a separate real-browser check on October 22, 2026 successfully started `Parties` from the main button and observed player state 1 at 9.35 seconds. See `research/cover-player-smoke.json`. This is a single playback-start sample, not certification of a complete song or the whole catalog; the earlier environment failures remain relevant.
 
-Subsequent user-reported failures for `NIKES`, `I Wish You Didn't Love Me`, and `OCEAN AWAY` were reproduced in independent Chrome while `Parties` still played. YouTube returned `UNPLAYABLE` / `This video is unavailable` for these embeds. Fresh players and the official privacy-enhanced host did not resolve the tested failures. The NIKES watch-page response still reported `OK` and `playableInEmbed: true`, so the precise platform cause remains undetermined. See `research/reported-playback-failures-20261022.json`. These YouTube issues remain unresolved, but all three songs now use the user's supplied local MP3s. All 26 imported tracks were observed starting local playback in the in-app browser; `research/local-audio-playback.json` records short start samples and control checks, not full-track listening.
+Subsequent user-reported failures for `NIKES`, `I Wish You Didn't Love Me`, and `OCEAN AWAY` were reproduced in independent Chrome while `Parties` still played. YouTube returned `UNPLAYABLE` / `This video is unavailable` for these embeds. Fresh players and the official privacy-enhanced host did not resolve the tested failures. The NIKES watch-page response still reported `OK` and `playableInEmbed: true`, so the precise platform cause remains undetermined. See `research/reported-playback-failures-20261022.json`. These YouTube issues remain unresolved, but all three songs now use the user's supplied local MP3s. All 26 previously imported tracks were observed starting local playback in the in-app browser; `research/local-audio-playback.json` records short start samples and control checks, not full-track listening.
 
 See `research/VIDEO_VERIFICATION.md` for the readable association list and `research/video-verification.json` for the per-track evidence. `scripts/discover-videos.cjs`, `scripts/build-video-candidates.cjs`, and `scripts/publish-video-links.cjs` retain the search/approval/publication workflow. `scripts/audit-videos.cjs` first verifies a known playback control and stops instead of continuing a bulk test when the platform blocks that control.
 

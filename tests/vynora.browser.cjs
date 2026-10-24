@@ -74,7 +74,7 @@ async function selectFromQueue(page, index) {
     await page.goto(base, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => window.__players?.length === 1);
     await page.waitForTimeout(200);
-    assert.equal(await page.locator(".cover-card").count(), 27);
+    assert.equal(await page.locator(".cover-card").count(), catalog.length);
     assert.equal(await page.locator("#video-frame").isVisible(), false, "no player information card before playback");
     assert.equal(await page.locator("#video-empty, .video-section").count(), 0);
     assert.equal(await page.locator("iframe").count(), 1, "only one playback source");

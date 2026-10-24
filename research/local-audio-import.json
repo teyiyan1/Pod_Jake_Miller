@@ -1,8 +1,8 @@
 {
   "importedAt": "2026-10-22T13:20:31.102645+00:00",
   "matchMethod": "Exact ID3 title and normalized artist list; track IDs unchanged.",
-  "providedFileCount": 27,
-  "importedTrackCount": 26,
+  "providedFileCount": 28,
+  "importedTrackCount": 27,
   "sourceFilesPreserved": true,
   "imports": [
     {
@@ -471,6 +471,30 @@
       "durationSeconds": 185.939592,
       "bitRate": 191999,
       "audioUrl": "./audio/626378178.mp3"
+    },
+    {
+      "sourceFile": "The Girl That's Underneath - Jake Miller、Jabbar Hakeem.mp3",
+      "trackId": "local-the-girl-thats-underneath",
+      "title": "The Girl That's Underneath",
+      "artist": "Jake Miller & Jabbar Hakeem",
+      "id3": {
+        "title": "The Girl That's Underneath",
+        "artist": "Jake Miller、Jabbar Hakeem",
+        "album": "Silver Lining"
+      },
+      "bytes": 7800016,
+      "sha256": "cc3620469b5cdbefa63193b0d730051d261718fea3219152b99fc48d23cf836a",
+      "format": "MPEG ADTS, layer III, 320 kbps, 44.1 kHz, Stereo",
+      "durationSeconds": 186.540408,
+      "bitRate": 320000,
+      "audioUrl": "./audio/local-the-girl-thats-underneath.mp3",
+      "lyrics": {
+        "source": "embedded MP3 USLT",
+        "language": "Chinese",
+        "format": "LRC",
+        "timestampedLines": 102
+      },
+      "artwork": "./artwork/the-girl-thats-underneath.jpg"
     }
   ],
   "duplicates": [
