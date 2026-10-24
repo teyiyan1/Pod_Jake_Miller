@@ -809,7 +809,7 @@ function renderLyrics(track) {
   }
   // Imported or manually saved LRC remains the listener's chosen timeline.
   if (lyrics.format === "lrc" && parseLrc(lyrics.text).length) {
-    showLyrics(lyrics.text, "lrc", lyrics.source || "");
+    showLyrics(lyrics.text, "lrc", lyrics.source || "", null, track);
     return;
   }
   const aligned = alignedLyricsForTrack(track, lyrics);
@@ -817,18 +817,22 @@ function renderLyrics(track) {
   const timing = window.ENCORE_LYRIC_TIMINGS?.[track.id];
   const matchingVideo = !timing?.videoId || videoIdFor(track) === timing.videoId;
   if (aligned && !(aligned.source === "lrclib" && matchingVideo && syncedText && parseLrc(syncedText).length)) {
-    showLyrics(lyrics.text, "lrc", aligned.source, aligned.lines);
+    showLyrics(lyrics.text, "lrc", aligned.source, aligned.lines, track);
   } else if (matchingVideo && syncedText && parseLrc(syncedText).length) {
-    showLyrics(syncedText, "lrc", lyrics.source || "");
+    showLyrics(syncedText, "lrc", lyrics.source || "", null, track);
   } else {
-    showLyrics(lyrics.text, lyrics.format, lyrics.source || "");
+    showLyrics(lyrics.text, lyrics.format, lyrics.source || "", null, track);
     if (!matchingVideo) document.querySelector("#notes-disclaimer").textContent = "TXT · 当前播放版本暂无同步时间轴";
   }
 }
 
-function showLyrics(text, format, source = "", timedLines = null) {
+function showLyrics(text, format, source = "", timedLines = null, track = currentTrack()) {
   const isLrc = format === "lrc";
-  activeLyrics = timedLines || (isLrc ? parseLrc(text) : []);
+  const parsedLyrics = timedLines || (isLrc ? parseLrc(text) : []);
+  const isEnglishOnly = track?.lyricsDisplayLanguage === "en";
+  const keepEnglish = (line) => !isEnglishOnly || !/[\u3400-\u9fff]/.test(line.text);
+  activeLyrics = parsedLyrics.filter(keepEnglish);
+  const textLines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => ({ text: line })).filter(keepEnglish);
   document.querySelector("#lyrics-sync-start").hidden = Boolean(activeLyrics.length);
   noteCopy.hidden = true;
   document.querySelector("#notes-disclaimer").hidden = false;
@@ -836,7 +840,7 @@ function showLyrics(text, format, source = "", timedLines = null) {
   document.querySelector("#notes-disclaimer").textContent = `${isLrc ? "LRC" : "TXT"} · ${sourceLabel}`;
   lyricsView.hidden = false;
   lyricsView.replaceChildren();
-  const lines = activeLyrics.length ? activeLyrics : text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => ({ text: line }));
+  const lines = activeLyrics.length ? activeLyrics : textLines;
   if (lines.length) {
     lines.forEach((line) => {
       const el = document.createElement("div");
