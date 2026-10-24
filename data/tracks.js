@@ -1,393 +1,43 @@
 const encoreTracks = [
   {
-    "id": "931185216",
-    "title": "Dazed and Confused (feat. Travie McCoy)",
+    "id": "local-click",
+    "title": "Click",
     "artist": "Jake Miller",
-    "album": "Dazed and Confused - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music7/v4/c8/a9/90/c8a99024-9062-5453-f14f-bd520df90099/dj.ltdysgvv.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/dazed-and-confused-feat-travie-mccoy/931185207?i=931185216&uo=4",
-    "officialVideoId": "x8Nh0rLS9yg",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Dazed and Confused (Feat. Travie McCoy)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=x8Nh0rLS9yg",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/931185216.mp3",
-    "audioDurationSeconds": 176.091429
-  },
-  {
-    "id": "1015732764",
-    "title": "Rumors",
-    "artist": "Jake Miller",
-    "album": "Rumors - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8c/84/75/8c8475e9-405f-5164-aa69-f8c9fc1aa117/093624925569.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/rumors/1015732321?i=1015732764&uo=4",
-    "officialVideoId": "wfkGR6PlWDk",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Rumors (Official Music Video)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=wfkGR6PlWDk",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1015732764.mp3",
-    "audioDurationSeconds": 186.148571
-  },
-  {
-    "id": "596194737",
-    "title": "A Million Lives",
-    "artist": "Jake Miller",
-    "album": "A Million Lives - Single",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/da/4a/12/da4a121a-447f-f94d-3477-4dd2a46c606d/Jake_Miller_A_Million_Lives_final.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/a-million-lives/596194729?i=596194737&uo=4",
-    "officialVideoId": "oGGs65J3UEA",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - A Million Lives (Official Music Video)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=oGGs65J3UEA",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/596194737.mp3",
-    "audioDurationSeconds": 213.524898
-  },
-  {
-    "id": "1657249574",
-    "title": "Lucky Me",
-    "artist": "Jake Miller",
-    "album": "Songs For My Fiancée - Single",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/a3/a2/ce/a3a2ce9b-57f7-a062-fa3b-b73986c9776d/197342023399_cover.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/lucky-me/1657249573?i=1657249574&uo=4",
-    "officialVideoId": "XysLGnlSjE0",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Lucky Me (The proposal)",
-      "publisher": "JakeMillerVideoVEVO",
-      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=XysLGnlSjE0",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1657249574.mp3",
-    "audioDurationSeconds": 169.639184
-  },
-  {
-    "id": "6772170211",
-    "title": "Still Dancing",
-    "artist": "Keenan Te & Jake Miller",
-    "album": "Still Dancing - Single",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ae/57/ec/ae57ec58-6a90-5953-a4eb-eb92443ac749/449106.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/still-dancing/6772170210?i=6772170211&uo=4",
-    "officialVideoId": "TsrjN3MNmIs",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Keenan Te, Jake Miller - Still Dancing (Official Lyric Video)",
-      "publisher": "KeenanTeVEVO",
-      "publisherUrl": "https://www.youtube.com/@keenantevevo133",
-      "channelId": "UC_BdnSer2n7N-lIf8pd6MEQ",
-      "watchUrl": "https://www.youtube.com/watch?v=TsrjN3MNmIs",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/6772170211.mp3",
-    "audioDurationSeconds": 178.050612
-  },
-  {
-    "id": "626378178",
-    "title": "Steven",
-    "artist": "Jake Miller",
-    "album": "The Road Less Traveled - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features114/v4/ad/2e/62/ad2e628f-3568-7435-a659-a0f186f190b9/dj.qzxrifrc.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/steven/626377704?i=626378178&uo=4",
-    "officialVideoId": "mWTWDY3HcGg",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Steven (Official Audio)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=mWTWDY3HcGg",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/626378178.mp3",
-    "audioDurationSeconds": 185.939592
-  },
-  {
-    "id": "1015732766",
-    "title": "Selfish Girls",
-    "artist": "Jake Miller",
-    "album": "Rumors - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8c/84/75/8c8475e9-405f-5164-aa69-f8c9fc1aa117/093624925569.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/selfish-girls/1015732321?i=1015732766&uo=4",
-    "officialVideoId": "AMQm0Sd-5n4",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Selfish Girls",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=AMQm0Sd-5n4",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1015732766.mp3",
-    "audioDurationSeconds": 168.933878
-  },
-  {
-    "id": "1271854172",
-    "title": "Parties",
-    "artist": "Jake Miller",
-    "album": "2:00am in LA",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/parties/1271854156?i=1271854172&uo=4",
-    "officialVideoId": "oCkufmjcy3I",
-    "lyricsVideoId": "7KDksdVFGmc",
-    "lyricsDurationSeconds": 169.84,
-    "note": "把热闹留给今晚。人群、灯光和重逢，都在这一刻有了位置。",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Parties (Official Music Video)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=oCkufmjcy3I",
-      "runtimeStatus": "not-certified"
-    }
-  },
-  {
-    "id": "1439639051",
-    "title": "Wait for You",
-    "artist": "Jake Miller",
-    "album": "Wait for You - Single",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/ab/f5/b9/abf5b948-a409-bb90-e92f-2ea4d73bb403/193483114576.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/wait-for-you/1439638746?i=1439639051&uo=4",
-    "officialVideoId": "Eh2ZYcjgMAI",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Wait For You (Official Audio)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=Eh2ZYcjgMAI",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1439639051.mp3",
-    "audioDurationSeconds": 179.043265
-  },
-  {
-    "id": "1454321964",
-    "title": "NIKES",
-    "artist": "Jake Miller",
-    "album": "BASED ON A TRUE STORY. - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/2d/8d/2d/2d8d2dc1-65fa-50c0-5e73-06e5ccc28b4a/886447581674.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/nikes/1454321944?i=1454321964&uo=4",
-    "officialVideoId": "NOxoDeNCdG8",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - NIKES (Official Audio)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=NOxoDeNCdG8",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1454321964.mp3",
-    "audioDurationSeconds": 214.334694
-  },
-  {
-    "id": "1271854176",
-    "title": "I Wish You Didn't Love Me",
-    "artist": "Jake Miller",
-    "album": "2:00am in LA",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/i-wish-you-didnt-love-me/1271854156?i=1271854176&uo=4",
-    "officialVideoId": "bHzA7r2cHLU",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - I Wish You Didn't Love Me (Audio)",
-      "publisher": "JakeMillerVideoVEVO",
-      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=bHzA7r2cHLU",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1271854176.mp3",
-    "audioDurationSeconds": 204.878367
-  },
-  {
-    "id": "1349911983",
-    "title": "Drinkin About You",
-    "artist": "Jake Miller",
-    "album": "Silver Lining",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/45/3b/70/453b70d4-0ded-0d0e-35eb-d7acf0dcb1f5/888915562246_cover.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/drinkin-about-you/1349911860?i=1349911983&uo=4",
-    "officialVideoId": "vxXUApp8Wwc",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Drinkin About You (Audio)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=vxXUApp8Wwc",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1349911983.mp3",
-    "audioDurationSeconds": 220.551837
-  },
-  {
-    "id": "1478559230",
-    "title": "LAST TEXT",
-    "artist": "Jake Miller",
-    "album": "SUMMER 19 - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/last-text/1478559212?i=1478559230&uo=4",
-    "officialVideoId": "9wOWzuxbftk",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - LAST TEXT (Official Audio)",
-      "publisher": "JakeMillerVideoVEVO",
-      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=9wOWzuxbftk",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1478559230.mp3",
-    "audioDurationSeconds": 174.936
-  },
-  {
-    "id": "1435778127",
-    "title": "Better Me Better You",
-    "artist": "Clara Mae & Jake Miller",
-    "album": "Sorry for Writing All the Songs About You - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/17/34/25/17342575-83be-5163-3425-1fbe85f170bc/075679862631.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/better-me-better-you/1435778121?i=1435778127&uo=4",
-    "officialVideoId": "vXdA36z09zI",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Clara Mae & Jake Miller - Better Me Better You (Official Video)",
-      "publisher": "Clara Mae",
-      "publisherUrl": "https://www.youtube.com/@iamclaramae",
-      "channelId": "UCWNVPfzSAAJr2L4GyvF6y7g",
-      "watchUrl": "https://www.youtube.com/watch?v=vXdA36z09zI",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1435778127.mp3",
-    "audioDurationSeconds": 214.360816
-  },
-  {
-    "id": "1271854174",
-    "title": "Palm Blvd",
-    "artist": "Jake Miller",
-    "album": "2:00am in LA",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/palm-blvd/1271854156?i=1271854174&uo=4",
-    "officialVideoId": "wqRM8LZkSNA",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - Palm Blvd (Audio)",
-      "publisher": "JakeMillerVideoVEVO",
-      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=wqRM8LZkSNA",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1271854174.mp3",
-    "audioDurationSeconds": 199.079184
-  },
-  {
-    "id": "1478559232",
-    "title": "OCEAN AWAY",
-    "artist": "Jake Miller",
-    "album": "SUMMER 19 - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/ocean-away/1478559212?i=1478559232&uo=4",
-    "officialVideoId": "_UXBZ_dv_a0",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - OCEAN AWAY (Official Audio)",
-      "publisher": "JakeMillerVideoVEVO",
-      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=_UXBZ_dv_a0",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1478559232.mp3",
-    "audioDurationSeconds": 134.896327
-  },
-  {
-    "id": "1478559227",
-    "title": "15 MINUTES",
-    "artist": "Jake Miller",
-    "album": "SUMMER 19 - EP",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/15-minutes/1478559212?i=1478559227&uo=4",
-    "officialVideoId": "q4i38aFIFyM",
-    "note": "",
-    "videoVerification": {
-      "status": "publisher-title-confirmed",
-      "checkedAt": "2026-10-22T10:02:43.341Z",
-      "title": "Jake Miller - 15 MINUTES (Official Audio)",
-      "publisher": "Jake Miller",
-      "publisherUrl": "https://www.youtube.com/@jakemiller",
-      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
-      "watchUrl": "https://www.youtube.com/watch?v=q4i38aFIFyM",
-      "runtimeStatus": "not-certified"
-    },
-    "audioUrl": "./audio/1478559227.mp3",
-    "audioDurationSeconds": 210.99102
-  },
-  {
-    "id": "1525020416",
-    "title": "ROSS AND RACHEL",
-    "artist": "Jake Miller",
-    "album": "ROSS AND RACHEL - Single",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/05/59/e6/0559e6eb-1fee-2adc-d76f-f0a150012e55/195081707631.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/ross-and-rachel/1525020414?i=1525020416&uo=4",
+    "album": "Silver Lining II",
+    "artwork": "./artwork/imports/8fb9cb5d907d55f7.jpg",
+    "appleUrl": "",
     "officialVideoId": "",
     "note": "",
-    "videoVerification": {
-      "status": "pending-official-full-version",
-      "checkedAt": "2026-10-22T10:02:43.341Z"
-    },
-    "audioUrl": "./audio/1525020416.mp3",
-    "audioDurationSeconds": 193.018776
+    "audioUrl": "./audio/local-click.mp3",
+    "audioDurationSeconds": 187.167347,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-blame-it-on-you",
+    "title": "Blame It On You",
+    "artist": "Jake Miller",
+    "album": "Silver Lining II",
+    "artwork": "./artwork/imports/8fb9cb5d907d55f7.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-blame-it-on-you.mp3",
+    "audioDurationSeconds": 154.279184,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-the-girl-thats-underneath",
+    "title": "The Girl That's Underneath",
+    "artist": "Jake Miller & Jabbar Hakeem",
+    "album": "Silver Lining",
+    "artwork": "./artwork/the-girl-thats-underneath.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-the-girl-thats-underneath.mp3",
+    "audioDurationSeconds": 186.540408,
+    "lyricsDisplayLanguage": "en",
+    "embeddedLyricsLrc": "[00:08.62]She walks on red carpets everywhere she goes\n[00:08.62]她就像个女王走到哪都耀眼夺目\n[00:12.56]You can find her, all designer from her head to toe\n[00:12.56]一眼就让你上心 她从头到脚无不是杰作\n[00:16.72]Out in calabasas, she think she the baddest, yeah\n[00:16.72]豪宅名所里挥洒自若 她自信昂然又火辣 （calabasas为地名）\n[00:20.66]But your heart is plastic, that shit ain't attractive, yeah\n[00:20.66]但是女孩儿你的心如廉价塑料 那东西不值得怜惜\n[00:24.59]Can you be a real human for a second please?\n[00:24.59]能不能在我面前活得真实点哪怕一秒？\n[00:28.51]This ain't TV no one's watching, this just you and me\n[00:28.51]这儿不是电视里 没有万众瞩目 唯独你我\n[00:32.43]Girl what's your problem? why you think you're better than me?\n[00:32.43]亲爱的，快清醒点，你的骄傲到底源自于哪里？\n[00:37.09]Better than me?\n[00:37.09]我怎么就配不上你？\n[00:40.63]Light up for all the cameras, pose for them magazines\n[00:40.63]你能在闪光灯下千娇百媚 能为杂志仪态万千\n[00:44.60]But can you show me the side they never see?\n[00:44.60]但是可不可以就让我看看别人不曾见过的你？\n[00:48.52]I know you know you're special, but if you're feeling me\n[00:48.52]我知道你从来都孤高自怜，但是如果你真心感受我\n[00:52.50]I wanna talk to the girl that's underneath\n[00:52.50]你会知道我有多想和那张面具下的女孩邂逅\n[00:56.54]Knows the bouncers and promoters, never wait in line\n[00:56.54]身边保镖和经纪人环绕 你从来不会错过任何闪光的机会\n[01:00.62]Why the **** you wearing glasses when we inside?\n[01:00.62]你在室内为什么还要带着那该死的墨镜？\n[01:04.62]Standing in her section looking down and texting, yeah\n[01:04.62]站在她的地盘 漫不经心地发着短信\n[01:08.60]She just wants attention she knows she can get it, yeah\n[01:08.60]她只想要所有目光集中于她 她也知道她能做到\n[01:12.64]Can you be a real human for a second please?\n[01:12.64]能不能在我面前走出虚幻哪怕一秒？\n[01:16.39]This ain't TV no one's watching, this just you and me?\n[01:16.39]这儿不是电视里 没有万众瞩目 唯独你我\n[01:20.53]Girl what's your problem? why you think you're better than me?\n[01:20.53]亲爱的，快清醒点，你的骄傲到底源自于哪里？\n[01:25.12]Better than me?\n[01:25.12]我怎么就配不上你？\n[01:28.56]Light up for all the cameras pose for them magazines\n[01:28.56]你能在闪光灯下千娇百媚 能为杂志仪态万千\n[01:32.62]But can you show me the side they never see\n[01:32.62]但是可不可以就让我看看别人不曾见过的你？\n[01:36.57]I know you know you're special but if you're feeling me\n[01:36.57]我知道你从来都孤高自怜，但是如果你真心感受我\n[01:40.56]I wanna talk to the girl that's underneath\n[01:40.56]你会知道我有多想和那张面具下的女孩邂逅\n[01:43.71]Yeah, yeah, oh my god\n[01:43.71]哦天\n[01:44.72]Ayy, let me talk to you, yeah\n[01:44.72]嗨 我们聊聊吧\n[01:46.30]If you don't understand, I'ma walk you through\n[01:46.30]如果你不明白 我会慢慢让你领会\n[01:48.00]I ain't worried 'bout the fame or the cars or the planes\n[01:48.00]我不在乎什么名声什么豪车私机\n[01:50.18]Those are things I know you probably often do for real, yeah\n[01:50.18]那些东西我知道你很在意，真的很在意\n[01:52.64]But what you really like to do?\n[01:52.64]但是你真正想要的是什么？\n[01:54.01]Lemme know and maybe I can plan a night for you\n[01:54.01]告诉我吧 也许我可以为你准备一个梦幻的夜晚\n[01:56.03]'Cause you the only one that match my fly\n[01:56.03]因为你是那个唯一和我相配的人\n[01:57.88]Just feel the vibe, I can put you on a natural high\n[01:57.88]只需享受现在这感觉 我会带你一起冲向云霄\n[01:59.93]And girl, I know that you a star, yeah\n[01:59.93]女孩儿 我知道你是个明星\n[02:01.59]But I'm tryna get to know just who you are\n[02:01.59]但是我正尝试着接触那个真正的你\n[02:03.41]I would never be the type to break your heart\n[02:03.41]我永远不会让你芳心粉碎\n[02:05.33]So gon' and take off that mask and show your flaws, I won't judge you\n[02:05.33]所以听我的话 摘下面具勇敢面对我 你的瑕疵我也爱极\n[02:08.51]Girl, yes, it's alright\n[02:08.51]亲爱的 没错\n[02:10.62]Just be you, don't hide\n[02:10.62]做你自己就好 别躲躲藏藏了\n[02:12.64]I need the real you\n[02:12.64]我需要真正的你\n[02:15.61]Oh my god\n[02:15.61]真的需要\n[02:16.49]Light up for all the cameras pose for them magazines\n[02:16.49]你能在闪光灯下千娇百媚 能为杂志仪态万千\n[02:20.51]But can you show me the side they never see?\n[02:20.51]但是可不可以就让我看看别人不曾见过的你？\n[02:24.45]I know you know you're special, but if you're feeling me (you special)\n[02:24.45]我知道你从来都孤高自怜，但是如果你真心感受我\n[02:28.47]I wanna talk to the girl that's underneath (yeah, yeah)\n[02:28.47]你会知道我有多想和那张面具下的女孩邂逅\n[02:32.61]Light up for all the cameras pose for them magazines\n[02:32.61]你能在闪光灯下千娇百媚 能为杂志仪态万千\n[02:36.49]But can you show me the side they never see?\n[02:36.49]但是可不可以就让我看看别人不曾见过的你？\n[02:40.45]I know you know you're special, but if you're feeling me\n[02:40.45]我知道你从来都孤高自怜，但是如果你真心感受我\n[02:44.44]I wanna talk to the girl that's underneath\n[02:44.44]你会知道我有多想和那张面具下的女孩邂逅\n[02:52.73]I wanna talk to the girl that's underneath\n[02:52.73]想和层层迷雾下的你邂逅\n[03:00.11]I wanna talk to the girl that's underneath\n[03:00.11]想和真正的你在一起"
   },
   {
     "id": "6815101529",
@@ -404,38 +54,6 @@ const encoreTracks = [
     },
     "audioUrl": "./audio/6815101529.mp3",
     "audioDurationSeconds": 165.511837
-  },
-  {
-    "id": "6796607454",
-    "title": "Waiting On August",
-    "artist": "Jake Miller",
-    "album": "Waiting On August - Single",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1b/e1/fa/1be1fa79-ce07-10e3-0ac3-af623605a961/196874653876.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/waiting-on-august/6796607452?i=6796607454&uo=4",
-    "officialVideoId": "",
-    "note": "",
-    "videoVerification": {
-      "status": "pending-official-full-version",
-      "checkedAt": "2026-10-22T10:02:43.341Z"
-    },
-    "audioUrl": "./audio/6796607454.mp3",
-    "audioDurationSeconds": 170.24
-  },
-  {
-    "id": "6789188248",
-    "title": "Spark",
-    "artist": "Jake Miller",
-    "album": "Spark - Single",
-    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/75/58/99/75589905-6f11-65e1-3b1b-f1d6675cb57f/196874598078.jpg/600x600bb.jpg",
-    "appleUrl": "https://music.apple.com/us/album/spark/6789188236?i=6789188248&uo=4",
-    "officialVideoId": "",
-    "note": "",
-    "videoVerification": {
-      "status": "pending-official-full-version",
-      "checkedAt": "2026-10-22T10:02:43.341Z"
-    },
-    "audioUrl": "./audio/6789188248.mp3",
-    "audioDurationSeconds": 153.547755
   },
   {
     "id": "6766823609",
@@ -460,6 +78,124 @@ const encoreTracks = [
     "audioDurationSeconds": 157.518367
   },
   {
+    "id": "local-8tattoos",
+    "title": "8 Tattoos",
+    "artist": "Jake Miller",
+    "album": "BASED ON A TRUE STORY II",
+    "artwork": "./artwork/imports/075e0ad5e9821d6a.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-8tattoos.mp3",
+    "audioDurationSeconds": 177.867755,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-overnight",
+    "title": "Overnight",
+    "artist": "Jake Miller",
+    "album": "Overnight",
+    "artwork": "./artwork/imports/cf35b60ebf4328f5.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-overnight.mp3",
+    "audioDurationSeconds": 217.129796,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "1271854172",
+    "title": "Parties",
+    "artist": "Jake Miller",
+    "album": "2:00am in LA",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/parties/1271854156?i=1271854172&uo=4",
+    "officialVideoId": "oCkufmjcy3I",
+    "lyricsVideoId": "7KDksdVFGmc",
+    "lyricsDurationSeconds": 169.84,
+    "note": "把热闹留给今晚。人群、灯光和重逢，都在这一刻有了位置。",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Parties (Official Music Video)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=oCkufmjcy3I",
+      "runtimeStatus": "not-certified"
+    }
+  },
+  {
+    "id": "1478559230",
+    "title": "LAST TEXT",
+    "artist": "Jake Miller",
+    "album": "SUMMER 19 - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/last-text/1478559212?i=1478559230&uo=4",
+    "officialVideoId": "9wOWzuxbftk",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - LAST TEXT (Official Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=9wOWzuxbftk",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1478559230.mp3",
+    "audioDurationSeconds": 174.936
+  },
+  {
+    "id": "1478559227",
+    "title": "15 MINUTES",
+    "artist": "Jake Miller",
+    "album": "SUMMER 19 - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/15-minutes/1478559212?i=1478559227&uo=4",
+    "officialVideoId": "q4i38aFIFyM",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - 15 MINUTES (Official Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=q4i38aFIFyM",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1478559227.mp3",
+    "audioDurationSeconds": 210.99102
+  },
+  {
+    "id": "local-skinnydip",
+    "title": "Skinnydip",
+    "artist": "Jake Miller",
+    "album": "BASED ON A TRUE STORY.",
+    "artwork": "./artwork/imports/277485816d64b1a7.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-skinnydip.mp3",
+    "audioDurationSeconds": 211.670204,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-couldhavebeenyou",
+    "title": "Could Have Been You",
+    "artist": "Jake Miller",
+    "album": "SUMMER 19",
+    "artwork": "./artwork/imports/ed0cad4d8e3a9d8c.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-couldhavebeenyou.mp3",
+    "audioDurationSeconds": 202.318367,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
     "id": "1818448920",
     "title": "A Million Ways To Miss You",
     "artist": "Jake Miller",
@@ -482,6 +218,491 @@ const encoreTracks = [
     "audioDurationSeconds": 167.784
   },
   {
+    "id": "local-whatifyoufellinlove",
+    "title": "What If You Fell In Love?",
+    "artist": "Jake Miller",
+    "album": "BASED ON A TRUE STORY. (EXTENDED)",
+    "artwork": "./artwork/imports/277485816d64b1a7.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-whatifyoufellinlove.mp3",
+    "audioDurationSeconds": 198.530612,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "1525020416",
+    "title": "ROSS AND RACHEL",
+    "artist": "Jake Miller",
+    "album": "ROSS AND RACHEL - Single",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/05/59/e6/0559e6eb-1fee-2adc-d76f-f0a150012e55/195081707631.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/ross-and-rachel/1525020414?i=1525020416&uo=4",
+    "officialVideoId": "",
+    "note": "",
+    "videoVerification": {
+      "status": "pending-official-full-version",
+      "checkedAt": "2026-10-22T10:02:43.341Z"
+    },
+    "audioUrl": "./audio/1525020416.mp3",
+    "audioDurationSeconds": 193.018776
+  },
+  {
+    "id": "1657249574",
+    "title": "Lucky Me",
+    "artist": "Jake Miller",
+    "album": "Songs For My Fiancée - Single",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/a3/a2/ce/a3a2ce9b-57f7-a062-fa3b-b73986c9776d/197342023399_cover.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/lucky-me/1657249573?i=1657249574&uo=4",
+    "officialVideoId": "XysLGnlSjE0",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Lucky Me (The proposal)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=XysLGnlSjE0",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1657249574.mp3",
+    "audioDurationSeconds": 169.639184
+  },
+  {
+    "id": "local-miniyou",
+    "title": "Mini You",
+    "artist": "Jake Miller",
+    "album": "Mini You",
+    "artwork": "./artwork/imports/fdd5e1a0a3049642.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-miniyou.mp3",
+    "audioDurationSeconds": 142.262857,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "6796607454",
+    "title": "Waiting On August",
+    "artist": "Jake Miller",
+    "album": "Waiting On August - Single",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1b/e1/fa/1be1fa79-ce07-10e3-0ac3-af623605a961/196874653876.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/waiting-on-august/6796607452?i=6796607454&uo=4",
+    "officialVideoId": "",
+    "note": "",
+    "videoVerification": {
+      "status": "pending-official-full-version",
+      "checkedAt": "2026-10-22T10:02:43.341Z"
+    },
+    "audioUrl": "./audio/6796607454.mp3",
+    "audioDurationSeconds": 170.24
+  },
+  {
+    "id": "local-savedme",
+    "title": "Saved Me",
+    "artist": "Jake Miller",
+    "album": "SAVED ME",
+    "artwork": "./artwork/imports/df4e0f1dec9bfa06.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-savedme.mp3",
+    "audioDurationSeconds": 195.683265,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-loveyouharder",
+    "title": "Love You Harder",
+    "artist": "Jake Miller",
+    "album": "BALANCE",
+    "artwork": "./artwork/imports/4a178ed37ff9d3b6.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-loveyouharder.mp3",
+    "audioDurationSeconds": 150.432,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-showingyouoff",
+    "title": "Showing You Off",
+    "artist": "Jake Miller",
+    "album": "Silver Lining",
+    "artwork": "./artwork/imports/6761640d970d006d.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-showingyouoff.mp3",
+    "audioDurationSeconds": 189.64898,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-lionheart",
+    "title": "Lion Heart",
+    "artist": "Jake Miller",
+    "album": "Dazed And Confused EP",
+    "artwork": "./artwork/imports/ff0f8eecaf0e4b38.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-lionheart.mp3",
+    "audioDurationSeconds": 217.025306,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-first-flight-home",
+    "title": "First Flight Home",
+    "artist": "Jake Miller",
+    "album": "Dazed And Confused EP",
+    "artwork": "./artwork/imports/ff0f8eecaf0e4b38.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-first-flight-home.mp3",
+    "audioDurationSeconds": 191.555918,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-ifheavencouldshareyou",
+    "title": "If Heaven Could Share You",
+    "artist": "Jake Miller",
+    "album": "BALANCE",
+    "artwork": "./artwork/imports/4a178ed37ff9d3b6.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-ifheavencouldshareyou.mp3",
+    "audioDurationSeconds": 201.325714,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "local-notetoself",
+    "title": "Note To Self",
+    "artist": "Jake Miller",
+    "album": "Note To Self",
+    "artwork": "./artwork/imports/c817236e5375660c.jpg",
+    "appleUrl": "",
+    "officialVideoId": "",
+    "note": "",
+    "audioUrl": "./audio/local-notetoself.mp3",
+    "audioDurationSeconds": 176.274286,
+    "lyricsDisplayLanguage": "en"
+  },
+  {
+    "id": "6789188248",
+    "title": "Spark",
+    "artist": "Jake Miller",
+    "album": "Spark - Single",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/75/58/99/75589905-6f11-65e1-3b1b-f1d6675cb57f/196874598078.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/spark/6789188236?i=6789188248&uo=4",
+    "officialVideoId": "",
+    "note": "",
+    "videoVerification": {
+      "status": "pending-official-full-version",
+      "checkedAt": "2026-10-22T10:02:43.341Z"
+    },
+    "audioUrl": "./audio/6789188248.mp3",
+    "audioDurationSeconds": 153.547755
+  },
+  {
+    "id": "1015732764",
+    "title": "Rumors",
+    "artist": "Jake Miller",
+    "album": "Rumors - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8c/84/75/8c8475e9-405f-5164-aa69-f8c9fc1aa117/093624925569.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/rumors/1015732321?i=1015732764&uo=4",
+    "officialVideoId": "wfkGR6PlWDk",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Rumors (Official Music Video)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=wfkGR6PlWDk",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1015732764.mp3",
+    "audioDurationSeconds": 186.148571
+  },
+  {
+    "id": "931185216",
+    "title": "Dazed and Confused (feat. Travie McCoy)",
+    "artist": "Jake Miller",
+    "album": "Dazed and Confused - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music7/v4/c8/a9/90/c8a99024-9062-5453-f14f-bd520df90099/dj.ltdysgvv.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/dazed-and-confused-feat-travie-mccoy/931185207?i=931185216&uo=4",
+    "officialVideoId": "x8Nh0rLS9yg",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Dazed and Confused (Feat. Travie McCoy)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=x8Nh0rLS9yg",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/931185216.mp3",
+    "audioDurationSeconds": 176.091429,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "596194737",
+    "title": "A Million Lives",
+    "artist": "Jake Miller",
+    "album": "A Million Lives - Single",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/da/4a/12/da4a121a-447f-f94d-3477-4dd2a46c606d/Jake_Miller_A_Million_Lives_final.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/a-million-lives/596194729?i=596194737&uo=4",
+    "officialVideoId": "oGGs65J3UEA",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - A Million Lives (Official Music Video)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=oGGs65J3UEA",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/596194737.mp3",
+    "audioDurationSeconds": 213.524898,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "6772170211",
+    "title": "Still Dancing",
+    "artist": "Keenan Te & Jake Miller",
+    "album": "Still Dancing - Single",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ae/57/ec/ae57ec58-6a90-5953-a4eb-eb92443ac749/449106.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/still-dancing/6772170210?i=6772170211&uo=4",
+    "officialVideoId": "TsrjN3MNmIs",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Keenan Te, Jake Miller - Still Dancing (Official Lyric Video)",
+      "publisher": "KeenanTeVEVO",
+      "publisherUrl": "https://www.youtube.com/@keenantevevo133",
+      "channelId": "UC_BdnSer2n7N-lIf8pd6MEQ",
+      "watchUrl": "https://www.youtube.com/watch?v=TsrjN3MNmIs",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/6772170211.mp3",
+    "audioDurationSeconds": 178.050612,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "626378178",
+    "title": "Steven",
+    "artist": "Jake Miller",
+    "album": "The Road Less Traveled - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features114/v4/ad/2e/62/ad2e628f-3568-7435-a659-a0f186f190b9/dj.qzxrifrc.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/steven/626377704?i=626378178&uo=4",
+    "officialVideoId": "mWTWDY3HcGg",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Steven (Official Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=mWTWDY3HcGg",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/626378178.mp3",
+    "audioDurationSeconds": 185.939592,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "1015732766",
+    "title": "Selfish Girls",
+    "artist": "Jake Miller",
+    "album": "Rumors - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/8c/84/75/8c8475e9-405f-5164-aa69-f8c9fc1aa117/093624925569.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/selfish-girls/1015732321?i=1015732766&uo=4",
+    "officialVideoId": "AMQm0Sd-5n4",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Selfish Girls",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=AMQm0Sd-5n4",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1015732766.mp3",
+    "audioDurationSeconds": 168.933878,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "1439639051",
+    "title": "Wait for You",
+    "artist": "Jake Miller",
+    "album": "Wait for You - Single",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/ab/f5/b9/abf5b948-a409-bb90-e92f-2ea4d73bb403/193483114576.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/wait-for-you/1439638746?i=1439639051&uo=4",
+    "officialVideoId": "Eh2ZYcjgMAI",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Wait For You (Official Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=Eh2ZYcjgMAI",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1439639051.mp3",
+    "audioDurationSeconds": 179.043265,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "1454321964",
+    "title": "NIKES",
+    "artist": "Jake Miller",
+    "album": "BASED ON A TRUE STORY. - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/2d/8d/2d/2d8d2dc1-65fa-50c0-5e73-06e5ccc28b4a/886447581674.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/nikes/1454321944?i=1454321964&uo=4",
+    "officialVideoId": "NOxoDeNCdG8",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - NIKES (Official Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=NOxoDeNCdG8",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1454321964.mp3",
+    "audioDurationSeconds": 214.334694,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "1271854176",
+    "title": "I Wish You Didn't Love Me",
+    "artist": "Jake Miller",
+    "album": "2:00am in LA",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/i-wish-you-didnt-love-me/1271854156?i=1271854176&uo=4",
+    "officialVideoId": "bHzA7r2cHLU",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - I Wish You Didn't Love Me (Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=bHzA7r2cHLU",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1271854176.mp3",
+    "audioDurationSeconds": 204.878367,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "1349911983",
+    "title": "Drinkin About You",
+    "artist": "Jake Miller",
+    "album": "Silver Lining",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/45/3b/70/453b70d4-0ded-0d0e-35eb-d7acf0dcb1f5/888915562246_cover.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/drinkin-about-you/1349911860?i=1349911983&uo=4",
+    "officialVideoId": "vxXUApp8Wwc",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Drinkin About You (Audio)",
+      "publisher": "Jake Miller",
+      "publisherUrl": "https://www.youtube.com/@jakemiller",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=vxXUApp8Wwc",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1349911983.mp3",
+    "audioDurationSeconds": 220.551837,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "1435778127",
+    "title": "Better Me Better You",
+    "artist": "Clara Mae & Jake Miller",
+    "album": "Sorry for Writing All the Songs About You - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/17/34/25/17342575-83be-5163-3425-1fbe85f170bc/075679862631.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/better-me-better-you/1435778121?i=1435778127&uo=4",
+    "officialVideoId": "vXdA36z09zI",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Clara Mae & Jake Miller - Better Me Better You (Official Video)",
+      "publisher": "Clara Mae",
+      "publisherUrl": "https://www.youtube.com/@iamclaramae",
+      "channelId": "UCWNVPfzSAAJr2L4GyvF6y7g",
+      "watchUrl": "https://www.youtube.com/watch?v=vXdA36z09zI",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1435778127.mp3",
+    "audioDurationSeconds": 214.360816,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "1271854174",
+    "title": "Palm Blvd",
+    "artist": "Jake Miller",
+    "album": "2:00am in LA",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/palm-blvd/1271854156?i=1271854174&uo=4",
+    "officialVideoId": "wqRM8LZkSNA",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - Palm Blvd (Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=wqRM8LZkSNA",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1271854174.mp3",
+    "audioDurationSeconds": 199.079184,
+    "hiddenFromSetlist": true
+  },
+  {
+    "id": "1478559232",
+    "title": "OCEAN AWAY",
+    "artist": "Jake Miller",
+    "album": "SUMMER 19 - EP",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/3a/c9/db/3ac9dbf0-a35f-fb5f-7ac3-c0ecad2fe4dc/886447930854.jpg/600x600bb.jpg",
+    "appleUrl": "https://music.apple.com/us/album/ocean-away/1478559212?i=1478559232&uo=4",
+    "officialVideoId": "_UXBZ_dv_a0",
+    "note": "",
+    "videoVerification": {
+      "status": "publisher-title-confirmed",
+      "checkedAt": "2026-10-22T10:02:43.341Z",
+      "title": "Jake Miller - OCEAN AWAY (Official Audio)",
+      "publisher": "JakeMillerVideoVEVO",
+      "publisherUrl": "https://www.youtube.com/@JakeMillerVideoVEVO",
+      "channelId": "UCemWUaSsUwgeYpGfkbvSQjg",
+      "watchUrl": "https://www.youtube.com/watch?v=_UXBZ_dv_a0",
+      "runtimeStatus": "not-certified"
+    },
+    "audioUrl": "./audio/1478559232.mp3",
+    "audioDurationSeconds": 134.896327,
+    "hiddenFromSetlist": true
+  },
+  {
     "id": "1271854177",
     "title": "No Return",
     "artist": "Jake Miller",
@@ -501,7 +722,8 @@ const encoreTracks = [
       "runtimeStatus": "not-certified"
     },
     "audioUrl": "./audio/1271854177.mp3",
-    "audioDurationSeconds": 222.040816
+    "audioDurationSeconds": 222.040816,
+    "hiddenFromSetlist": true
   },
   {
     "id": "1271854175",
@@ -523,7 +745,8 @@ const encoreTracks = [
       "runtimeStatus": "not-certified"
     },
     "audioUrl": "./audio/1271854175.mp3",
-    "audioDurationSeconds": 179.09551
+    "audioDurationSeconds": 179.09551,
+    "hiddenFromSetlist": true
   },
   {
     "id": "1271854541",
@@ -545,7 +768,8 @@ const encoreTracks = [
       "runtimeStatus": "not-certified"
     },
     "audioUrl": "./audio/1271854541.mp3",
-    "audioDurationSeconds": 240.53551
+    "audioDurationSeconds": 240.53551,
+    "hiddenFromSetlist": true
   },
   {
     "id": "1137270483",
@@ -567,22 +791,25 @@ const encoreTracks = [
       "runtimeStatus": "not-certified"
     },
     "audioUrl": "./audio/1137270483.mp3",
-    "audioDurationSeconds": 237.87102
+    "audioDurationSeconds": 237.87102,
+    "hiddenFromSetlist": true
   },
   {
-    "id": "local-the-girl-thats-underneath",
-    "title": "The Girl That's Underneath",
-    "artist": "Jake Miller & Jabbar Hakeem",
-    "album": "Silver Lining",
-    "artwork": "./artwork/the-girl-thats-underneath.jpg",
+    "id": "local-iknowthefeeling",
+    "title": "I Know The Feeling",
+    "artist": "Jake Miller",
+    "album": "BALANCE",
+    "artwork": "./artwork/imports/4a178ed37ff9d3b6.jpg",
     "appleUrl": "",
     "officialVideoId": "",
     "note": "",
-    "audioUrl": "./audio/local-the-girl-thats-underneath.mp3",
-    "audioDurationSeconds": 186.540408,
+    "audioUrl": "./audio/local-iknowthefeeling.mp3",
+    "audioDurationSeconds": 183.408,
     "lyricsDisplayLanguage": "en",
-    "embeddedLyricsLrc": "[00:08.62]She walks on red carpets everywhere she goes\n[00:08.62]她就像个女王走到哪都耀眼夺目\n[00:12.56]You can find her, all designer from her head to toe\n[00:12.56]一眼就让你上心 她从头到脚无不是杰作\n[00:16.72]Out in calabasas, she think she the baddest, yeah\n[00:16.72]豪宅名所里挥洒自若 她自信昂然又火辣 （calabasas为地名）\n[00:20.66]But your heart is plastic, that shit ain't attractive, yeah\n[00:20.66]但是女孩儿你的心如廉价塑料 那东西不值得怜惜\n[00:24.59]Can you be a real human for a second please?\n[00:24.59]能不能在我面前活得真实点哪怕一秒？\n[00:28.51]This ain't TV no one's watching, this just you and me\n[00:28.51]这儿不是电视里 没有万众瞩目 唯独你我\n[00:32.43]Girl what's your problem? why you think you're better than me?\n[00:32.43]亲爱的，快清醒点，你的骄傲到底源自于哪里？\n[00:37.09]Better than me?\n[00:37.09]我怎么就配不上你？\n[00:40.63]Light up for all the cameras, pose for them magazines\n[00:40.63]你能在闪光灯下千娇百媚 能为杂志仪态万千\n[00:44.60]But can you show me the side they never see?\n[00:44.60]但是可不可以就让我看看别人不曾见过的你？\n[00:48.52]I know you know you're special, but if you're feeling me\n[00:48.52]我知道你从来都孤高自怜，但是如果你真心感受我\n[00:52.50]I wanna talk to the girl that's underneath\n[00:52.50]你会知道我有多想和那张面具下的女孩邂逅\n[00:56.54]Knows the bouncers and promoters, never wait in line\n[00:56.54]身边保镖和经纪人环绕 你从来不会错过任何闪光的机会\n[01:00.62]Why the **** you wearing glasses when we inside?\n[01:00.62]你在室内为什么还要带着那该死的墨镜？\n[01:04.62]Standing in her section looking down and texting, yeah\n[01:04.62]站在她的地盘 漫不经心地发着短信\n[01:08.60]She just wants attention she knows she can get it, yeah\n[01:08.60]她只想要所有目光集中于她 她也知道她能做到\n[01:12.64]Can you be a real human for a second please?\n[01:12.64]能不能在我面前走出虚幻哪怕一秒？\n[01:16.39]This ain't TV no one's watching, this just you and me?\n[01:16.39]这儿不是电视里 没有万众瞩目 唯独你我\n[01:20.53]Girl what's your problem? why you think you're better than me?\n[01:20.53]亲爱的，快清醒点，你的骄傲到底源自于哪里？\n[01:25.12]Better than me?\n[01:25.12]我怎么就配不上你？\n[01:28.56]Light up for all the cameras pose for them magazines\n[01:28.56]你能在闪光灯下千娇百媚 能为杂志仪态万千\n[01:32.62]But can you show me the side they never see\n[01:32.62]但是可不可以就让我看看别人不曾见过的你？\n[01:36.57]I know you know you're special but if you're feeling me\n[01:36.57]我知道你从来都孤高自怜，但是如果你真心感受我\n[01:40.56]I wanna talk to the girl that's underneath\n[01:40.56]你会知道我有多想和那张面具下的女孩邂逅\n[01:43.71]Yeah, yeah, oh my god\n[01:43.71]哦天\n[01:44.72]Ayy, let me talk to you, yeah\n[01:44.72]嗨 我们聊聊吧\n[01:46.30]If you don't understand, I'ma walk you through\n[01:46.30]如果你不明白 我会慢慢让你领会\n[01:48.00]I ain't worried 'bout the fame or the cars or the planes\n[01:48.00]我不在乎什么名声什么豪车私机\n[01:50.18]Those are things I know you probably often do for real, yeah\n[01:50.18]那些东西我知道你很在意，真的很在意\n[01:52.64]But what you really like to do?\n[01:52.64]但是你真正想要的是什么？\n[01:54.01]Lemme know and maybe I can plan a night for you\n[01:54.01]告诉我吧 也许我可以为你准备一个梦幻的夜晚\n[01:56.03]'Cause you the only one that match my fly\n[01:56.03]因为你是那个唯一和我相配的人\n[01:57.88]Just feel the vibe, I can put you on a natural high\n[01:57.88]只需享受现在这感觉 我会带你一起冲向云霄\n[01:59.93]And girl, I know that you a star, yeah\n[01:59.93]女孩儿 我知道你是个明星\n[02:01.59]But I'm tryna get to know just who you are\n[02:01.59]但是我正尝试着接触那个真正的你\n[02:03.41]I would never be the type to break your heart\n[02:03.41]我永远不会让你芳心粉碎\n[02:05.33]So gon' and take off that mask and show your flaws, I won't judge you\n[02:05.33]所以听我的话 摘下面具勇敢面对我 你的瑕疵我也爱极\n[02:08.51]Girl, yes, it's alright\n[02:08.51]亲爱的 没错\n[02:10.62]Just be you, don't hide\n[02:10.62]做你自己就好 别躲躲藏藏了\n[02:12.64]I need the real you\n[02:12.64]我需要真正的你\n[02:15.61]Oh my god\n[02:15.61]真的需要\n[02:16.49]Light up for all the cameras pose for them magazines\n[02:16.49]你能在闪光灯下千娇百媚 能为杂志仪态万千\n[02:20.51]But can you show me the side they never see?\n[02:20.51]但是可不可以就让我看看别人不曾见过的你？\n[02:24.45]I know you know you're special, but if you're feeling me (you special)\n[02:24.45]我知道你从来都孤高自怜，但是如果你真心感受我\n[02:28.47]I wanna talk to the girl that's underneath (yeah, yeah)\n[02:28.47]你会知道我有多想和那张面具下的女孩邂逅\n[02:32.61]Light up for all the cameras pose for them magazines\n[02:32.61]你能在闪光灯下千娇百媚 能为杂志仪态万千\n[02:36.49]But can you show me the side they never see?\n[02:36.49]但是可不可以就让我看看别人不曾见过的你？\n[02:40.45]I know you know you're special, but if you're feeling me\n[02:40.45]我知道你从来都孤高自怜，但是如果你真心感受我\n[02:44.44]I wanna talk to the girl that's underneath\n[02:44.44]你会知道我有多想和那张面具下的女孩邂逅\n[02:52.73]I wanna talk to the girl that's underneath\n[02:52.73]想和层层迷雾下的你邂逅\n[03:00.11]I wanna talk to the girl that's underneath\n[03:00.11]想和真正的你在一起"
-  },
+    "hiddenFromSetlist": true
+  }
 ];
 if (typeof module !== "undefined") module.exports = encoreTracks;
 if (typeof window !== "undefined") window.ENCORE_TRACKS = encoreTracks;
+
+

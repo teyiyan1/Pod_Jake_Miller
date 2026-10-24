@@ -9,7 +9,7 @@ const lyricsView = document.querySelector("#lyrics-view");
 const noteCopy = document.querySelector("#note-copy");
 
 let tracks = [];
-let currentIndex = 7;
+let currentIndex = 8;
 let ytPlayer = null;
 let ytReady = false;
 let isDragging = false;
@@ -54,7 +54,12 @@ let apiReadyTimer = null;
 
 try {
   savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-  if (Number.isInteger(savedState.index)) currentIndex = savedState.index;
+  if (Number.isInteger(savedState.index)) {
+    const previousIndex = savedState.index;
+    currentIndex = savedState.orderVersion === 2
+      ? previousIndex
+      : previousIndex === 0 ? 0 : previousIndex >= 21 ? previousIndex + 2 : previousIndex + 1;
+  }
 } catch {}
 
 try {
@@ -73,7 +78,7 @@ try {
 
 function saveState() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...savedState, index: currentIndex }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...savedState, orderVersion: 2, index: currentIndex }));
   } catch {}
 }
 
@@ -158,7 +163,7 @@ function currentTrack() {
 function lyricsForTrack(track) {
   const saved = lyricsByTrack[track?.id];
   if (saved?.text?.trim()) return saved;
-  const embedded = track?.embeddedLyricsLrc?.trim();
+  const embedded = track?.embeddedLyricsLrc?.trim() || window.ENCORE_EMBEDDED_LYRICS?.[track?.id]?.trim();
   return embedded ? { text: embedded, format: "lrc", source: "embedded" } : null;
 }
 
@@ -1433,7 +1438,7 @@ function bindEvents() {
 
 async function init() {
   if (!Array.isArray(window.ENCORE_TRACKS)) throw new Error("Track data did not load");
-  tracks = window.ENCORE_TRACKS;
+  tracks = window.ENCORE_TRACKS.filter((track) => !track.hiddenFromSetlist);
   document.querySelector("#result-count").textContent = `· ${tracks.length} Tracks`;
   currentIndex = ((currentIndex % tracks.length) + tracks.length) % tracks.length;
   filteredIndexes = tracks.map((_, index) => index);
