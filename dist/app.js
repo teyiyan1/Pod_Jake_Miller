@@ -279,6 +279,7 @@ function startYouTubePlayback(label = "") {
 }
 
 async function startPreferredPlayback() {
+  window.encoreAmbient?.preparePlayback();
   const track = currentTrack();
   const attempt = ++playbackAttempt;
   const appleMusic = window.EncAppleMusic;
@@ -659,6 +660,7 @@ function togglePlayback() {
   if (document.querySelector("#play-toggle").disabled) return;
   const track = currentTrack();
   if (!filteredIndexes.length) return;
+  if (document.querySelector("#play-toggle").dataset.action !== "pause") window.encoreAmbient?.preparePlayback();
   if (track.audioUrl) {
     if (localAudio && !localAudio.paused) pauseLocalPlayback();
     else startPreferredPlayback();

@@ -5,9 +5,6 @@
   --line: #29292f;
   --green: #00ce73;
   --page: #050506;
-  --ambient-energy: 0;
-  --ambient-bass: 0;
-  --ambient-hit: 0;
 }
 * { box-sizing: border-box; letter-spacing: 0; }
 html { min-width: 320px; background: var(--page); }
@@ -27,68 +24,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, label:focus-within {
 }
 svg { width: 20px; height: 20px; flex-shrink: 0; pointer-events: none; }
 [hidden] { display: none !important; }
-/* Parties artwork is the single shared visual layer for every track. */
+/* The original shared Parties video: oversized, muted, blurred and darkened. */
 .ambient-cover {
   position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
-  opacity: .34; transition: opacity 1.2s ease; contain: strict;
+  opacity: 0; transition: opacity 1s ease-in-out; contain: strict;
+  background: linear-gradient(45deg, #000 0%, #1a1a1a 25%, #000 50%, #0d0d0d 75%, #000 100%);
+  background-size: 400% 400%;
+  animation: ambient-gradient-shift 15s ease infinite paused;
 }
-.ambient-layer { position: absolute; inset: -12%; opacity: 0; transition: opacity 1.8s ease; }
-.ambient-layer.is-current { opacity: 1; }
-.ambient-flow {
-  position: absolute; inset: -8%;
-  background-position: center; background-size: cover;
-  filter: blur(64px) saturate(1.4) brightness(.65); transform: scale(1.08);
-  opacity: calc(.6 + var(--ambient-energy) * .3);
-  animation: ambient-drift var(--drift-duration, 28s) ease-in-out infinite alternate;
-  animation-play-state: paused;
+.ambient-cover iframe {
+  position: absolute; top: 50%; left: 50%;
+  width: max(200vw, 355.56vh); height: max(200vh, 112.5vw);
+  transform: translate(-50%, -50%); border: 0; pointer-events: none;
+  filter: blur(20px) brightness(.5) contrast(1.2);
+  opacity: 0; transition: opacity 1s ease-in-out;
 }
-.ambient-lights { position: absolute; inset: 0; mix-blend-mode: screen; }
-.ambient-lights span {
-  position: absolute; width: 70%; height: 80%; border-radius: 50%;
-  filter: blur(44px); transform-origin: center;
-  opacity: calc(.32 + var(--ambient-energy) * .32 + var(--ambient-hit) * .14);
-  animation: ambient-light-drift var(--drift-duration, 28s) ease-in-out infinite alternate paused;
-}
-.ambient-lights span:nth-child(1) {
-  left: calc(var(--light-x-1, 28%) - 55%); top: calc(var(--light-y-1, 30%) - 35%);
-  background: radial-gradient(ellipse, rgba(var(--light-1, 150, 78, 62), .9), rgba(var(--light-1, 150, 78, 62), .35) 32%, transparent 68%);
-}
-.ambient-lights span:nth-child(2) {
-  left: calc(var(--light-x-2, 72%) - 12%); top: calc(var(--light-y-2, 60%) - 30%);
-  background: radial-gradient(ellipse, rgba(var(--light-2, 86, 70, 92), .85), rgba(var(--light-2, 86, 70, 92), .28) 38%, transparent 70%);
-  animation-direction: alternate-reverse; animation-delay: -9s;
-}
-.ambient-lights span:nth-child(3) {
-  left: calc(var(--light-x-3, 42%) - 32%); top: calc(var(--light-y-3, 80%) - 5%);
-  background: radial-gradient(ellipse, rgba(var(--light-3, 42, 82, 96), .75), transparent 65%);
-  animation-delay: -17s;
-}
-.ambient-cover::after {
-  content: ""; position: absolute; inset: 0; opacity: .035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23grain)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
+.ambient-cover[data-video-state="playing"] iframe { opacity: .7; }
 .ambient-shade {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(ellipse at 50% 44%, rgba(0,0,0,.38), transparent 70%),
-    linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.12) 32%, rgba(0,0,0,.32) 64%, rgba(0,0,0,.78));
+  background: rgba(0,0,0,.2);
 }
-:root[data-ambient-playing="true"] .ambient-cover { opacity: .92; }
-:root[data-ambient-dragging="true"] .ambient-cover { opacity: .36; }
-:root[data-ambient-motion="running"] .ambient-layer.is-current .ambient-flow,
-:root[data-ambient-motion="running"] .ambient-layer.is-current .ambient-lights span { animation-play-state: running; }
-@keyframes ambient-drift {
-  0% { transform: translate(-3%, -2%) scale(1.08) rotate(-3deg); }
-  50% { transform: translate(3%, 2%) scale(1.18) rotate(1deg); }
-  100% { transform: translate(-1%, 4%) scale(1.1) rotate(4deg); }
-}
-@keyframes ambient-light-drift {
-  0% { transform: translate(-6%, -3%) scale(calc(1 + var(--ambient-bass) * .24)); }
-  50% { transform: translate(5%, 6%) scale(calc(1.12 + var(--ambient-bass) * .24)); }
-  100% { transform: translate(2%, -5%) scale(calc(1.04 + var(--ambient-bass) * .24)); }
-}
-@media (max-width: 700px) {
-  .ambient-flow { filter: blur(42px) saturate(1.25) brightness(.6); }
+:root[data-ambient-playing="true"] .ambient-cover { opacity: 1; }
+:root[data-ambient-motion="running"] .ambient-cover { animation-play-state: running; }
+@keyframes ambient-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 .topbar {
   position: relative; z-index: 30;

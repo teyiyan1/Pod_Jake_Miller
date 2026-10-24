@@ -33,7 +33,7 @@ Restart `npm run serve` after editing `.env`. On the page, choose **Connect Appl
 - `index.html`: page structure and dialogs
 - `styles.css`: responsive layout and Cover Flow presentation
 - `app.js`: local audio, Apple Music and YouTube playback, carousel, and lyric import
-- `ambient.js`: cached artwork color sampling and playback-driven visual state
+- `ambient.js`: the shared muted Parties video and playback-driven visual state
 - `data/tracks.js`: editable 27-track setlist and Apple Music artwork metadata
 - `vendor/lucide.min.js`: locally bundled Lucide icons (license in `vendor/LICENSE`)
 
@@ -41,11 +41,11 @@ Restart `npm run serve` after editing `.env`. On the page, choose **Connect Appl
 
 The current interface adapts the user's downloaded Vynora (Community) Make source: black iPod header, inset search, Cover Flow transforms, reflected covers, track metadata and large playback controls. The source archive was inspected at `../Vynora_Make_Source`. The previous Encore source is backed up at `../Jake_Miller_Encore-before-vynora-20261022.zip`.
 
-The central playback button uses a local MP3 when available, then Apple MusicKit Web when configured, or the official YouTube IFrame player. YouTube uses one hidden iframe and there is no additional background iframe. Playback starts only following an explicit user action; the app does not claim music is playing until the active player reports it. Unknown or blocked video sources are not silently replaced.
+The central playback button uses a local MP3 when available, then Apple MusicKit Web when configured, or the official YouTube IFrame player. YouTube audio uses one hidden iframe; a separate muted iframe supplies the shared Parties video background. Playback starts only following an explicit user action; the app does not claim music is playing until the active player reports it. Unknown or blocked video sources are not silently replaced.
 
 The main control requests playback or pause through the active in-page provider; it never opens a source editor or an external page. The YouTube region remains hidden, with no reserved layout space, during idle, playback and error states on all screen sizes. Playback intent is tracked separately from DOM visibility. The center album cover and its reflection remain visible; failures appear in the existing playback status. Hiding the iframe does not turn it into a separate audio service or change video availability.
 
-The ambient background uses the `Parties` cover as one shared visual layer for every track. A blurred copy of that artwork, three fixed color pools, slow drift, and subtle grain create the atmospheric motion; it starts only after the active provider reports playback and pauses during buffering, dragging, hidden pages, and reduced-motion settings. The background uses no extra video iframe, so GitHub Pages and mobile browsers do not depend on YouTube autoplay for the visual layer. Mobile styling reduces blur and intensity while preserving the same `Parties` palette.
+The ambient background restores the original `Parties` video (`oCkufmjcy3I`) for every song, regardless of its audio provider. The oversized video, blur, brightness, contrast and dark overlay match the earlier video-background version on desktop and mobile. Playback prepares a muted inline YouTube player and starts the video after the audio provider reports playback. Pausing, dragging, hidden pages and reduced-motion settings pause the decorative player; resuming and switching songs reuse the same Parties video. The background never supplies the song audio. It requires an internet connection and available YouTube embedding; blocked or unavailable video stays on the original dark fallback rather than being replaced by drifting artwork.
 
 Reference: the requested Figma Make `qdgzDrEORQjCH9NpzkK6Se` exposed its source-file list, but the connector could not return source bodies or a Make screenshot. The implementation follows the agreed behavior and the previously downloaded Vynora reference at `../Vynora_Make_Source`; it is not a pixel-exact verification of the new Make preview.
 

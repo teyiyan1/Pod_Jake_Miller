@@ -83,7 +83,7 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#playback-state").textContent(), "Now Playing");
     assert.equal(await page.locator("#youtube-player").boundingBox(), null, "playback has no visible video or reserved space");
     assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "running");
-    assert.equal(await page.locator("#ambient-cover").getAttribute("data-artwork"), "Parties");
+    assert.equal(await page.locator("#ambient-cover").getAttribute("data-video-id"), "oCkufmjcy3I");
     await page.locator("#play-toggle").click();
     assert.equal(await page.locator("#playback-state").textContent(), "Paused");
     assert.equal(await page.locator("html").getAttribute("data-ambient-motion"), "paused");

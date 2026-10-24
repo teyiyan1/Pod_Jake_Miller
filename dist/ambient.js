@@ -4,60 +4,158 @@
   if (!background) return;
 
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  const layers = [...background.querySelectorAll(".ambient-layer")];
-  const partiesArtwork = "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/87/c1/e4/87c1e4a0-4cde-c332-b995-c06a2146d0a0/888915434383_cover.jpg/600x600bb.jpg";
+  // Every song uses the original Parties video, independently of its audio source.
+  const sharedVideoId = "oCkufmjcy3I";
   let playing = false;
   let dragging = false;
+  let player = null;
+  let ready = false;
+  let mounted = false;
+  let failed = false;
+  let generation = 0;
+  let poll = 0;
+  let timeout = 0;
 
-  function paintSound() {
-    root.style.setProperty("--ambient-energy", "0");
-    root.style.setProperty("--ambient-bass", "0");
-    root.style.setProperty("--ambient-hit", "0");
+  background.dataset.videoId = sharedVideoId;
+  background.dataset.videoState = "idle";
+
+  const canMove = () => !document.hidden && !reducedMotion.matches && !dragging;
+
+  function clearTimers() {
+    clearInterval(poll);
+    clearTimeout(timeout);
+    poll = timeout = 0;
   }
 
-  function setPartiesArtwork() {
-    layers.forEach(layer => {
-      const flow = layer.querySelector(".ambient-flow");
-      if (flow) flow.style.backgroundImage = `url(${JSON.stringify(partiesArtwork)})`;
-      layer.style.setProperty("--light-1", "150, 78, 62");
-      layer.style.setProperty("--light-2", "86, 70, 92");
-      layer.style.setProperty("--light-3", "42, 82, 96");
-      layer.style.setProperty("--light-x-1", "22%");
-      layer.style.setProperty("--light-y-1", "28%");
-      layer.style.setProperty("--light-x-2", "78%");
-      layer.style.setProperty("--light-y-2", "58%");
-      layer.style.setProperty("--light-x-3", "38%");
-      layer.style.setProperty("--light-y-3", "84%");
-      layer.style.setProperty("--drift-duration", "27s");
-    });
-    background.dataset.artwork = "Parties";
-    background.dataset.artworkSource = partiesArtwork;
+  function removeVideo() {
+    generation++;
+    clearTimers();
+    player?.destroy();
+    player = null;
+    ready = mounted = false;
+    background.replaceChildren();
+  }
+
+  function failVideo(state, code) {
+    removeVideo();
+    failed = true;
+    background.dataset.videoState = state;
+    if (code !== undefined) background.dataset.videoError = String(code);
+  }
+
+  function armTimeout(token) {
+    if (timeout) return;
+    timeout = setTimeout(() => {
+      if (token === generation) failVideo("unavailable", "timeout");
+    }, 20000);
+  }
+
+  function syncPlayer() {
+    if (!ready || !player) return;
+    if (playing && canMove()) {
+      player.mute();
+      armTimeout(generation);
+      player.playVideo();
+    } else {
+      clearTimeout(timeout);
+      timeout = 0;
+      player.pauseVideo();
+      background.dataset.videoState = "paused";
+    }
+  }
+
+  function mountVideo() {
+    if (mounted || failed || !canMove()) return;
+    mounted = true;
+    const token = ++generation;
+    background.dataset.videoState = "loading";
+    delete background.dataset.videoError;
+    armTimeout(token);
+    const initialize = () => {
+      if (token !== generation || !window.YT?.Player) return;
+      clearInterval(poll);
+      poll = 0;
+      const host = document.createElement("div");
+      background.append(host);
+      const origin = /^https?:$/.test(location.protocol) ? { origin: location.origin } : {};
+      player = new window.YT.Player(host, {
+        videoId: sharedVideoId,
+        playerVars: {
+          autoplay: 0, mute: 1, controls: 0, disablekb: 1,
+          playsinline: 1, loop: 1, playlist: sharedVideoId, rel: 0, fs: 0,
+          ...origin
+        },
+        events: {
+          onReady(event) {
+            if (token !== generation) return;
+            const iframe = event.target.getIframe();
+            iframe.title = "Parties background video";
+            iframe.tabIndex = -1;
+            iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
+            iframe.setAttribute("playsinline", "");
+            ready = true;
+            event.target.mute();
+            syncPlayer();
+          },
+          onStateChange(event) {
+            if (token !== generation) return;
+            if (event.data === 1) {
+              clearTimeout(timeout);
+              timeout = 0;
+              if (!playing || !canMove()) {
+                syncPlayer();
+                return;
+              }
+              background.dataset.videoState = "playing";
+            } else if (event.data === 0 && playing && canMove()) {
+              player.seekTo(0, true);
+              player.playVideo();
+            }
+          },
+          onError(event) {
+            if (token === generation) failVideo("unavailable", event.data);
+          },
+          onAutoplayBlocked() {
+            if (token === generation) failVideo("blocked", "autoplay");
+          }
+        }
+      });
+    };
+    // The main audio player owns loading the shared YouTube API.
+    poll = setInterval(initialize, 100);
+    initialize();
   }
 
   function updateMotion() {
     const visible = playing && !document.hidden;
-    const active = visible && !reducedMotion.matches && !dragging;
+    const active = playing && canMove();
     root.dataset.ambientPlaying = String(visible);
     root.dataset.ambientMotion = active ? "running" : "paused";
     root.dataset.ambientDragging = String(dragging);
-    root.dataset.ambientAudio = "atmosphere";
-    if (!active) paintSound();
+    if (active && !mounted) mountVideo();
+    syncPlayer();
   }
 
   reducedMotion.addEventListener("change", updateMotion);
   document.addEventListener("visibilitychange", updateMotion);
-  setPartiesArtwork();
-  updateMotion();
-
   window.encoreAmbient = {
+    // Prepare the muted inline player in the playback gesture on mobile.
+    // Actual video playback still waits for the active audio provider to start.
+    preparePlayback() {
+      if (failed) {
+        failed = false;
+        background.dataset.videoState = "idle";
+      }
+      mountVideo();
+    },
     setTrack() {
-      // The artwork stays on Parties so every song shares one visual language.
-      setPartiesArtwork();
       playing = false;
       updateMotion();
     },
     setPlaying(value) {
-      playing = Boolean(value);
+      const next = Boolean(value);
+      if (next && !playing) failed = false;
+      playing = next;
       updateMotion();
     },
     setDragging(value) {
@@ -65,4 +163,5 @@
       updateMotion();
     }
   };
+  updateMotion();
 })();
