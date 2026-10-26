@@ -124,7 +124,19 @@ function setPlaybackAction(action, label) {
     lyricsPlayButton.setAttribute("aria-label", lyricsPlayLabel);
     lyricsPlayButton.title = lyricsPlayLabel;
   }
+  const lyricsPlayerButton = document.querySelector("#lyrics-play");
+  if (lyricsPlayerButton) {
+    if (lyricsPlayerButton.dataset.icon !== icon) {
+      lyricsPlayerButton.innerHTML = `<i data-lucide="${icon}"></i>`;
+      lyricsPlayerButton.dataset.icon = icon;
+      renderIcons();
+    }
+    lyricsPlayerButton.disabled = button.disabled;
+    lyricsPlayerButton.setAttribute("aria-label", labels[action] || "播放音乐");
+    lyricsPlayerButton.title = labels[action] || "播放音乐";
+  }
   if (label) document.querySelector("#playback-state").textContent = label;
+  updateLyricsPlayer();
 }
 
 function setPlaying(playing, label) {
@@ -1106,8 +1118,42 @@ function currentPlaybackTime() {
   return null;
 }
 
+function playbackDuration() {
+  if (activeProvider === "local" && localAudio && Number.isFinite(localAudio.duration)) return localAudio.duration;
+  if (activeProvider === "youtube" && ytReady && ytPlayer?.getDuration) return Number(ytPlayer.getDuration()) || 0;
+  const track = currentTrack();
+  return Number(track?.audioDurationSeconds || track?.lyricsDurationSeconds) || 0;
+}
+
+function formatPlaybackTime(time) {
+  const seconds = Math.max(0, Math.floor(Number(time) || 0));
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
+function updateLyricsPlayer() {
+  const progress = document.querySelector("#lyrics-progress");
+  if (!progress || progress.dataset.scrubbing === "true") return;
+  const current = currentPlaybackTime() ?? 0;
+  const duration = playbackDuration();
+  progress.max = String(Math.max(0, duration));
+  progress.value = String(Math.min(current, duration || current));
+  progress.style.setProperty("--progress", `${duration > 0 ? Math.min(100, current / duration * 100) : 0}%`);
+  document.querySelector("#lyrics-current-time").textContent = formatPlaybackTime(current);
+  document.querySelector("#lyrics-duration").textContent = duration ? `-${formatPlaybackTime(Math.max(0, duration - current))}` : "-0:00";
+}
+
+function seekPlayback(value) {
+  const time = Number(value);
+  if (!Number.isFinite(time)) return;
+  if (activeProvider === "local" && localAudio) localAudio.currentTime = time;
+  else if (activeProvider === "youtube" && ytReady) ytPlayer.seekTo(time, true);
+  else if (activeProvider === "apple") window.EncAppleMusic?.seekTo?.(time);
+  updateLyricsPlayer();
+}
+
 function updateProgress() {
   updateLyrics(currentPlaybackTime() ?? 0);
+  updateLyricsPlayer();
 }
 
 function formatLrcTime(time) {
@@ -1306,6 +1352,21 @@ function bindEvents() {
   });
   document.querySelector("#queue-open").addEventListener("click", () => document.querySelector("#queue-dialog").showModal());
   document.querySelector("#lyrics-open").addEventListener("click", openLyricsDialog);
+  document.querySelector("#lyrics-play").addEventListener("click", togglePlayback);
+  document.querySelector("#lyrics-prev").addEventListener("click", () => advanceTrack(-1, true));
+  document.querySelector("#lyrics-next").addEventListener("click", () => advanceTrack(1, true));
+  document.querySelector("#lyrics-progress").addEventListener("input", (event) => {
+    event.target.dataset.scrubbing = "true";
+    const current = Number(event.target.value) || 0;
+    document.querySelector("#lyrics-current-time").textContent = formatPlaybackTime(current);
+    const duration = playbackDuration();
+    event.target.style.setProperty("--progress", `${duration > 0 ? Math.min(100, current / duration * 100) : 0}%`);
+    document.querySelector("#lyrics-duration").textContent = duration ? `-${formatPlaybackTime(Math.max(0, duration - current))}` : "-0:00";
+  });
+  document.querySelector("#lyrics-progress").addEventListener("change", (event) => {
+    event.target.dataset.scrubbing = "false";
+    seekPlayback(event.target.value);
+  });
   document.querySelector("#lyrics-sync-start").addEventListener("click", startLyricsSync);
   document.querySelector("#lyrics-sync-play").addEventListener("click", togglePlayback);
   document.querySelector("#lyrics-sync-undo").addEventListener("click", undoLyricsStamp);

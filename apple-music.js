@@ -119,6 +119,10 @@
     if (music && "volume" in music) music.volume = muted ? 0 : 1;
   }
 
+  function seekTo(time) {
+    if (music && "playbackTime" in music) music.playbackTime = Math.max(0, Number(time) || 0);
+  }
+
   window.EncAppleMusic = {
     connect,
     initialize,
@@ -128,6 +132,7 @@
     play,
     playbackTime: () => Number(music?.playbackTime) || 0,
     readyState: () => state,
+    seekTo,
     resume,
     setMuted
   };

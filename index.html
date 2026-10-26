@@ -109,6 +109,18 @@
           </div>
           <div class="lyrics-view" id="lyrics-view" hidden></div>
         </div>
+        <div class="lyrics-player" id="lyrics-player" aria-label="歌词播放控制">
+          <div class="lyrics-progress-row">
+            <span id="lyrics-current-time">0:00</span>
+            <input id="lyrics-progress" type="range" min="0" max="0" value="0" step="0.1" aria-label="音乐进度">
+            <span id="lyrics-duration">-0:00</span>
+          </div>
+          <div class="lyrics-transport">
+            <button class="skip-button" id="lyrics-prev" type="button" aria-label="上一首" title="上一首"><i data-lucide="skip-back"></i></button>
+            <button class="play-button" id="lyrics-play" type="button" aria-label="播放音乐" title="播放音乐" data-icon="play"><i data-lucide="play"></i></button>
+            <button class="skip-button" id="lyrics-next" type="button" aria-label="下一首" title="下一首"><i data-lucide="skip-forward"></i></button>
+          </div>
+        </div>
       </section>
     </dialog>
 
