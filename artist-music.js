@@ -2,8 +2,11 @@
   const button = document.querySelector("#artist-sound");
   const status = document.querySelector("#artist-music-status");
   const storageKey = "encore-artist-intro-enabled";
-  // Official iTunes catalog preview, not a full-track download.
-  const audio = new Audio("https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4a/1d/e9/4a1de930-f0f2-484c-eea9-7d46bcd89de8/mzaf_11582686532983847296.plus.aac.p.m4a");
+  // The first 40 seconds of the user's supplied video, bundled as local audio.
+  const audio = new Audio("./audio/artist-wall-accompaniment-40s.m4a");
+  audio.id = "artist-wall-audio";
+  audio.hidden = true;
+  document.body.append(audio);
   audio.loop = true;
   audio.preload = "none";
   audio.volume = .18;
@@ -23,8 +26,8 @@
     button.disabled = roomBusy;
     button.setAttribute("aria-pressed", String(playing));
     button.querySelector("span").textContent = roomBusy ? "Room audio" : pending ? "Cancel" : playing ? "Sound off" : "Sound on";
-    button.title = roomBusy ? "Your song is playing — use the room controls" : playing ? "Turn off opening music" : "Play The xx — Intro (preview)";
-    status.textContent = failed ? "PREVIEW UNAVAILABLE · TAP SOUND ON TO RETRY" : pending ? "LOADING INTRO…" : playing ? "THE XX · INTRO · PREVIEW ↻" : "THE XX · INTRO · PREVIEW";
+    button.title = roomBusy ? "Your song is playing — use the room controls" : playing ? "Turn off opening music" : "Play opening music";
+    status.textContent = failed ? "MUSIC UNAVAILABLE · TAP SOUND ON TO RETRY" : pending ? "LOADING MUSIC…" : playing ? "OPENING MUSIC · 40S LOOP ↻" : "OPENING MUSIC · 40S LOOP";
   }
 
   function stop(soft = false) {
