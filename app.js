@@ -1,7 +1,9 @@
-const STORAGE_KEY = "encore-recovered-jake-miller-v1";
-const LYRICS_STORAGE_KEY = "encore-jake-miller-lyrics-v1";
-const LYRICS_DRAFT_STORAGE_KEY = "encore-jake-miller-lyric-drafts-v1";
-const VIDEO_STORAGE_KEY = "encore-jake-miller-videos-v1";
+const LIBRARY_ID = window.ENCORE_LIBRARY_ID || "jake-miller";
+const LIBRARY_KEY = LIBRARY_ID === "jake-miller" ? "jake-miller" : LIBRARY_ID;
+const STORAGE_KEY = `encore-recovered-${LIBRARY_KEY}-v1`;
+const LYRICS_STORAGE_KEY = `encore-${LIBRARY_KEY}-lyrics-v1`;
+const LYRICS_DRAFT_STORAGE_KEY = `encore-${LIBRARY_KEY}-lyric-drafts-v1`;
+const VIDEO_STORAGE_KEY = `encore-${LIBRARY_KEY}-videos-v1`;
 
 const deck = document.querySelector("#deck");
 const records = document.querySelector("#records");
@@ -9,7 +11,7 @@ const lyricsView = document.querySelector("#lyrics-view");
 const noteCopy = document.querySelector("#note-copy");
 
 let tracks = [];
-let currentIndex = 8;
+let currentIndex = LIBRARY_ID === "jake-miller" ? 8 : 0;
 let ytPlayer = null;
 let ytReady = false;
 let isDragging = false;
@@ -847,10 +849,14 @@ function renderLyrics(track) {
 function showLyrics(text, format, source = "", timedLines = null, track = currentTrack()) {
   const isLrc = format === "lrc";
   const parsedLyrics = timedLines || (isLrc ? parseLrc(text) : []);
-  const isEnglishOnly = track?.lyricsDisplayLanguage === "en";
-  const keepEnglish = (line) => !isEnglishOnly || !/[\u3400-\u9fff]/.test(line.text);
-  activeLyrics = parsedLyrics.filter(keepEnglish);
-  const textLines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => ({ text: line })).filter(keepEnglish);
+  const displayLanguage = track?.lyricsDisplayLanguage;
+  const keepLanguage = (line) => {
+    if (displayLanguage === "en") return !/[\u3400-\u9fff]/.test(line.text);
+    if (displayLanguage === "ja") return !/[\u3400-\u9fff]/.test(line.text) || /[\u3040-\u30ff]/.test(line.text);
+    return true;
+  };
+  activeLyrics = parsedLyrics.filter(keepLanguage);
+  const textLines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => ({ text: line })).filter(keepLanguage);
   document.querySelector("#lyrics-sync-start").hidden = Boolean(activeLyrics.length);
   noteCopy.hidden = true;
   document.querySelector("#notes-disclaimer").hidden = false;
@@ -1526,6 +1532,10 @@ function bindEvents() {
 async function init() {
   if (!Array.isArray(window.ENCORE_TRACKS)) throw new Error("Track data did not load");
   tracks = [...window.ENCORE_TRACKS];
+  const artistName = window.ENCORE_ARTIST_NAME || "Jake Miller";
+  document.querySelector(".topbar h1").firstChild.textContent = artistName;
+  document.querySelector("#queue-heading").firstChild.textContent = `${artistName} `;
+  document.title = `${artistName} · Listening Room`;
   document.querySelector("#result-count").textContent = `· ${tracks.length} Tracks`;
   currentIndex = ((currentIndex % tracks.length) + tracks.length) % tracks.length;
   filteredIndexes = tracks.map((_, index) => index);

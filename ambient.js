@@ -4,8 +4,22 @@
   if (!background) return;
 
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  // Every song uses the original Parties video, independently of its audio source.
+  const artistId = window.ENCORE_LIBRARY_ID || "jake-miller";
+  const artistBackgrounds = {
+    "jake-miller": "./artwork/artists/jake-miller.jpg",
+    "justin-bieber": "./artwork/artists/justin-bieber.jpg",
+    "christian-kuria": "./artwork/artists/christian-kuria.jpg",
+    "the-weeknd": "./artwork/artists/the-weeknd.jpg",
+    keshi: "./artwork/artists/keshi.jpg",
+    sza: "./artwork/artists/sza.jpg",
+    "jhene-aiko": "./artwork/artists/jhene-aiko.jpg",
+    laufey: "./artwork/artists/laufey.jpg",
+    "fujii-kaze": "./artwork/artists/fujii-kaze.jpg"
+  };
+  background.style.setProperty("--artist-background", `url("${artistBackgrounds[artistId] || artistBackgrounds["jake-miller"]}")`);
+  // Jake's room keeps its original muted Parties video; other rooms use their own artist portrait.
   const sharedVideoId = "oCkufmjcy3I";
+  const useSharedVideo = artistId === "jake-miller";
   let playing = false;
   let dragging = false;
   let player = null;
@@ -16,8 +30,8 @@
   let poll = 0;
   let timeout = 0;
 
-  background.dataset.videoId = sharedVideoId;
-  background.dataset.videoState = "idle";
+  if (useSharedVideo) background.dataset.videoId = sharedVideoId;
+  background.dataset.videoState = useSharedVideo ? "idle" : "image";
 
   const canMove = () => !document.hidden && !reducedMotion.matches && !dragging;
 
@@ -65,7 +79,7 @@
   }
 
   function mountVideo() {
-    if (mounted || failed || !canMove()) return;
+    if (!useSharedVideo || mounted || failed || !canMove()) return;
     mounted = true;
     const token = ++generation;
     background.dataset.videoState = "loading";

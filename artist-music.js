@@ -15,7 +15,7 @@
   let failed = false;
   let generation = 0;
   let fade = 0;
-  const onWall = () => location.hash !== "#jake-miller";
+  const onWall = () => !location.hash || location.hash === "#artists";
   const allowed = () => enabled && onWall() && !roomBusy && !document.hidden;
 
   function render() {

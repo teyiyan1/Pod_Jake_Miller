@@ -810,6 +810,13 @@ const encoreTracks = [
   }
 ];
 if (typeof module !== "undefined") module.exports = encoreTracks;
-if (typeof window !== "undefined") window.ENCORE_TRACKS = encoreTracks;
+if (typeof window !== "undefined") {
+  const match = location.hash.match(/^#artist\/([a-z0-9-]+)$/i);
+  const requestedLibrary = match?.[1] || "jake-miller";
+  const selectedLibrary = window.ENCORE_ARTIST_LIBRARIES?.[requestedLibrary];
+  window.ENCORE_LIBRARY_ID = selectedLibrary ? requestedLibrary : "jake-miller";
+  window.ENCORE_ARTIST_NAME = selectedLibrary?.name || "Jake Miller";
+  window.ENCORE_TRACKS = selectedLibrary?.tracks || encoreTracks;
+}
 
 

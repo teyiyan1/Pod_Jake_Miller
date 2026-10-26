@@ -3,6 +3,7 @@
 :root[data-view="artists"] .ambient-cover,
 :root[data-view="artists"] .ambient-shade,
 :root[data-view="room"] .artist-home { display: none; }
+:root[data-view="room"] .ambient-cover { display: block; opacity: 1; }
 .artist-home { background: #11110f; color: #f4f2eb; min-height: 100svh; }
 .artist-header { height: 64px; padding: 0 26px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .artist-wordmark { font-size: 28px; font-weight: 750; letter-spacing: -1.5px; }
@@ -18,23 +19,21 @@
 #artist-music-status { font-size: 9px; letter-spacing: 1px; }
 @media (max-width: 900px) { .artist-header-label { display: none; } }
 .artist-wall { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(0, 1fr)); gap: 4px; padding: 0 4px; height: calc(100svh - 108px); min-height: 660px; }
-.artist-tile { position: relative; overflow: hidden; isolation: isolate; min-width: 0; padding: 0; border: 0; border-radius: 0; background: #252522; color: #fff; text-align: left; font: inherit; -webkit-tap-highlight-color: transparent; }
+.artist-tile { display: block; position: relative; overflow: hidden; isolation: isolate; min-width: 0; padding: 0; border: 0; border-radius: 0; background: #252522; color: #fff; text-align: left; text-decoration: none; font: inherit; -webkit-tap-highlight-color: transparent; }
 .artist-tile:disabled { opacity: 1; cursor: default; }
 .artist-tile img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.65) brightness(.8); transition: transform .65s ease, filter .65s ease; }
 .artist-tile::after { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0,0,0,.2), transparent 35%, rgba(0,0,0,.08) 48%, rgba(0,0,0,.78)); pointer-events: none; }
 .artist-tile:hover img { transform: scale(1.035); filter: saturate(.9) brightness(.95); }
-.artist-jake:focus-visible { outline: 2px solid #d2f5b0; outline-offset: -4px; }
-.artist-jake:focus-visible img { transform: scale(1.035); }
+.artist-tile:focus-visible { outline: 2px solid #d2f5b0; outline-offset: -4px; }
+.artist-tile:focus-visible img { transform: scale(1.035); }
 .artist-number { position: absolute; z-index: 1; top: 20px; left: 22px; color: #ffffffb3; font-size: 9px; }
 .artist-caption { position: absolute; z-index: 1; left: 24px; right: 20px; bottom: 24px; }
 .artist-caption h1, .artist-caption h2 { margin: 0; color: #f9f7f2; font-weight: 600; letter-spacing: -1.6px; line-height: .98; text-wrap: balance; }
-.artist-caption h1 { font-size: clamp(48px, 5.5vw, 96px); letter-spacing: -3px; margin: 12px 0 20px; }
+.artist-caption h1 { font-size: clamp(48px, 5.5vw, 96px); letter-spacing: -3px; margin: 12px 0 0; }
 .artist-caption h2 { font-size: clamp(25px, 2.3vw, 44px); letter-spacing: -1px; }
 .artist-kicker { display: block; color: #e0e3d2; font-size: 9px; }
 .artist-open { position: absolute; z-index: 1; top: 20px; right: 22px; color: #e0f8cb; font-size: 9px; letter-spacing: 1px; }
 .artist-open > span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #c6efab; margin-right: 6px; }
-.artist-enter { display: flex; align-items: center; justify-content: space-between; font-size: 12px; padding-top: 14px; border-top: 1px solid #ffffff45; }
-.artist-enter > span { font-size: 26px; line-height: 1; color: #def7c6; }
 .artist-soon { display: block; margin-top: 12px; font-size: 10px; color: #d4d4cc; letter-spacing: 2px; }
 .artist-jake { grid-area: 1 / 1 / 5 / 4; }
 .artist-justin { grid-area: 1 / 4 / 3 / 7; }

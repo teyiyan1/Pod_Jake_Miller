@@ -6,19 +6,20 @@
     <meta name="theme-color" content="#050506">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Encore · Artist Rooms</title>
-    <link rel="stylesheet" href="./styles.css?v=ui-focus-ring-1">
-    <link rel="stylesheet" href="./artists.css?v=1">
-    <script src="./data/tracks.js?v=local-audio-8" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=artist-backgrounds-2">
+    <link rel="stylesheet" href="./artists.css?v=artist-rooms-4">
+    <script src="./data/artist-libraries.js?v=artist-libraries-3" defer></script>
+    <script src="./data/tracks.js?v=artist-room-routing-1" defer></script>
     <script src="./lyric-timing.js?v=audio-alignment-2" defer></script>
     <script src="./data/lyric-timings.js?v=audio-alignment-2" defer></script>
     <script src="./data/embedded-lyrics.js?v=mp3-lyrics-2" defer></script>
     <script src="./vendor/lucide.min.js" defer></script>
-    <script src="./ambient.js?v=parties-video-restored-1" defer></script>
+    <script src="./ambient.js?v=artist-backgrounds-1" defer></script>
     <script src="./apple-music.js?v=apple-music-3" defer></script>
-    <script src="./app.js?v=local-library-44-1" defer></script>
+    <script src="./app.js?v=multi-artist-rooms-1" defer></script>
     <script src="./room-ripple.js?v=1" defer></script>
-    <script src="./artists.js?v=2" defer></script>
-    <script src="./artist-music.js?v=1" defer></script>
+    <script src="./artists.js?v=multi-artist-rooms-1" defer></script>
+    <script src="./artist-music.js?v=multi-artist-rooms-1" defer></script>
   </head>
   <body>
     <section class="artist-home" id="artist-home" aria-label="Choose an artist" lang="en">
@@ -32,54 +33,57 @@
           <img src="./artwork/artists/jake-miller.jpg" alt="" fetchpriority="high">
           <span class="artist-number">01 / ARTIST</span>
           <span class="artist-open"><span></span> ROOM OPEN</span>
-          <div class="artist-caption"><span class="artist-kicker">YOUR NEXT REPEAT</span><h1>Jake<br>Miller</h1><span class="artist-enter">Enter listening room <span aria-hidden="true">↗</span></span></div>
+          <div class="artist-caption"><span class="artist-kicker">YOUR NEXT REPEAT</span><h1>Jake<br>Miller</h1></div>
         </a>
-        <button class="artist-tile artist-justin" disabled aria-label="Justin Bieber, coming soon">
-          <img src="./artwork/artists/justin-bieber.jpg" alt=""><span class="artist-number">02 / ARTIST</span>
-          <div class="artist-caption"><h2>Justin Bieber</h2><span class="artist-soon">COMING SOON</span></div>
-        </button>
-        <button class="artist-tile artist-christian" disabled aria-label="Christian Kuria, coming soon">
-          <img src="./artwork/artists/christian-kuria.jpg" alt=""><span class="artist-number">03 / ARTIST</span>
-          <div class="artist-caption"><h2>Christian Kuria</h2><span class="artist-soon">COMING SOON</span></div>
-        </button>
+        <a class="artist-tile artist-justin" href="#artist/justin-bieber" aria-label="Enter Justin Bieber's listening room">
+          <img src="./artwork/artists/justin-bieber.jpg" alt=""><span class="artist-number">02 / ARTIST</span><span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><h2>Justin Bieber</h2></div>
+        </a>
+        <a class="artist-tile artist-christian" href="#artist/christian-kuria" aria-label="Enter Christian Kuria's listening room">
+          <img src="./artwork/artists/christian-kuria.jpg" alt=""><span class="artist-number">03 / ARTIST</span><span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><h2>Christian Kuria</h2></div>
+        </a>
         <button class="artist-tile artist-jay" disabled aria-label="Jay Chou, coming soon">
-          <img src="./artwork/artists/jay-chou-young.jpg" alt=""><span class="artist-number">04 / ARTIST</span>
+          <img src="./artwork/artists/jay-chou-young.jpg" alt="">
+          <span class="artist-number">04 / ARTIST</span>
           <div class="artist-caption"><h2>Jay Chou</h2><span class="artist-soon">COMING SOON</span></div>
         </button>
-        <button class="artist-tile artist-weeknd" disabled aria-label="The Weeknd, coming soon">
-          <img src="./artwork/artists/the-weeknd.jpg" alt=""><span class="artist-number">05 / ARTIST</span>
-          <div class="artist-caption"><h2>The<br>Weeknd</h2><span class="artist-soon">COMING SOON</span></div>
-        </button>
-        <button class="artist-tile artist-keshi" disabled aria-label="keshi, coming soon">
-          <img src="./artwork/artists/keshi.jpg" alt=""><span class="artist-number">06 / ARTIST</span>
-          <div class="artist-caption"><h2>keshi</h2><span class="artist-soon">COMING SOON</span></div>
-        </button>
-        <button class="artist-tile artist-sza" disabled aria-label="SZA, coming soon">
-          <img src="./artwork/artists/sza.jpg" alt=""><span class="artist-number">07 / ARTIST</span>
-          <div class="artist-caption"><h2>SZA</h2><span class="artist-soon">COMING SOON</span></div>
-        </button>
-        <button class="artist-tile artist-jhene" disabled aria-label="Jhené Aiko, coming soon">
-          <img src="./artwork/artists/jhene-aiko.jpg" alt=""><span class="artist-number">08 / ARTIST</span>
-          <div class="artist-caption"><h2>Jhené Aiko</h2><span class="artist-soon">COMING SOON</span></div>
-        </button>
-        <button class="artist-tile artist-laufey" disabled aria-label="Laufey, coming soon">
-          <img src="./artwork/artists/laufey.jpg" alt=""><span class="artist-number">09 / ARTIST</span>
-          <div class="artist-caption"><h2>Laufey</h2><span class="artist-soon">COMING SOON</span></div>
-        </button>
-        <button class="artist-tile artist-fujii" disabled aria-label="Fujii Kaze, coming soon">
-          <img src="./artwork/artists/fujii-kaze.jpg" alt=""><span class="artist-number">10 / ARTIST</span>
-          <div class="artist-caption"><h2>Fujii Kaze</h2><span class="artist-soon">COMING SOON</span></div>
-        </button>
+        <a class="artist-tile artist-weeknd" href="#artist/the-weeknd" aria-label="Enter The Weeknd's listening room">
+          <img src="./artwork/artists/the-weeknd.jpg" alt=""><span class="artist-number">05 / ARTIST</span><span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><h2>The<br>Weeknd</h2></div>
+        </a>
+        <a class="artist-tile artist-keshi" href="#artist/keshi" aria-label="Enter keshi's listening room">
+          <img src="./artwork/artists/keshi.jpg" alt=""><span class="artist-number">06 / ARTIST</span><span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><h2>keshi</h2></div>
+        </a>
+        <a class="artist-tile artist-sza" href="#artist/sza" aria-label="Enter SZA's listening room">
+          <img src="./artwork/artists/sza.jpg" alt=""><span class="artist-number">07 / ARTIST</span><span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><h2>SZA</h2></div>
+        </a>
+        <a class="artist-tile artist-jhene" href="#artist/jhene-aiko" aria-label="Enter Jhené Aiko's listening room">
+          <img src="./artwork/artists/jhene-aiko.jpg" alt=""><span class="artist-number">08 / ARTIST</span><span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><h2>Jhené Aiko</h2></div>
+        </a>
+        <a class="artist-tile artist-laufey" href="#artist/laufey" aria-label="Enter Laufey's listening room">
+          <img src="./artwork/artists/laufey.jpg" alt=""><span class="artist-number">09 / ARTIST</span><span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><h2>Laufey</h2></div>
+        </a>
+        <a class="artist-tile artist-fujii" href="#artist/fujii-kaze" aria-label="Enter Fujii Kaze's listening room">
+          <img src="./artwork/artists/fujii-kaze.jpg" alt=""><span class="artist-number">10 / ARTIST</span><span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><h2>Fujii Kaze</h2></div>
+        </a>
         <button class="artist-tile artist-drake" disabled aria-label="Drake, coming soon">
-          <img src="./artwork/artists/drake.jpg" alt=""><span class="artist-number">11 / ARTIST</span>
+          <img src="./artwork/artists/drake.jpg" alt="">
+          <span class="artist-number">11 / ARTIST</span>
           <div class="artist-caption"><h2>Drake</h2><span class="artist-soon">COMING SOON</span></div>
         </button>
         <button class="artist-tile artist-ariana" disabled aria-label="Ariana Grande, coming soon">
-          <img src="./artwork/artists/ariana-grande.jpg" alt=""><span class="artist-number">12 / ARTIST</span>
+          <img src="./artwork/artists/ariana-grande.jpg" alt="">
+          <span class="artist-number">12 / ARTIST</span>
           <div class="artist-caption"><h2>Ariana Grande</h2><span class="artist-soon">COMING SOON</span></div>
         </button>
       </div>
-      <footer class="artist-footer"><span>Choose an artist. Step into their world.</span><a id="return-room" href="#jake-miller" hidden>Back to Jake Miller's room ↗</a><span id="artist-music-status" role="status">THE XX · INTRO · PREVIEW</span></footer>
+      <footer class="artist-footer"><span>Choose an artist. Step into their world.</span><a id="return-room" href="#artist/jake-miller" hidden>Back to your room ↗</a><span id="artist-music-status" role="status">THE XX · INTRO · PREVIEW</span></footer>
     </section>
     <div class="ambient-cover" id="ambient-cover" aria-hidden="true"></div>
     <div class="ambient-shade" aria-hidden="true"></div>

@@ -15,8 +15,20 @@
   if (!draw) overlay.classList.add("ripple-fallback");
   let frame = 0;
   let clickOrigin = null;
+
+  function artistFromHash(hash = location.hash) {
+    if (hash === "#jake-miller") return "jake-miller";
+    const match = hash.match(/^#artist\/([a-z0-9-]+)$/i);
+    return match && (match[1] === "jake-miller" || window.ENCORE_ARTIST_LIBRARIES?.[match[1]]) ? match[1] : "";
+  }
+
+  function libraryMatchesRoute() {
+    const artistId = artistFromHash();
+    return !artistId || artistId === (window.ENCORE_LIBRARY_ID || "jake-miller");
+  }
+
   document.addEventListener("click", event => {
-    const link = event.target.closest('a[href="#jake-miller"], a[href="#artists"]');
+    const link = event.target.closest('a[href="#jake-miller"], a[href^="#artist/"], a[href="#artists"]');
     if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
     const box = link.getBoundingClientRect();
     clickOrigin = event.detail ? { x: event.clientX / innerWidth, y: event.clientY / innerHeight }
@@ -24,21 +36,27 @@
   });
 
   function showView(focus = true) {
-    const inRoom = location.hash === "#jake-miller";
+    const artistId = artistFromHash();
+    const inRoom = Boolean(artistId) && libraryMatchesRoute();
     root.dataset.view = inRoom ? "room" : "artists";
     home.inert = inRoom;
     room.inert = !inRoom;
     header.inert = !inRoom;
-    document.title = inRoom ? "Jake Miller · Listening Room" : "Encore · Artist Rooms";
+    const artistName = inRoom ? (window.ENCORE_ARTIST_NAME || "Jake Miller") : "Encore · Artist Rooms";
+    document.title = inRoom ? `${artistName} · Listening Room` : "Encore · Artist Rooms";
     document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
     visited ||= inRoom;
-    document.querySelector("#return-room").hidden = !visited;
+    const returnLink = document.querySelector("#return-room");
+    returnLink.hidden = !visited;
+    returnLink.href = `#artist/${window.ENCORE_LIBRARY_ID || "jake-miller"}`;
+    returnLink.textContent = `Back to ${window.ENCORE_ARTIST_NAME || "Jake Miller"}'s room ↗`;
     window.scrollTo(0, 0);
-    if (inRoom) {
-      requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
-    }
+    if (inRoom) requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
     if (focus) {
-      (inRoom ? document.querySelector(".room-back") : document.querySelector("#enter-jake")).focus({ preventScroll: true });
+      const target = inRoom
+        ? document.querySelector(".room-back")
+        : document.querySelector(`#enter-jake`);
+      target?.focus({ preventScroll: true });
     }
   }
 
@@ -46,12 +64,16 @@
     cancelAnimationFrame(frame);
     overlay.hidden = true;
     delete root.dataset.transitioning;
+    if (!libraryMatchesRoute()) {
+      location.reload();
+      return;
+    }
     showView();
   }
 
   function transition() {
     cancelAnimationFrame(frame);
-    const entering = location.hash === "#jake-miller";
+    const entering = Boolean(artistFromHash());
     const target = entering ? "room" : "artists";
     const origin = clickOrigin || { x: .5, y: .5 };
     clickOrigin = null;
@@ -68,12 +90,18 @@
       const smooth = value => { const x = Math.max(0, Math.min(1, value)); return x * x * (3 - 2 * x); };
       overlay.style.opacity = String(smooth(p / .19) * (1 - smooth((p - .68) / .32)));
       draw?.(p, origin, !entering);
-      if (p >= .56 && !switched) { showView(false); home.inert = room.inert = header.inert = true; switched = true; }
+      if (p >= .56 && !switched) {
+        if (!libraryMatchesRoute()) { location.reload(); return; }
+        showView(false);
+        home.inert = room.inert = header.inert = true;
+        switched = true;
+      }
       if (p < 1) frame = requestAnimationFrame(tick);
       else finish();
     }
     frame = requestAnimationFrame(tick);
   }
+
   window.addEventListener("hashchange", transition);
   reducedMotion.addEventListener("change", () => { if (reducedMotion.matches && !overlay.hidden) finish(); });
   document.addEventListener("visibilitychange", () => { if (document.hidden && !overlay.hidden) finish(); });

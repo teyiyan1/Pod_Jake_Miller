@@ -32,12 +32,18 @@ svg { width: 20px; height: 20px; flex-shrink: 0; pointer-events: none; }
   background-size: 400% 400%;
   animation: ambient-gradient-shift 15s ease infinite paused;
 }
+.ambient-cover::before {
+  content: ""; position: absolute; inset: -24px; pointer-events: none;
+  background-image: var(--artist-background); background-position: center; background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(12px) brightness(.6) saturate(.9); transform: scale(1.05);
+}
 .ambient-cover iframe {
   position: absolute; top: 50%; left: 50%;
   width: max(200vw, 355.56vh); height: max(200vh, 112.5vw);
   transform: translate(-50%, -50%); border: 0; pointer-events: none;
   filter: blur(20px) brightness(.5) contrast(1.2);
-  opacity: 0; transition: opacity 1s ease-in-out;
+  opacity: 0; transition: opacity 1s ease-in-out; z-index: 1;
 }
 .ambient-cover[data-video-state="playing"] iframe { opacity: .7; }
 .ambient-shade {
