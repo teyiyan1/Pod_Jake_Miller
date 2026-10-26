@@ -74,16 +74,24 @@ window.createRoomRipple = function (canvas) {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([25,65,75,255]));
-    const img = document.querySelector("#enter-jake img");
-    img.decode().then(() => {
-      if (gl.isContextLost()) return;
-      gl.bindTexture(gl.TEXTURE_2D, texture);
-      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-    }).catch(() => {});
+    let activeImage = null;
+    function setArtwork(img) {
+      if (!img || img === activeImage) return;
+      activeImage = img;
+      const upload = () => {
+        if (activeImage !== img || gl.isContextLost()) return;
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+      };
+      if (img.complete && img.naturalWidth) upload();
+      else img.decode().then(upload).catch(() => {});
+    }
+    setArtwork(document.querySelector("#enter-jake img"));
     const uniforms = Object.fromEntries(["resolution", "origin", "progress", "reverse"].map(key => [key, gl.getUniformLocation(program, key)]));
-    return (progress, origin, reverse) => {
+    return (progress, origin, reverse, artwork) => {
       if (gl.isContextLost()) return;
+      setArtwork(artwork);
       const ratio = Math.min(devicePixelRatio || 1, 1.5, 1600 / innerWidth);
       const width = Math.round(innerWidth * ratio), height = Math.round(innerHeight * ratio);
       if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }

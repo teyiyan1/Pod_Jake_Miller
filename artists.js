@@ -27,6 +27,13 @@
     return !artistId || artistId === (window.ENCORE_LIBRARY_ID || "jake-miller");
   }
 
+  function posterForArtist(artistId) {
+    const selector = artistId === "jake-miller"
+      ? "#enter-jake img"
+      : `.artist-tile[href="#artist/${artistId}"] img`;
+    return document.querySelector(selector) || document.querySelector("#enter-jake img");
+  }
+
   document.addEventListener("click", event => {
     const link = event.target.closest('a[href="#jake-miller"], a[href^="#artist/"], a[href="#artists"]');
     if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
@@ -75,6 +82,8 @@
     cancelAnimationFrame(frame);
     const entering = Boolean(artistFromHash());
     const target = entering ? "room" : "artists";
+    const transitionArtist = entering ? artistFromHash() : (window.ENCORE_LIBRARY_ID || "jake-miller");
+    const poster = posterForArtist(transitionArtist);
     const origin = clickOrigin || { x: .5, y: .5 };
     clickOrigin = null;
     if (reducedMotion.matches || root.dataset.view === target) return finish();
@@ -83,13 +92,14 @@
     let switched = false;
     overlay.hidden = false;
     overlay.style.opacity = "0";
+    overlay.style.setProperty("--ripple-poster", `url("${poster?.currentSrc || poster?.src || "./artwork/artists/jake-miller.jpg"}")`);
     root.dataset.transitioning = "true";
     home.inert = room.inert = header.inert = true;
     function tick(now) {
       const p = Math.min((now - started) / duration, 1);
       const smooth = value => { const x = Math.max(0, Math.min(1, value)); return x * x * (3 - 2 * x); };
       overlay.style.opacity = String(smooth(p / .19) * (1 - smooth((p - .68) / .32)));
-      draw?.(p, origin, !entering);
+      draw?.(p, origin, !entering, poster);
       if (p >= .56 && !switched) {
         if (!libraryMatchesRoute()) { location.reload(); return; }
         showView(false);

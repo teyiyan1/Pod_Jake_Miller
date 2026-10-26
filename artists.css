@@ -59,7 +59,7 @@
 .room-transition { position: fixed; inset: 0; z-index: 1000; overflow: hidden; background: #153d4b; display: grid; place-items: center; touch-action: none; }
 .room-transition[hidden] { display: none; }
 .room-transition canvas { position: absolute; width: 100%; height: 100%; inset: 0; }
-.ripple-fallback { background: radial-gradient(ellipse at 35% 30%, #477c87aa, #082833dd), url('./artwork/artists/jake-miller.jpg') center / cover; }
+.ripple-fallback { background-image: radial-gradient(ellipse at 35% 30%, #477c87aa, #082833dd), var(--ripple-poster); background-position: center; background-size: cover; }
 .ripple-fallback canvas { display: none; }
 :root[data-transitioning] { overflow: hidden; }
 @keyframes room-arrive { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
