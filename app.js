@@ -1511,6 +1511,7 @@ function bindEvents() {
     renderDeck();
   });
   window.addEventListener("keydown", (event) => {
+    if (document.documentElement.dataset.view === "artists") return;
     if (event.target.matches("input, textarea, select") || document.querySelector("dialog[open]")) return;
     if (event.key === "ArrowLeft") { event.preventDefault(); advanceTrack(-1); }
     if (event.key === "ArrowRight") { event.preventDefault(); advanceTrack(1); }
@@ -1523,7 +1524,7 @@ function bindEvents() {
 
 async function init() {
   if (!Array.isArray(window.ENCORE_TRACKS)) throw new Error("Track data did not load");
-  tracks = window.ENCORE_TRACKS.filter((track) => !track.hiddenFromSetlist);
+  tracks = [...window.ENCORE_TRACKS];
   document.querySelector("#result-count").textContent = `· ${tracks.length} Tracks`;
   currentIndex = ((currentIndex % tracks.length) + tracks.length) % tracks.length;
   filteredIndexes = tracks.map((_, index) => index);

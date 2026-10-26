@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-view="artists">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#050506">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>Jake Miller · Listening Room</title>
+    <title>Encore · Artist Rooms</title>
     <link rel="stylesheet" href="./styles.css?v=ui-focus-ring-1">
+    <link rel="stylesheet" href="./artists.css?v=1">
     <script src="./data/tracks.js?v=local-audio-8" defer></script>
     <script src="./lyric-timing.js?v=audio-alignment-2" defer></script>
     <script src="./data/lyric-timings.js?v=audio-alignment-2" defer></script>
@@ -15,15 +16,54 @@
     <script src="./ambient.js?v=parties-video-restored-1" defer></script>
     <script src="./apple-music.js?v=apple-music-3" defer></script>
     <script src="./app.js?v=local-library-44-1" defer></script>
+    <script src="./artists.js?v=1" defer></script>
   </head>
   <body>
+    <section class="artist-home" id="artist-home" aria-label="Choose an artist" lang="en">
+      <header class="artist-header">
+        <a class="artist-wordmark" href="#artists" aria-label="Encore artist wall">encore<span>®</span></a>
+        <span class="artist-header-label">YOUR OWN LISTENING ROOMS</span>
+        <span class="artist-edition">VOL. 01 <span> / </span> 07 ARTISTS</span>
+      </header>
+      <div class="artist-wall">
+        <a class="artist-tile artist-jake" id="enter-jake" href="#jake-miller" aria-label="Enter Jake Miller's listening room">
+          <img src="./artwork/artists/jake-miller.jpg" alt="" fetchpriority="high">
+          <span class="artist-number">01 / ARTIST</span>
+          <span class="artist-open"><span></span> ROOM OPEN</span>
+          <div class="artist-caption"><span class="artist-kicker">YOUR NEXT REPEAT</span><h1>Jake<br>Miller</h1><span class="artist-enter">Enter listening room <span aria-hidden="true">↗</span></span></div>
+        </a>
+        <button class="artist-tile artist-justin" disabled aria-label="Justin Bieber, coming soon">
+          <img src="./artwork/artists/justin-bieber.jpg" alt=""><span class="artist-number">02 / ARTIST</span>
+          <div class="artist-caption"><h2>Justin Bieber</h2><span class="artist-soon">COMING SOON</span></div>
+        </button>
+        <button class="artist-tile artist-christian" disabled aria-label="Christian Kuria, coming soon">
+          <img src="./artwork/artists/christian-kuria.jpg" alt=""><span class="artist-number">03 / ARTIST</span>
+          <div class="artist-caption"><h2>Christian Kuria</h2><span class="artist-soon">COMING SOON</span></div>
+        </button>
+        <button class="artist-tile artist-jay" disabled aria-label="Jay Chou, coming soon">
+          <img src="./artwork/artists/jay-chou-young.jpg" alt=""><span class="artist-number">04 / ARTIST</span>
+          <div class="artist-caption"><h2>Jay Chou</h2><span class="artist-soon">COMING SOON</span></div>
+        </button>
+        <button class="artist-tile artist-weeknd" disabled aria-label="The Weeknd, coming soon">
+          <img src="./artwork/artists/the-weeknd.jpg" alt=""><span class="artist-number">05 / ARTIST</span>
+          <div class="artist-caption"><h2>The<br>Weeknd</h2><span class="artist-soon">COMING SOON</span></div>
+        </button>
+        <button class="artist-tile artist-keshi" disabled aria-label="keshi, coming soon">
+          <img src="./artwork/artists/keshi.jpg" alt=""><span class="artist-number">06 / ARTIST</span>
+          <div class="artist-caption"><h2>keshi</h2><span class="artist-soon">COMING SOON</span></div>
+        </button>
+        <button class="artist-tile artist-sza" disabled aria-label="SZA, coming soon">
+          <img src="./artwork/artists/sza.jpg" alt=""><span class="artist-number">07 / ARTIST</span>
+          <div class="artist-caption"><h2>SZA</h2><span class="artist-soon">COMING SOON</span></div>
+        </button>
+      </div>
+      <footer class="artist-footer"><span>Choose an artist. Step into their world.</span><a id="return-room" href="#jake-miller" hidden>Back to Jake Miller's room ↗</a><span class="artist-footer-note">PICK AN ARTIST. STAY A WHILE.</span></footer>
+    </section>
     <div class="ambient-cover" id="ambient-cover" aria-hidden="true"></div>
     <div class="ambient-shade" aria-hidden="true"></div>
     <header class="topbar">
-      <a class="ipod-brand" href="./?ui=vynora" aria-label="Listening Room">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span>iPod</span>
-        <i data-lucide="triangle" class="eject-icon" aria-hidden="true"></i>
+      <a class="ipod-brand room-back" href="#artists" aria-label="Back to artists" title="Back to artists" lang="en">
+        <span aria-hidden="true">←</span><span class="room-back-label">Artists</span>
       </a>
       <h1>Jake Miller <span id="result-count" hidden>· 27 Tracks</span></h1>
       <div class="top-actions">

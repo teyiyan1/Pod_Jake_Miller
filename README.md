@@ -4,6 +4,10 @@ This is an editable reconstruction of the Encore listening-room page. The origin
 
 ## Run
 
+The homepage now opens a seven-artist mosaic. Jake Miller is the first available room; the other six artists are marked as coming soon. Select Jake Miller to open the existing player, or use `/#jake-miller` directly. The room's top-left link returns to the wall without interrupting music. Browser Back/Forward also navigates between these views. Artist photos are bundled locally, with sources in `artwork/artists/SOURCES.md`.
+
+Run `npm run test:artists` against the local server to verify desktop/mobile navigation and local audio playback.
+
 Open a terminal in this folder and run:
 
 ```sh
