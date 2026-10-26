@@ -1,6 +1,7 @@
 (() => {
   const button = document.querySelector("#artist-sound");
   const status = document.querySelector("#artist-music-status");
+  const home = document.querySelector("#artist-home");
   const storageKey = "encore-artist-intro-enabled";
   // The first 40 seconds of the user's supplied video, bundled as local audio.
   const audio = new Audio("./audio/artist-wall-accompaniment-40s.m4a");
@@ -18,11 +19,13 @@
   let failed = false;
   let generation = 0;
   let fade = 0;
+  let musicFlowing = false;
   const onWall = () => !location.hash || location.hash === "#artists";
   const allowed = () => enabled && onWall() && !roomBusy && !document.hidden;
 
   function render() {
     const playing = !audio.paused && !blocked && !failed;
+    home.classList.toggle("is-sunlit", musicFlowing && playing && allowed());
     button.disabled = roomBusy;
     button.setAttribute("aria-pressed", String(playing));
     button.querySelector("span").textContent = roomBusy ? "Room audio" : pending ? "Cancel" : playing ? "Sound off" : "Sound on";
@@ -34,6 +37,7 @@
     generation++;
     pending = false;
     cancelAnimationFrame(fade);
+    home.classList.remove("is-sunlit");
     if (!soft || audio.paused || document.hidden) {
       audio.pause();
       audio.volume = .18;
@@ -81,7 +85,10 @@
     try { localStorage.setItem(storageKey, String(enabled)); } catch {}
     if (enabled) start(true); else stop();
   });
-  audio.addEventListener("playing", () => { if (!allowed()) stop(); else { pending = false; render(); } });
+  audio.addEventListener("playing", () => { musicFlowing = true; if (!allowed()) stop(); else { pending = false; render(); } });
+  for (const event of ["pause", "waiting", "ended", "emptied"]) {
+    audio.addEventListener(event, () => { musicFlowing = false; render(); });
+  }
   audio.addEventListener("error", () => { failed = true; stop(); });
   window.addEventListener("hashchange", () => { if (onWall()) start(); else stop(true); });
   window.addEventListener("encore:playback", event => {

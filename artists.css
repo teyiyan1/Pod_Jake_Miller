@@ -55,6 +55,65 @@
 .artist-footer-note { font-size: 9px; }
 #return-room { color: #d2f5b0; }
 #return-room[hidden] { display: none; }
+/* Afternoon light is clipped to the wall and never receives pointer input. */
+.artist-wall { position: relative; isolation: isolate; }
+.artist-daylight {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  mix-blend-mode: screen;
+  transition: opacity 2.4s ease, visibility 0s linear 2.4s;
+}
+.artist-home.is-sunlit .artist-daylight {
+  opacity: .88;
+  visibility: visible;
+  transition: opacity 2.2s ease, visibility 0s;
+}
+.artist-daylight-haze {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 8% 66%, #ffdaa50a, transparent 64%);
+}
+/* The inverse light mask cools and dims only the unlit window/leaf shadows. */
+.artist-daylight-shade { mix-blend-mode: multiply; }
+.artist-daylight-projection { position: absolute; inset: -2%; width: 104%; height: 104%; }
+.artist-daylight-branch { transform-box: view-box; animation-play-state: paused; }
+.artist-daylight-branch-near {
+  transform-origin: 0% 100%;
+  animation: daylight-near-sway 6.4s ease-in-out -2.6s infinite alternate paused;
+}
+.artist-daylight-branch-far {
+  transform-origin: 0% 70%;
+  animation: daylight-far-sway 8.2s ease-in-out -5.1s infinite alternate paused;
+}
+/* Each leaf cluster responds on its own timing, within the stationary window. */
+.artist-daylight-twig {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: daylight-leaf-flutter var(--sway-duration, 6s) ease-in-out var(--sway-delay, -2s) infinite paused;
+}
+.artist-home.is-sunlit :is(.artist-daylight-branch, .artist-daylight-twig) { animation-play-state: running; }
+@keyframes daylight-near-sway {
+  0% { transform: rotate(-2deg) translate(-20px, 12px); }
+  45% { transform: rotate(.8deg) translate(9px, -16px); }
+  100% { transform: rotate(2.4deg) translate(26px, -5px); }
+}
+@keyframes daylight-far-sway {
+  0% { transform: rotate(2.2deg) translate(18px, -10px); }
+  55% { transform: rotate(-.7deg) translate(-8px, 12px); }
+  100% { transform: rotate(-2.8deg) translate(-24px, 18px); }
+}
+@keyframes daylight-leaf-flutter {
+  0%, 100% { transform: rotate(-3.8deg) skewX(-1.2deg); }
+  19% { transform: rotate(5.5deg) skewX(2deg) translate(4px, -7px); }
+  38% { transform: rotate(.9deg) skewX(-.6deg); }
+  63% { transform: rotate(-7deg) skewX(-2.5deg) translate(-6px, 4px); }
+  81% { transform: rotate(2.6deg) skewX(1.2deg); }
+}
 .room-back { font-size: 12px; gap: 8px; }
 .room-transition { position: fixed; inset: 0; z-index: 1000; overflow: hidden; background: #153d4b; display: grid; place-items: center; touch-action: none; }
 .room-transition[hidden] { display: none; }
@@ -65,6 +124,8 @@
 @keyframes room-arrive { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
 :root[data-view="room"] .listening-room { animation: room-arrive .45s ease both; }
 @media (max-width: 700px) {
+  .artist-daylight { position: fixed; inset: 58px 0 0; }
+  .artist-daylight-projection { width: 120%; left: -12%; }
   .artist-header { height: 58px; padding: 0 16px; }
   .artist-wordmark { font-size: 25px; }
   .artist-header-label { display: none; }
@@ -95,6 +156,8 @@
   .room-back-label { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .artist-daylight, .artist-home.is-sunlit .artist-daylight { transition: none; }
+  .artist-daylight-branch, .artist-daylight-twig { animation: none; }
   .artist-tile img { transition: none; }
   :root[data-view="room"] .listening-room { animation: none; }
 }

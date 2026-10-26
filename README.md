@@ -12,6 +12,8 @@ The artist wall loops the first 40 seconds (0:00–0:40) of the user's supplied 
 
 Room navigation includes an original WebGL water-refraction transition over the bundled Jake Miller photo (1.45 seconds entering, 0.78 seconds returning). It runs only during navigation, preserves playback, and skips animation for reduced-motion preferences. A static tinted-photo crossfade is used if WebGL is unavailable. Direct room links load immediately. Visual direction references Mist's fog/water treatment; no Mist source code or assets are included.
 
+While the wall accompaniment is actually playing, a warm window-light projection fades in over the artist photos. Pale-gold lit areas contrast with a cooler, darker inverse shadow mask. The window stays stationary; soft foliage shadows along the left and lower edges move in clearly visible, independently timed sways, based on the supplied Live-photo reference and the requested stronger motion. Pausing, buffering, hiding the page or entering a room fades the light out. The decorative SVG/CSS layer ignores pointer input, adapts to narrow screens, and stays still when reduced motion is enabled. It uses no additional media downloads.
+
 Open a terminal in this folder and run:
 
 ```sh

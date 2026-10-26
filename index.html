@@ -7,7 +7,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Encore · Artist Rooms</title>
     <link rel="stylesheet" href="./styles.css?v=artist-backgrounds-2">
-    <link rel="stylesheet" href="./artists.css?v=artist-rooms-5">
+    <link rel="stylesheet" href="./artists.css?v=daylight-contrast-5">
     <script src="./data/artist-libraries.js?v=artist-libraries-3" defer></script>
     <script src="./data/tracks.js?v=artist-room-routing-1" defer></script>
     <script src="./lyric-timing.js?v=audio-alignment-2" defer></script>
@@ -19,7 +19,7 @@
     <script src="./app.js?v=multi-artist-rooms-1" defer></script>
     <script src="./room-ripple.js?v=artist-specific-ripple-1" defer></script>
     <script src="./artists.js?v=artist-specific-ripple-1" defer></script>
-    <script src="./artist-music.js?v=local-accompaniment-40s-1" defer></script>
+    <script src="./artist-music.js?v=afternoon-light-1" defer></script>
   </head>
   <body>
     <section class="artist-home" id="artist-home" aria-label="Choose an artist" lang="en">
@@ -29,6 +29,69 @@
         <div class="artist-header-actions"><button id="artist-sound" type="button" aria-pressed="false" title="Play opening music">♫ <span>Sound on</span></button><span class="artist-edition">VOL. 01 <span> / </span> 12 ARTISTS</span></div>
       </header>
       <div class="artist-wall">
+        <div class="artist-daylight" aria-hidden="true">
+          <div class="artist-daylight-haze"></div>
+          <svg class="artist-daylight-projection" viewBox="0 0 1600 1000" preserveAspectRatio="none" focusable="false">
+            <defs>
+              <linearGradient id="daylight-gold" x1="0" y1=".7" x2="1" y2=".2" gradientUnits="objectBoundingBox">
+                <stop stop-color="#ffcd7d" stop-opacity=".65"/>
+                <stop offset=".48" stop-color="#ffdfa0" stop-opacity=".48"/>
+                <stop offset="1" stop-color="#fff0cc" stop-opacity=".27"/>
+              </linearGradient>
+              <filter id="daylight-soft-edge" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+                <feGaussianBlur stdDeviation="5"/>
+              </filter>
+              <filter id="daylight-leaf-blur" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+                <feGaussianBlur stdDeviation="8"/>
+              </filter>
+              <path id="daylight-leaf" d="M0 0C-43-18-60-63-50-96C-14-85 12-42 0 0Z"/>
+              <g id="daylight-sprig">
+                <path d="M0 180Q8 45 64-90M12 88Q-45 48-73-22M27 35Q83 21 118-38" fill="none" stroke="black" stroke-width="9" stroke-linecap="round"/>
+                <use href="#daylight-leaf" transform="translate(6 118) rotate(-57) scale(1.15)"/>
+                <use href="#daylight-leaf" transform="translate(13 77) rotate(68) scale(.95)"/>
+                <use href="#daylight-leaf" transform="translate(28 29) rotate(-28)"/>
+                <use href="#daylight-leaf" transform="translate(47 -30) rotate(42) scale(.86)"/>
+                <use href="#daylight-leaf" transform="translate(63 -80) rotate(13) scale(.8)"/>
+                <use href="#daylight-leaf" transform="translate(-46 26) rotate(-51) scale(.88)"/>
+                <use href="#daylight-leaf" transform="translate(-68 -10) rotate(6) scale(.75)"/>
+                <use href="#daylight-leaf" transform="translate(86 6) rotate(79) scale(.82)"/>
+              </g>
+              <mask id="daylight-window" maskUnits="userSpaceOnUse" x="-200" y="-200" width="2000" height="1400" style="mask-type: luminance">
+                <g fill="white" filter="url(#daylight-soft-edge)">
+                  <path d="M-120 270L1000 70L1000 850L-120 1050Z"/>
+                  <path d="M1140 45L1720-59L1720 721L1140 825Z"/>
+                </g>
+                <g fill="black" filter="url(#daylight-leaf-blur)">
+                  <g transform="translate(0 -95)">
+                  <g class="artist-daylight-branch artist-daylight-branch-near" opacity=".96">
+                    <path d="M-130 1030Q160 926 665 805M80 963Q190 839 355 788M290 901Q500 930 737 845" fill="none" stroke="black" stroke-width="19"/>
+                    <g transform="translate(80 932) rotate(52) scale(1.35 .85)"><use class="artist-daylight-twig" href="#daylight-sprig" style="--sway-duration:5.4s;--sway-delay:-1.7s"/></g>
+                    <g transform="translate(290 862) rotate(74) scale(1.1 .8)"><use class="artist-daylight-twig" href="#daylight-sprig" style="--sway-duration:6.7s;--sway-delay:-4.1s"/></g>
+                    <g transform="translate(505 824) rotate(72) scale(1.05 .78)"><use class="artist-daylight-twig" href="#daylight-sprig" style="--sway-duration:4.8s;--sway-delay:-2.3s"/></g>
+                    <g transform="translate(665 867) rotate(105) scale(.9 .7)"><use class="artist-daylight-twig" href="#daylight-sprig" style="--sway-duration:7.3s;--sway-delay:-5.6s"/></g>
+                  </g>
+                  </g>
+                  <g class="artist-daylight-branch artist-daylight-branch-far" opacity=".88">
+                    <path d="M-140 720Q-15 595 180 488M-35 620Q85 637 255 581" fill="none" stroke="black" stroke-width="13"/>
+                    <g transform="translate(-15 598) rotate(30) scale(1.02 .8)"><use class="artist-daylight-twig" href="#daylight-sprig" style="--sway-duration:6.1s;--sway-delay:-3.6s"/></g>
+                    <g transform="translate(114 521) rotate(62) scale(.83 .7)"><use class="artist-daylight-twig" href="#daylight-sprig" style="--sway-duration:4.9s;--sway-delay:-.8s"/></g>
+                    <g transform="translate(185 603) rotate(94) scale(.68 .64)"><use class="artist-daylight-twig" href="#daylight-sprig" style="--sway-duration:7.9s;--sway-delay:-2.9s"/></g>
+                  </g>
+                </g>
+              </mask>
+              <mask id="daylight-unlit" maskUnits="userSpaceOnUse" x="-200" y="-200" width="2000" height="1400" style="mask-type: luminance">
+                <rect x="-200" y="-200" width="2000" height="1400" fill="white"/>
+                <g mask="url(#daylight-window)"><rect x="-200" y="-200" width="2000" height="1400" fill="black"/></g>
+              </mask>
+            </defs>
+            <g mask="url(#daylight-window)"><rect x="-160" y="-160" width="1920" height="1320" fill="url(#daylight-gold)"/></g>
+          </svg>
+        </div>
+        <div class="artist-daylight artist-daylight-shade" aria-hidden="true">
+          <svg class="artist-daylight-projection" viewBox="0 0 1600 1000" preserveAspectRatio="none" focusable="false">
+            <g mask="url(#daylight-unlit)"><rect x="-160" y="-160" width="1920" height="1320" fill="#253b51" fill-opacity=".3"/></g>
+          </svg>
+        </div>
         <a class="artist-tile artist-jake" id="enter-jake" href="#jake-miller" aria-label="Enter Jake Miller's listening room">
           <img src="./artwork/artists/jake-miller.jpg" alt="" fetchpriority="high">
           <span class="artist-number">01 / ARTIST</span>
