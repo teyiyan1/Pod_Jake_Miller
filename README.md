@@ -4,9 +4,13 @@ This is an editable reconstruction of the Encore listening-room page. The origin
 
 ## Run
 
-The homepage now opens a seven-artist mosaic. Jake Miller is the first available room; the other six artists are marked as coming soon. Select Jake Miller to open the existing player, or use `/#jake-miller` directly. The room's top-left link returns to the wall without interrupting music. Browser Back/Forward also navigates between these views. Artist photos are bundled locally, with sources in `artwork/artists/SOURCES.md`.
+The homepage now opens a twelve-artist mosaic, including Jhené Aiko, Laufey, Fujii Kaze, Drake and Ariana Grande. Jake Miller is the first available room; the other eleven artists are marked as coming soon. Select Jake Miller to open the existing player, or use `/#jake-miller` directly. The room's top-left link returns to the wall without interrupting music. Browser Back/Forward also navigates between these views. Artist photos are bundled locally, with sources in `artwork/artists/SOURCES.md`.
 
 Run `npm run test:artists` against the local server to verify desktop/mobile navigation and local audio playback.
+
+The artist wall offers The xx's *Intro* as an official 30-second iTunes preview, looping at 18% volume. `Sound on` starts it if browser autoplay is blocked; `Sound off` persists across reloads. Entering a room fades it out over 850 ms. Returning resumes it only when enabled and no room song is playing. Background tabs pause the intro. The preview streams from Apple's CDN and requires a network connection; no full recording is bundled. `node tests/artist-music.browser.cjs` checks real preview playback, looping, fade, preferences and room-audio exclusion.
+
+Room navigation includes an original WebGL water-refraction transition over the bundled Jake Miller photo (1.45 seconds entering, 0.78 seconds returning). It runs only during navigation, preserves playback, and skips animation for reduced-motion preferences. A static tinted-photo crossfade is used if WebGL is unavailable. Direct room links load immediately. Visual direction references Mist's fog/water treatment; no Mist source code or assets are included.
 
 Open a terminal in this folder and run:
 

@@ -10,7 +10,14 @@
 .artist-header-label, .artist-edition, .artist-number, .artist-kicker, .artist-open, .artist-footer-note { font-size: 10px; letter-spacing: 1.6px; font-weight: 500; }
 .artist-header-label { color: #a5a59c; }
 .artist-edition span { color: #67675f; margin: 0 8px; }
-.artist-wall { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(0, 1fr)); gap: 4px; padding: 0 4px; height: calc(100svh - 108px); min-height: 560px; }
+.artist-header-actions { display: flex; align-items: center; gap: 22px; }
+#artist-sound { display: flex; align-items: center; gap: 8px; padding: 7px 11px; border: 1px solid #ffffff25; border-radius: 30px; background: transparent; color: #cdd8c6; font: inherit; font-size: 11px; cursor: pointer; white-space: nowrap; }
+#artist-sound[aria-pressed="true"] { color: #d2f5b0; border-color: #d2f5b055; }
+#artist-sound:disabled { opacity: .55; cursor: default; }
+#artist-sound:focus-visible { outline: 2px solid #d2f5b0; outline-offset: 3px; }
+#artist-music-status { font-size: 9px; letter-spacing: 1px; }
+@media (max-width: 900px) { .artist-header-label { display: none; } }
+.artist-wall { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(0, 1fr)); gap: 4px; padding: 0 4px; height: calc(100svh - 108px); min-height: 660px; }
 .artist-tile { position: relative; overflow: hidden; isolation: isolate; min-width: 0; padding: 0; border: 0; border-radius: 0; background: #252522; color: #fff; text-align: left; font: inherit; -webkit-tap-highlight-color: transparent; }
 .artist-tile:disabled { opacity: 1; cursor: default; }
 .artist-tile img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.65) brightness(.8); transition: transform .65s ease, filter .65s ease; }
@@ -21,29 +28,41 @@
 .artist-number { position: absolute; z-index: 1; top: 20px; left: 22px; color: #ffffffb3; font-size: 9px; }
 .artist-caption { position: absolute; z-index: 1; left: 24px; right: 20px; bottom: 24px; }
 .artist-caption h1, .artist-caption h2 { margin: 0; color: #f9f7f2; font-weight: 600; letter-spacing: -1.6px; line-height: .98; text-wrap: balance; }
-.artist-caption h1 { font-size: clamp(56px, 6.7vw, 112px); letter-spacing: -4px; margin: 12px 0 20px; }
-.artist-caption h2 { font-size: clamp(28px, 3vw, 52px); }
+.artist-caption h1 { font-size: clamp(48px, 5.5vw, 96px); letter-spacing: -3px; margin: 12px 0 20px; }
+.artist-caption h2 { font-size: clamp(25px, 2.3vw, 44px); letter-spacing: -1px; }
 .artist-kicker { display: block; color: #e0e3d2; font-size: 9px; }
 .artist-open { position: absolute; z-index: 1; top: 20px; right: 22px; color: #e0f8cb; font-size: 9px; letter-spacing: 1px; }
 .artist-open > span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #c6efab; margin-right: 6px; }
 .artist-enter { display: flex; align-items: center; justify-content: space-between; font-size: 12px; padding-top: 14px; border-top: 1px solid #ffffff45; }
 .artist-enter > span { font-size: 26px; line-height: 1; color: #def7c6; }
 .artist-soon { display: block; margin-top: 12px; font-size: 10px; color: #d4d4cc; letter-spacing: 2px; }
-.artist-jake { grid-area: 1 / 1 / 5 / 5; }
-.artist-justin { grid-area: 1 / 5 / 4 / 9; }
-.artist-christian { grid-area: 1 / 9 / 4 / 13; }
-.artist-jay { grid-area: 5 / 1 / 7 / 5; }
+.artist-jake { grid-area: 1 / 1 / 5 / 4; }
+.artist-justin { grid-area: 1 / 4 / 3 / 7; }
+.artist-christian { grid-area: 1 / 7 / 3 / 10; }
+.artist-jay { grid-area: 5 / 1 / 7 / 4; }
 .artist-jay img { object-position: 50% 50%; transform: scale(1.1); }
 .artist-jay:hover img { transform: scale(1.135); }
 .artist-jay .artist-kicker { margin-bottom: 8px; }
-.artist-weeknd { grid-area: 4 / 5 / 7 / 8; }
-.artist-keshi { grid-area: 4 / 8 / 7 / 11; }
-.artist-sza { grid-area: 4 / 11 / 7 / 13; }
+.artist-weeknd { grid-area: 3 / 4 / 5 / 6; }
+.artist-keshi { grid-area: 3 / 6 / 5 / 8; }
+.artist-sza { grid-area: 3 / 8 / 5 / 10; }
+.artist-jhene { grid-area: 1 / 10 / 3 / 13; }
+.artist-laufey { grid-area: 3 / 10 / 5 / 13; }
+.artist-fujii { grid-area: 5 / 4 / 7 / 7; }
+.artist-drake { grid-area: 5 / 7 / 7 / 10; }
+.artist-ariana { grid-area: 5 / 10 / 7 / 13; }
+.artist-christian img, .artist-fujii img, .artist-ariana img { object-position: 50% 25%; }
 .artist-footer { min-height: 44px; padding: 10px 26px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 10px; color: #a5a59c; }
 .artist-footer-note { font-size: 9px; }
 #return-room { color: #d2f5b0; }
 #return-room[hidden] { display: none; }
 .room-back { font-size: 12px; gap: 8px; }
+.room-transition { position: fixed; inset: 0; z-index: 1000; overflow: hidden; background: #153d4b; display: grid; place-items: center; touch-action: none; }
+.room-transition[hidden] { display: none; }
+.room-transition canvas { position: absolute; width: 100%; height: 100%; inset: 0; }
+.ripple-fallback { background: radial-gradient(ellipse at 35% 30%, #477c87aa, #082833dd), url('./artwork/artists/jake-miller.jpg') center / cover; }
+.ripple-fallback canvas { display: none; }
+:root[data-transitioning] { overflow: hidden; }
 @keyframes room-arrive { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
 :root[data-view="room"] .listening-room { animation: room-arrive .45s ease both; }
 @media (max-width: 700px) {
@@ -51,7 +70,9 @@
   .artist-wordmark { font-size: 25px; }
   .artist-header-label { display: none; }
   .artist-edition { font-size: 9px; letter-spacing: 1px; }
-  .artist-wall { height: auto; min-height: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 360px 220px 220px 250px; gap: 3px; padding: 0 3px; }
+  .artist-header-actions { gap: 10px; }
+  .artist-header-actions .artist-edition { font-size: 8px; letter-spacing: 0; }
+  .artist-wall { height: auto; min-height: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 360px repeat(5, 240px) 280px; gap: 3px; padding: 0 3px; }
   .artist-jake { grid-area: 1 / 1 / 2 / 3; }
   .artist-jake img { object-position: 50% 34%; }
   .artist-justin { grid-area: 2 / 1 / 3 / 2; }
@@ -60,6 +81,11 @@
   .artist-weeknd { grid-area: 3 / 2 / 4 / 3; }
   .artist-keshi { grid-area: 4 / 1 / 5 / 2; }
   .artist-sza { grid-area: 4 / 2 / 5 / 3; }
+  .artist-jhene { grid-area: 5 / 1 / 6 / 2; }
+  .artist-laufey { grid-area: 5 / 2 / 6 / 3; }
+  .artist-fujii { grid-area: 6 / 1 / 7 / 2; }
+  .artist-drake { grid-area: 6 / 2 / 7 / 3; }
+  .artist-ariana { grid-area: 7 / 1 / 8 / 3; }
   .artist-caption { left: 16px; right: 16px; bottom: 18px; }
   .artist-caption h1 { font-size: 68px; margin-bottom: 14px; }
   .artist-caption h2 { font-size: 28px; letter-spacing: -.8px; }

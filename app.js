@@ -91,6 +91,7 @@ function renderIcons() {
 }
 
 function setPlaybackAction(action, label) {
+  window.dispatchEvent(new CustomEvent("encore:playback", { detail: { busy: action === "pause" || action === "loading" } }));
   ambientRequested = action === "pause";
   window.encoreAmbient?.setPlaying(ambientRequested);
   if (navigator.mediaSession) {

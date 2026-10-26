@@ -11,6 +11,11 @@ Downloaded from Deezer's public artist image catalog for the local prototype on 
 | the-weeknd.jpg | 4050205 | 581693b4724a7fcfa754455101e13a44 |
 | keshi.jpg | 11121158 | 9173aeca68d2cd14d0e1283e54f198df |
 | sza.jpg | 5531258 | 8ced041da2bed70d5715f0860956169b |
+| jhene-aiko.jpg | 3841221 | 9c336a353852d62e2664f2df3461b052 |
+| laufey.jpg | 12369444 | 0eca5dd5f8ac336e55bf390da9ce13d0 |
+| fujii-kaze.jpg | 78489662 | 16cbd84f0e0300725b734980f42112b6 |
+| drake.jpg | 246791 | eb0ed5b21d1ea5af021fc074ded0e91f |
+| ariana-grande.jpg | 1562681 | 721d8fab84b315502de422b8d0901509 |
 
 Source URL pattern: `https://cdn-images.dzcdn.net/images/artist/{image-id}/1000x1000-000000-80-0-0.jpg`
 
