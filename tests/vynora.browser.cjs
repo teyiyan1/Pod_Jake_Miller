@@ -144,6 +144,10 @@ async function selectFromQueue(page, index) {
     assert.equal(await page.locator("#track-title").textContent(), "NIKES");
 
     await selectFromQueue(page, 8);
+    await page.locator('.cover-card[data-index="8"]').click();
+    assert.equal(await page.locator("#lyrics-dialog").evaluate(el => el.open), true, "active cover opens lyrics");
+    assert.equal(await page.locator('[data-close="lyrics-dialog"]').getAttribute("aria-label"), "收起歌词");
+    await page.locator('[data-close="lyrics-dialog"]').click();
     await page.locator("#lyrics-open").click();
     await page.locator("#lyrics-import").setInputFiles({
       name: "Wait for You.lrc",

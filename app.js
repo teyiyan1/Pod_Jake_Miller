@@ -1232,6 +1232,14 @@ function cancelLyricsSync({ render = true } = {}) {
   if (render && currentTrack()?.id === trackId) renderLyrics(currentTrack());
 }
 
+function openLyricsDialog() {
+  const dialog = document.querySelector("#lyrics-dialog");
+  if (!dialog.open) dialog.showModal();
+  activeLyricIndex = -1;
+  loadLyricsForTrack(currentTrack());
+  updateProgress();
+}
+
 function saveLyricsSync() {
   if (!lyricsSyncMode || currentTrack()?.id !== lyricsSyncTrackId) return;
   if (lyricsSyncDraft.some((line) => !Number.isFinite(line.time))) return;
@@ -1271,7 +1279,10 @@ function bindEvents() {
   records.addEventListener("click", (event) => {
     const cover = event.target.closest(".cover-card");
     if (!cover || suppressClick) return;
-    selectTrack(Number(cover.dataset.index), true);
+    const index = Number(cover.dataset.index);
+    const wasActive = index === currentIndex;
+    selectTrack(index, true);
+    if (wasActive) openLyricsDialog();
   });
   document.querySelector("#control-prev").addEventListener("click", () => advanceTrack(-1, true));
   document.querySelector("#control-next").addEventListener("click", () => advanceTrack(1, true));
@@ -1294,12 +1305,7 @@ function bindEvents() {
     }
   });
   document.querySelector("#queue-open").addEventListener("click", () => document.querySelector("#queue-dialog").showModal());
-  document.querySelector("#lyrics-open").addEventListener("click", () => {
-    document.querySelector("#lyrics-dialog").showModal();
-    activeLyricIndex = -1;
-    loadLyricsForTrack(currentTrack());
-    updateProgress();
-  });
+  document.querySelector("#lyrics-open").addEventListener("click", openLyricsDialog);
   document.querySelector("#lyrics-sync-start").addEventListener("click", startLyricsSync);
   document.querySelector("#lyrics-sync-play").addEventListener("click", togglePlayback);
   document.querySelector("#lyrics-sync-undo").addEventListener("click", undoLyricsStamp);
