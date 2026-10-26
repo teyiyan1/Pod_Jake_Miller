@@ -232,7 +232,7 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
   display: grid; flex: 1; place-items: center; margin: 0; color: rgba(255,255,255,.76);
   font-size: 16px; text-align: center;
 }
-#lyrics-dialog .notes-disclaimer { flex: 0 0 auto; margin: 14px 0 0; color: rgba(255,255,255,.62); text-align: center; }
+#lyrics-dialog .notes-disclaimer { display: none; }
 #lyrics-dialog .lyrics-sync-controls { flex: 0 0 auto; display: grid; justify-items: center; gap: 8px; padding: 10px 0 4px; }
 #lyrics-dialog .lyrics-sync-controls[hidden] { display: none; }
 #lyrics-dialog .lyrics-sync-controls p { margin: 0; color: rgba(255,255,255,.8); font-size: 13px; text-align: center; }
@@ -242,7 +242,7 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
 #lyrics-dialog .lyrics-sync-controls .text-button { color: rgba(255,255,255,.78); }
 #lyrics-dialog .lyrics-sync-controls .primary-button { padding: 8px 12px; }
 #lyrics-dialog .lyrics-view {
-  flex: 1; width: 100%; min-height: 0; max-height: none; margin: 0; padding: 24vh 0 30vh;
+  flex: 1; width: 100%; min-height: 0; max-height: none; margin: 0; padding: clamp(56px,7vh,88px) 0 30vh;
   overflow: auto; white-space: normal; scroll-snap-type: y proximity; scrollbar-width: none;
   -webkit-mask-image: linear-gradient(to bottom,transparent,black 18%,black 82%,transparent);
   mask-image: linear-gradient(to bottom,transparent,black 18%,black 82%,transparent);
@@ -263,15 +263,15 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
 #lyrics-dialog .lyrics-line.is-sync-target:hover { color: #fff; }
 #lyrics-dialog .lyrics-sync-time { display: inline-block; margin-left: .55em; color: rgba(255,255,255,.62); font-size: .38em; font-weight: 500; letter-spacing: 0; vertical-align: middle; }
 #lyrics-dialog .lyrics-player {
-  position: relative; z-index: 3; flex: 0 0 auto; width: min(420px, 94%); margin: 0 auto;
-  display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 16px;
-  padding: 12px 24px;
+  position: relative; z-index: 3; flex: 0 0 auto; width: min(600px, 94%); margin: 0 auto;
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 20px;
+  padding: 12px 28px;
   border: 1px solid rgba(255,255,255,.1); border-radius: 999px;
   background: linear-gradient(160deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 8px 24px rgba(0,0,0,.08);
   backdrop-filter: blur(24px) saturate(1.12); -webkit-backdrop-filter: blur(24px) saturate(1.12);
 }
-#lyrics-dialog .lyrics-progress-row { grid-column: 2; grid-row: 1; display: grid; grid-template-columns: 34px minmax(0,1fr) 38px; align-items: center; gap: 6px; min-width: 0; color: rgba(255,255,255,.72); font-size: 10px; font-variant-numeric: tabular-nums; }
+#lyrics-dialog .lyrics-progress-row { grid-column: 2; grid-row: 1; display: grid; grid-template-columns: 34px minmax(0,1fr) 38px; align-items: center; gap: 9px; min-width: 0; color: rgba(255,255,255,.72); font-size: 10px; font-variant-numeric: tabular-nums; }
 #lyrics-dialog .lyrics-progress-row span:last-child { text-align: right; }
 #lyrics-progress { --progress: 0%; -webkit-appearance: none; appearance: none; width: 100%; height: 24px; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; cursor: pointer; }
 #lyrics-progress::-webkit-slider-runnable-track { height: 2px; border: 0; border-radius: 2px; background: linear-gradient(to right, #fff 0 var(--progress), rgba(255,255,255,.22) var(--progress) 100%); }
@@ -279,17 +279,20 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
 #lyrics-progress::-moz-range-track { height: 2px; border: 0; border-radius: 2px; background: rgba(255,255,255,.22); }
 #lyrics-progress::-moz-range-progress { height: 2px; border-radius: 2px; background: #fff; }
 #lyrics-progress::-moz-range-thumb { width: 0; height: 0; border: 0; background: transparent; }
-#lyrics-dialog .lyrics-transport { grid-column: 1; grid-row: 1; display: flex; align-items: center; justify-content: center; gap: 16px; margin: 0; }
+#lyrics-dialog .lyrics-transport { grid-column: 1; grid-row: 1; display: flex; align-items: center; justify-content: center; gap: 18px; margin: 0; }
 #lyrics-dialog .lyrics-transport .skip-button { width: 32px; height: 32px; color: rgba(255,255,255,.82); }
 #lyrics-dialog .lyrics-transport .skip-button svg { width: 18px; height: 18px; }
 #lyrics-dialog .lyrics-transport .play-button { flex-basis: 32px; width: 32px; height: 32px; }
 #lyrics-dialog .lyrics-transport .play-button svg { width: 16px; height: 16px; }
 #lyrics-dialog .lyrics-transport .play-button[data-icon="play"] svg { margin-left: 2px; }
 #lyrics-dialog .lyrics-transport .play-button[data-icon="loader-circle"] svg { animation: player-spin 1s linear infinite; }
+#lyrics-dialog .lyrics-options { grid-column: 3; grid-row: 1; display: flex; align-items: center; gap: 6px; }
+#lyrics-dialog .lyrics-options .icon-button { width: 24px; height: 24px; color: rgba(255,255,255,.58); }
+#lyrics-dialog .lyrics-options .icon-button svg { width: 14px; height: 14px; }
+#lyrics-dialog .lyrics-options .icon-button.is-on { color: var(--green); }
 @media (max-width: 560px) {
-  #lyrics-dialog .lyrics-player { width: min(420px, 94%); padding-inline: 18px; border-radius: 999px; }
-  #lyrics-dialog .lyrics-player { gap: 12px; }
-  #lyrics-dialog .lyrics-transport { gap: 12px; }
+  #lyrics-dialog .lyrics-player { width: min(600px, 96%); padding-inline: 14px; border-radius: 999px; gap: 8px; }
+  #lyrics-dialog .lyrics-transport { gap: 9px; }
 }
 #source-track { margin: 22px 0; color: #a6a6b0; font-size: 13px; }
 .field-label { display: block; font-size: 11px; margin: 0 0 8px; color: #858591; }
@@ -333,7 +336,7 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
   .player-bar { margin-top: 8px; }
   #lyrics-dialog .notes-section { padding: 18px 22px 24px; }
   #lyrics-dialog .notes-content { padding-top: 8vh; }
-  #lyrics-dialog .lyrics-view { padding: 24vh 0; }
+  #lyrics-dialog .lyrics-view { padding: clamp(48px,7vh,72px) 0 30vh; }
   #lyrics-dialog .lyrics-line { font-size: clamp(27px,7.6vw,42px); }
 }
 @media (prefers-reduced-motion: reduce) {

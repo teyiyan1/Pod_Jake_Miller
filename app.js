@@ -1311,6 +1311,45 @@ function saveLyricsSync() {
   renderLyrics(track);
 }
 
+function syncPlaybackOptionButtons() {
+  document.querySelectorAll("#shuffle-toggle, #lyrics-shuffle").forEach((button) => {
+    button.classList.toggle("is-on", shuffle);
+    button.setAttribute("aria-pressed", String(shuffle));
+  });
+  document.querySelectorAll("#repeat-toggle, #lyrics-repeat").forEach((button) => {
+    button.classList.toggle("is-on", repeat);
+    button.setAttribute("aria-pressed", String(repeat));
+  });
+  document.querySelectorAll("#volume-toggle, #lyrics-volume").forEach((button) => {
+    button.classList.toggle("is-on", muted);
+    button.setAttribute("aria-label", muted ? "取消静音" : "静音");
+    button.setAttribute("aria-pressed", String(muted));
+    button.innerHTML = `<i data-lucide="${muted ? "volume-x" : "volume-2"}"></i>`;
+  });
+  renderIcons();
+}
+
+function toggleShuffle() {
+  shuffle = !shuffle;
+  syncPlaybackOptionButtons();
+}
+
+function toggleRepeat() {
+  repeat = !repeat;
+  syncPlaybackOptionButtons();
+}
+
+function toggleMuted() {
+  muted = !muted;
+  if (ytReady) {
+    if (muted) ytPlayer.mute();
+    else ytPlayer.unMute();
+  }
+  window.EncAppleMusic?.setMuted(muted);
+  if (localAudio) localAudio.muted = muted;
+  syncPlaybackOptionButtons();
+}
+
 function bindEvents() {
   document.querySelector("#search-form").addEventListener("submit", (event) => {
     event.preventDefault();
@@ -1400,30 +1439,9 @@ function bindEvents() {
   document.querySelectorAll("[data-close]").forEach((button) => {
     button.addEventListener("click", () => document.getElementById(button.dataset.close).close());
   });
-  document.querySelector("#shuffle-toggle").addEventListener("click", (event) => {
-    shuffle = !shuffle;
-    event.currentTarget.classList.toggle("is-on", shuffle);
-    event.currentTarget.setAttribute("aria-pressed", String(shuffle));
-  });
-  document.querySelector("#repeat-toggle").addEventListener("click", (event) => {
-    repeat = !repeat;
-    event.currentTarget.classList.toggle("is-on", repeat);
-    event.currentTarget.setAttribute("aria-pressed", String(repeat));
-  });
-  document.querySelector("#volume-toggle").addEventListener("click", (event) => {
-    muted = !muted;
-    if (ytReady) {
-      if (muted) ytPlayer.mute();
-      else ytPlayer.unMute();
-    }
-    window.EncAppleMusic?.setMuted(muted);
-    if (localAudio) localAudio.muted = muted;
-    event.currentTarget.classList.toggle("is-on", muted);
-    event.currentTarget.setAttribute("aria-label", muted ? "取消静音" : "静音");
-    event.currentTarget.setAttribute("aria-pressed", String(muted));
-    event.currentTarget.innerHTML = `<i data-lucide="${muted ? "volume-x" : "volume-2"}"></i>`;
-    renderIcons();
-  });
+  document.querySelectorAll("#shuffle-toggle, #lyrics-shuffle").forEach((button) => button.addEventListener("click", toggleShuffle));
+  document.querySelectorAll("#repeat-toggle, #lyrics-repeat").forEach((button) => button.addEventListener("click", toggleRepeat));
+  document.querySelectorAll("#volume-toggle, #lyrics-volume").forEach((button) => button.addEventListener("click", toggleMuted));
   document.querySelector("#lyrics-import").addEventListener("change", async (event) => {
     const files = [...(event.target.files || [])];
     if (!files.length) return;
