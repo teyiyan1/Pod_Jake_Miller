@@ -57,6 +57,15 @@
 #return-room[hidden] { display: none; }
 /* Afternoon light is clipped to the wall and never receives pointer input. */
 .artist-wall { position: relative; isolation: isolate; }
+/* One continuous water surface beneath the original, sharp labels and links. */
+.artist-water { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; visibility: hidden; }
+.artist-wall.has-water .artist-water { visibility: visible; }
+.artist-wall.has-water .artist-tile { z-index: 1; background: transparent; }
+.artist-wall.has-water .artist-tile img { opacity: 0; }
+.artist-wall.has-water .artist-tile:focus-visible { outline: 2px solid #d2f5b0; outline-offset: -4px; }
+/* Keep the previous lighting available, but hidden in the water-only edition. */
+.artist-home .artist-daylight { display: none; }
+.artist-home .artist-daylight :is(.artist-daylight-branch, .artist-daylight-twig) { animation: none; }
 .artist-daylight {
   position: absolute;
   inset: 0;
@@ -161,6 +170,8 @@
   .room-back-label { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .artist-wall.has-water .artist-water { visibility: hidden; }
+  .artist-wall.has-water .artist-tile img { opacity: 1; }
   .artist-daylight, .artist-home.is-sunlit .artist-daylight { transition: none; }
   .artist-daylight-branch, .artist-daylight-twig { animation: none; }
   .artist-tile img { transition: none; }
