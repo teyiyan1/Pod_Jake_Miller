@@ -264,6 +264,10 @@ dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(8px); }
   color: #fff; filter: none; opacity: 1; transform: scale(1);
   text-shadow: 0 3px 24px rgba(0,0,0,.26);
 }
+#lyrics-dialog .lyrics-line.is-seekable { cursor: pointer; }
+#lyrics-dialog .lyrics-line.is-seekable:hover { color: rgba(255,255,255,.82); filter: blur(1.5px); opacity: .82; }
+#lyrics-dialog .lyrics-line.is-seekable.is-active:hover { color: #fff; filter: none; opacity: 1; }
+#lyrics-dialog .lyrics-line.is-seekable:focus-visible { outline: 2px solid rgba(255,255,255,.8); outline-offset: 4px; border-radius: 4px; }
 #lyrics-dialog .lyrics-line.is-stamped { color: rgba(255,255,255,.86); filter: none; opacity: .88; }
 #lyrics-dialog .lyrics-line.is-sync-target { cursor: pointer; }
 #lyrics-dialog .lyrics-line.is-sync-target:hover { color: #fff; }

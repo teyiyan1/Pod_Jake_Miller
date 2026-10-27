@@ -35,6 +35,7 @@ let activeAppleTrackId = "";
 let localAudio = null;
 let localTrackId = "";
 let localPlayAttempt = 0;
+let pendingSeekTime = null;
 let localAction = "play";
 let localLabel = "本地音频 · 点击播放";
 let playbackAttempt = 0;
@@ -266,12 +267,21 @@ function startLocalPlayback(track) {
   audio.muted = muted;
   if (audio.ended) audio.currentTime = 0;
   setLocalPlaybackAction("loading", "正在载入本地音频…");
-  audio.play().catch((error) => {
-    if (localAudio !== audio || attempt !== localPlayAttempt || activeProvider !== "local") return;
-    setLocalPlaybackAction("retry", error.name === "NotAllowedError"
-      ? "请再次点击播放按钮以播放本地音频"
-      : "本地音频无法播放 · 点击重试");
-  });
+  const play = () => {
+    if (Number.isFinite(pendingSeekTime)) {
+      audio.currentTime = pendingSeekTime;
+      pendingSeekTime = null;
+    }
+    audio.play().catch((error) => {
+      if (localAudio !== audio || attempt !== localPlayAttempt || activeProvider !== "local") return;
+      setLocalPlaybackAction("retry", error.name === "NotAllowedError"
+        ? "请再次点击播放按钮以播放本地音频"
+        : "本地音频无法播放 · 点击重试");
+    });
+  };
+  if (Number.isFinite(pendingSeekTime) && audio.readyState < HTMLMediaElement.HAVE_METADATA) {
+    audio.addEventListener("loadedmetadata", play, { once: true });
+  } else play();
 }
 
 function startYouTubePlayback(label = "") {
@@ -613,6 +623,7 @@ function renderTrack(autoplay = false) {
   if (activeProvider === "youtube" && ytReady) ytPlayer.pauseVideo();
   activeProvider = "";
   activeAppleTrackId = "";
+  pendingSeekTime = null;
   const track = currentTrack();
   if (!track) return;
   ambientRequested = false;
@@ -869,7 +880,13 @@ function showLyrics(text, format, source = "", timedLines = null, track = curren
     lines.forEach((line) => {
       const el = document.createElement("div");
       el.className = "lyrics-line";
-      if (Number.isFinite(line.time)) el.dataset.time = line.time;
+      if (Number.isFinite(line.time)) {
+        el.dataset.time = line.time;
+        el.classList.add("is-seekable");
+        el.tabIndex = 0;
+        el.setAttribute("role", "button");
+        el.setAttribute("aria-label", `${line.text}，跳转到 ${formatPlaybackTime(line.time)}`);
+      }
       el.textContent = line.text;
       lyricsView.append(el);
     });
@@ -1122,6 +1139,7 @@ function currentPlaybackTime() {
   if (activeProvider === "local" && localAudio) return Number(localAudio.currentTime) || 0;
   if (activeProvider === "apple") return Number(window.EncAppleMusic?.playbackTime()) || 0;
   if (activeProvider === "youtube" && ytReady && videoIdFor(track)) return Number(ytPlayer.getCurrentTime()) || 0;
+  if (Number.isFinite(pendingSeekTime)) return pendingSeekTime;
   return null;
 }
 
@@ -1152,9 +1170,17 @@ function updateLyricsPlayer() {
 function seekPlayback(value) {
   const time = Number(value);
   if (!Number.isFinite(time)) return;
-  if (activeProvider === "local" && localAudio) localAudio.currentTime = time;
-  else if (activeProvider === "youtube" && ytReady) ytPlayer.seekTo(time, true);
-  else if (activeProvider === "apple") window.EncAppleMusic?.seekTo?.(time);
+  if (activeProvider === "local" && localAudio) {
+    pendingSeekTime = null;
+    localAudio.currentTime = time;
+  } else if (activeProvider === "youtube" && ytReady) {
+    pendingSeekTime = null;
+    ytPlayer.seekTo(time, true);
+  } else if (activeProvider === "apple") {
+    pendingSeekTime = null;
+    window.EncAppleMusic?.seekTo?.(time);
+  } else pendingSeekTime = time;
+  updateLyrics(time);
   updateLyricsPlayer();
 }
 
@@ -1420,6 +1446,16 @@ function bindEvents() {
   document.querySelector("#lyrics-sync-cancel").addEventListener("click", () => cancelLyricsSync());
   document.querySelector("#lyrics-dialog").addEventListener("close", () => cancelLyricsSync({ render: false }));
   lyricsView.addEventListener("scroll", updateStaticLyricsFocus, { passive: true });
+  lyricsView.addEventListener("click", (event) => {
+    const line = event.target.closest(".lyrics-line.is-seekable");
+    if (line && !lyricsSyncMode) seekPlayback(line.dataset.time);
+  });
+  lyricsView.addEventListener("keydown", (event) => {
+    const line = event.target.closest(".lyrics-line.is-seekable");
+    if (!line || lyricsSyncMode || !["Enter", " "].includes(event.key)) return;
+    event.preventDefault();
+    seekPlayback(line.dataset.time);
+  });
   document.querySelector("#source-open").addEventListener("click", openSourceEditor);
   document.querySelector("#source-form").addEventListener("submit", (event) => {
     event.preventDefault();
