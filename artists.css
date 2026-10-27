@@ -73,6 +73,11 @@
   visibility: visible;
   transition: opacity 2.2s ease, visibility 0s;
 }
+/* Let the right-hand pane receive 65% of the gold light, with a soft falloff. */
+.artist-daylight:not(.artist-daylight-shade) {
+  -webkit-mask-image: linear-gradient(90deg, #000 60%, rgb(0 0 0 / .65) 74%, rgb(0 0 0 / .65) 100%);
+  mask-image: linear-gradient(90deg, #000 60%, rgb(0 0 0 / .65) 74%, rgb(0 0 0 / .65) 100%);
+}
 .artist-daylight-haze {
   position: absolute;
   inset: 0;
