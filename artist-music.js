@@ -30,7 +30,7 @@
     button.setAttribute("aria-pressed", String(playing));
     button.querySelector("span").textContent = roomBusy ? "Room audio" : pending ? "Cancel" : playing ? "Sound off" : "Sound on";
     button.title = roomBusy ? "Your song is playing — use the room controls" : playing ? "Turn off opening music" : "Play opening music";
-    status.textContent = failed ? "MUSIC UNAVAILABLE · TAP SOUND ON TO RETRY" : pending ? "LOADING MUSIC…" : playing ? "OPENING MUSIC · 40S LOOP ↻" : "OPENING MUSIC · 40S LOOP";
+    if (status) status.textContent = failed ? "MUSIC UNAVAILABLE · TAP SOUND ON TO RETRY" : pending ? "LOADING MUSIC…" : playing ? "OPENING MUSIC · 40S LOOP ↻" : "OPENING MUSIC · 40S LOOP";
   }
 
   function stop(soft = false) {

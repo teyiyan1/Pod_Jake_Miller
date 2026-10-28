@@ -1,0 +1,13 @@
+image: alpine:3.20
+
+pages:
+  stage: deploy
+  script:
+    - rm -rf public
+    - mkdir -p public
+    - find . -mindepth 1 -maxdepth 1 ! -name public ! -name .git -exec cp -R {} public/ \;
+  artifacts:
+    paths:
+      - public
+  only:
+    - water-wave

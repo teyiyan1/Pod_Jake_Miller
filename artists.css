@@ -16,7 +16,6 @@
 #artist-sound[aria-pressed="true"] { color: #d2f5b0; border-color: #d2f5b055; }
 #artist-sound:disabled { opacity: .55; cursor: default; }
 #artist-sound:focus-visible { outline: 2px solid #d2f5b0; outline-offset: 3px; }
-#artist-music-status { font-size: 9px; letter-spacing: 1px; }
 @media (max-width: 900px) { .artist-header-label { display: none; } }
 .artist-wall { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(0, 1fr)); gap: 4px; padding: 0 4px; height: calc(100svh - 108px); min-height: 660px; }
 .artist-tile { display: block; position: relative; overflow: hidden; isolation: isolate; min-width: 0; padding: 0; border: 0; border-radius: 0; background: #252522; color: #fff; text-align: left; text-decoration: none; font: inherit; -webkit-tap-highlight-color: transparent; }
@@ -51,7 +50,7 @@
 .artist-drake { grid-area: 5 / 7 / 7 / 10; }
 .artist-ariana { grid-area: 5 / 10 / 7 / 13; }
 .artist-christian img, .artist-fujii img, .artist-ariana img { object-position: 50% 25%; }
-.artist-footer { min-height: 44px; padding: 10px 26px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 10px; color: #a5a59c; }
+.artist-footer { min-height: 44px; padding: 10px 26px; display: flex; justify-content: center; align-items: center; gap: 16px; font-size: 10px; color: #a5a59c; }
 .artist-footer-note { font-size: 9px; }
 #return-room { color: #d2f5b0; }
 #return-room[hidden] { display: none; }
