@@ -1,0 +1,64 @@
+name: Deploy water-wave preview
+
+on:
+  push:
+    branches: ["water-wave"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout water-wave
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build combined Pages site
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --depth=1
+          rm -rf public main-site preview-site
+          mkdir -p public main-site preview-site
+
+          git archive origin/main | tar -x -C main-site
+          git archive HEAD | tar -x -C preview-site
+
+          rm -rf main-site/.git main-site/.github main-site/dist main-site/research main-site/tests main-site/node_modules
+          rm -rf preview-site/.git preview-site/.github preview-site/dist preview-site/research preview-site/tests preview-site/node_modules
+
+          cp -R main-site/. public/
+          mkdir -p public/water-wave
+          cp -R preview-site/. public/water-wave/
+          rm -rf public/water-wave/audio public/water-wave/artwork
+
+          find public/water-wave -type f \( -name '*.html' -o -name '*.js' -o -name '*.css' \) -print0 \
+            | xargs -0 sed -i.bak -e 's#\./audio/#../audio/#g' -e 's#\./artwork/#../artwork/#g'
+          find public/water-wave -name '*.bak' -delete
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload combined site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
