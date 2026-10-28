@@ -158,7 +158,7 @@ function youtubeErrorMessage(code) {
     5: "YouTube HTML5 播放器无法播放此视频（错误 5）",
     100: "YouTube 视频不存在、已删除或设为私密（错误 100）",
     101: "YouTube 内嵌播放返回错误 101（嵌入限制）",
-    150: "YouTube 内嵌播放返回错误 150（限制原因需进一步确认）",
+    150: "此 YouTube 视频禁止内嵌播放（错误 150）",
     153: "YouTube 请求缺少来源标识（错误 153）"
   };
   return messages[code] || `YouTube 播放失败（错误 ${code || "未知"}）`;
@@ -287,6 +287,11 @@ function startLocalPlayback(track) {
 function startYouTubePlayback(label = "") {
   const track = currentTrack();
   const videoId = videoIdFor(track);
+  if (location.protocol === "file:") {
+    activeProvider = "";
+    setPlaybackAction("unavailable", "请通过 http://127.0.0.1:8766 打开项目，以便播放 YouTube 音频");
+    return false;
+  }
   if (!videoId) {
     activeProvider = "";
     const appleState = window.EncAppleMusic?.readyState();
@@ -323,6 +328,11 @@ async function startPreferredPlayback() {
 
   if (track.audioUrl) {
     startLocalPlayback(track);
+    return;
+  }
+
+  if (track.youtubeOnly) {
+    startYouTubePlayback("YouTube · 点击播放");
     return;
   }
 
@@ -892,11 +902,6 @@ function showLyrics(text, format, source = "", timedLines = null, track = curren
     });
   }
   requestAnimationFrame(() => {
-    if (!activeLyrics.length && lyricsView.children.length) {
-      const first = lyricsView.firstElementChild;
-      lyricsView.scrollTop = Math.max(0, first.offsetTop - (lyricsView.clientHeight - first.clientHeight) / 2);
-      updateStaticLyricsFocus();
-    }
     updateProgress();
   });
 }
@@ -913,22 +918,6 @@ function setLyricsMessage(message, source = "") {
   const disclaimer = document.querySelector("#notes-disclaimer");
   disclaimer.hidden = !source;
   disclaimer.textContent = source;
-}
-
-function updateStaticLyricsFocus() {
-  if (activeLyrics.length || lyricsSyncMode || lyricsView.hidden || !lyricsView.children.length) return;
-  const center = lyricsView.getBoundingClientRect().top + lyricsView.clientHeight / 2;
-  let closest = null;
-  let closestDistance = Infinity;
-  [...lyricsView.children].forEach((line) => {
-    const rect = line.getBoundingClientRect();
-    const distance = Math.abs(rect.top + rect.height / 2 - center);
-    if (distance < closestDistance) {
-      closest = line;
-      closestDistance = distance;
-    }
-  });
-  [...lyricsView.children].forEach((line) => line.classList.toggle("is-active", line === closest));
 }
 
 function buildLyricsQueryVariants(track) {
@@ -967,7 +956,10 @@ async function loadLyricsForTrack(track, { refresh = false, silent = false } = {
     if (currentTrack()?.id === track.id) renderLyrics(track);
     const isOnlineLyrics = ["lrclib", "lyrics.ovh"].includes(existing.source);
     const timing = window.ENCORE_LYRIC_TIMINGS?.[track.id];
-    const completeAlignedText = timing?.audioUrl === track.audioUrl
+    const matchingTimingSource = timing?.audioUrl
+      ? timing.audioUrl === track.audioUrl
+      : timing?.videoId ? timing.videoId === videoIdFor(track) : false;
+    const completeAlignedText = matchingTimingSource
       && window.EncoreLyricTiming?.matchesText(existing.text, timing);
     if (isOnlineLyrics && !completeAlignedText && !existing.syncedText?.trim() && existing.format !== "lrc" && !lyricsSyncRefreshAttempted.has(track.id)) {
       lyricsSyncRefreshAttempted.add(track.id);
@@ -1111,7 +1103,7 @@ async function loadLyricsForTrack(track, { refresh = false, silent = false } = {
 
 function updateLyrics(time) {
   if (!activeLyrics.length) {
-    updateStaticLyricsFocus();
+    if (!lyricsSyncMode) [...lyricsView.children].forEach((line) => line.classList.remove("is-active"));
     return;
   }
   let active = -1;
@@ -1445,7 +1437,6 @@ function bindEvents() {
   document.querySelector("#lyrics-sync-save").addEventListener("click", saveLyricsSync);
   document.querySelector("#lyrics-sync-cancel").addEventListener("click", () => cancelLyricsSync());
   document.querySelector("#lyrics-dialog").addEventListener("close", () => cancelLyricsSync({ render: false }));
-  lyricsView.addEventListener("scroll", updateStaticLyricsFocus, { passive: true });
   lyricsView.addEventListener("click", (event) => {
     const line = event.target.closest(".lyrics-line.is-seekable");
     if (line && !lyricsSyncMode) seekPlayback(line.dataset.time);
