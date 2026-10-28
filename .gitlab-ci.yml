@@ -5,7 +5,8 @@ pages:
   script:
     - rm -rf public
     - mkdir -p public
-    - find . -mindepth 1 -maxdepth 1 ! -name public ! -name .git -exec cp -R {} public/ \;
+    - cp index.html styles.css artists.css app.js ambient.js apple-music.js artist-music.js artist-water.js artists.js lyric-timing.js room-ripple.js public/
+    - cp -R audio artwork data vendor public/
   artifacts:
     paths:
       - public
