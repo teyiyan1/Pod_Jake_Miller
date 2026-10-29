@@ -510,7 +510,7 @@ window.ENCORE_ARTIST_LIBRARIES = {
         "title": "HONG KONG",
         "artist": "The Weeknd",
         "album": "After Hours Til Dawn",
-        "artwork": "./artwork/tracks/the-weeknd-hong-kong.png",
+        "artwork": "./artwork/tracks/the-weeknd-hong-kong.jpg",
         "appleUrl": "",
         "officialVideoId": "qPIFCINHBnw",
         "lyricsVideoId": "qPIFCINHBnw",
