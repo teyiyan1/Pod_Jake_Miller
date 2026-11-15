@@ -47,6 +47,9 @@ jobs:
           cp -R preview-site/. public/water-wave/
           rm -rf public/water-wave/audio public/water-wave/artwork
           cp preview-site/artwork/tracks/the-weeknd-hong-kong.jpg public/artwork/tracks/
+          mkdir -p public/audio/artists
+          cp -R preview-site/audio/artists/drake public/audio/artists/
+          cp preview-site/artwork/tracks/drake-passionfruit.jpg public/artwork/tracks/
 
           find public/water-wave -type f \( -name '*.html' -o -name '*.js' -o -name '*.css' \) -print0 \
             | xargs -0 sed -i.bak -e 's#\./audio/#../audio/#g' -e 's#\./artwork/#../artwork/#g'

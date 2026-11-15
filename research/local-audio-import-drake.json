@@ -1,0 +1,21 @@
+{
+  "sourceFile": "Passionfruit - Drake.mp3",
+  "sourceFilesPreserved": true,
+  "trackId": "drake-passionfruit",
+  "title": "Passionfruit",
+  "artist": "Drake",
+  "album": "More Life",
+  "bytes": 12014860,
+  "sha256": "9e04952aa56be5e230bcfc1cddced5064d79d1e96a6976aac9b21a0bb46a9244",
+  "audioUrl": "./audio/artists/drake/passionfruit.mp3",
+  "durationSeconds": 298.919184,
+  "artwork": "./artwork/tracks/drake-passionfruit.jpg",
+  "artworkMime": "image/jpeg",
+  "artworkSha256": "59d45e1dcd9e15acee75ac1a7ea15b4f65c750bb0d511fd74448d233d0ec0db1",
+  "lyricFrame": "USLT",
+  "englishTimedLines": 34,
+  "firstLyricTimeSeconds": 34.93,
+  "lastLyricTimeSeconds": 251.4,
+  "lyricTimingSource": "Embedded timestamps; runtime checked separately",
+  "creditLinesOmitted": 2
+}

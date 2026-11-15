@@ -644,7 +644,7 @@ function renderTrack(autoplay = false) {
   window.encoreAmbient?.setTrack();
   document.querySelector("#notes-track").textContent = track.title;
   document.querySelector("#notes-album").textContent = track.album;
-  document.querySelector("#lyrics-dialog").style.setProperty("--lyrics-artwork", `url("${track.artwork}")`);
+  document.querySelector("#lyrics-dialog").style.setProperty("--lyrics-artwork", `url("${track.lyricsArtwork || track.artwork}")`);
   renderLyrics(track);
   renderDeck();
   renderQueue();

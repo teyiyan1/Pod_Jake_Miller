@@ -1,4 +1,24 @@
 window.ENCORE_ARTIST_LIBRARIES = {
+  "drake": {
+    "name": "Drake",
+    "tracks": [
+      {
+        "id": "drake-passionfruit",
+        "title": "Passionfruit",
+        "artist": "Drake",
+        "album": "More Life",
+        "artwork": "./artwork/tracks/drake-passionfruit.jpg",
+        "lyricsArtwork": "./artwork/artists/drake.jpg",
+        "appleUrl": "",
+        "officialVideoId": "",
+        "note": "",
+        "audioUrl": "./audio/artists/drake/passionfruit.mp3",
+        "audioDurationSeconds": 298.919184,
+        "embeddedLyricsLrc": "[00:34.93]Hold on, hold on, **** that. **** that ****.\n[00:43.04]Hold on, I got to start this ***********' record over again, wait a minute.\n[00:47.12]**** that ****. Still on this ***********' record.\n[00:50.95]I'ma play this ********** for y'all.\n[00:55.65]Ayy, y'all get some more drinks goin' on, I'll sound a whole lot better...\n[01:15.87]Listen, seeing you got ritualistic\n[01:21.68]Cleansin' my soul of addiction for now\n[01:26.23]'Cause I'm fallin' apart, yeah\n[01:32.82]Tension between us just like picket fences\n[01:39.80]You got issues that I won't mention for now\n[01:43.06]'Cause we're fallin' apart\n[01:50.10]Passionate from miles away\n[01:52.39]Passive with the things you say\n[01:56.27]Passin' up on my old ways\n[01:59.10]I can't blame you no, no\n[02:06.38]Passionate from miles away\n[02:10.30]Passive with the things you say\n[02:13.82]Passin' up on my old ways\n[02:16.06]I can't blame you no, no\n[02:41.28]Listen, hard at buildin' trust from a distance\n[02:47.74]I think we should rule out commitment for now\n[02:51.78]'Cause we're fallin' apart\n[02:58.50]Leavin', you're just doing that to get even\n[03:04.83]Don't pick up the pieces, just leave it for now\n[03:08.88]They keep fallin' apart\n[03:15.63]Passionate from miles away\n[03:18.87]Passive with the things you say\n[03:22.13]Passin' up on my old ways\n[03:25.80]I can't blame you no, no\n[03:32.97]Passionate from miles away\n[03:36.28]Passive with the things you say\n[03:39.25]Passin' up on my old ways\n[03:42.60]I can't blame you no, no\n[04:11.40]Trying to think of the right thing to say",
+        "lyricsDisplayLanguage": "en"
+      }
+    ]
+  },
   "christian-kuria": {
     "name": "Christian Kuria",
     "tracks": [

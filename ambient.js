@@ -14,7 +14,8 @@
     sza: "./artwork/artists/sza.jpg",
     "jhene-aiko": "./artwork/artists/jhene-aiko.jpg",
     laufey: "./artwork/artists/laufey.jpg",
-    "fujii-kaze": "./artwork/artists/fujii-kaze.jpg"
+    "fujii-kaze": "./artwork/artists/fujii-kaze.jpg",
+    drake: "./artwork/artists/drake.jpg"
   };
   background.style.setProperty("--artist-background", `url("${artistBackgrounds[artistId] || artistBackgrounds["jake-miller"]}")`);
   // Jake's room keeps its original muted Parties video; other rooms use their own artist portrait.
